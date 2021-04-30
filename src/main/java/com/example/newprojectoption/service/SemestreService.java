@@ -1,0 +1,42 @@
+package com.example.newprojectoption.service;
+
+
+import com.example.newprojectoption.bean.Semestre;
+import com.example.newprojectoption.dao.SemestreDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+public class SemestreService {
+    @Autowired
+    private SemestreDao semestreDao;
+
+    public Semestre findByCode(String code) {
+        return semestreDao.findByCode(code);
+    }
+
+    public Semestre findByLibelle(String libelle) {
+        return semestreDao.findByLibelle(libelle);
+    }
+
+    public int save (Semestre semestre){
+        if(findByCode(semestre.getCode())!=null)
+            return -1;
+        else{
+            semestreDao.save(semestre);
+            return 1;
+        }
+    }
+
+    @Transactional
+    public int deleteByCode(String code) {
+        return semestreDao.deleteByCode(code);
+    }
+
+    public List<Semestre> findAll() {
+        return semestreDao.findAll();
+    }
+}
