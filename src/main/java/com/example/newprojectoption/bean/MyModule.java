@@ -12,7 +12,8 @@ public class MyModule {
 	private String code;
 	@ManyToOne
 	private MyOption myOption;
-
+	@ManyToOne
+	private Semestre semestre;
 
 
 	public Long getId() {
@@ -48,4 +49,19 @@ public class MyModule {
 		this.myOption = myOption;
 	}
 
+	public MyOption getMyOption() {
+		return myOption;
+	}
+
+	public void setMyOption(MyOption myOption) {
+		this.myOption = myOption;
+	}
+
+	public Semestre getSemestre() {
+		return semestre;
+	}
+
+	public void setSemestre(Semestre semestre) {
+		this.semestre = semestre;
+	}
 }

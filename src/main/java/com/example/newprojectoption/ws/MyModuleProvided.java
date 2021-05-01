@@ -36,8 +36,9 @@ public class MyModuleProvided {
     public int save(@RequestBody MyModule myModule) {
         return myModuleService.save(myModule);
     }
+
     @GetMapping("/option/code/{code}")
-    public List<MyModule> findByMyOptionCode(String code) {
+    public List<MyModule> findByMyOptionCode(@PathVariable String code) {
         return myModuleService.findByMyOptionCode(code);
     }
 }

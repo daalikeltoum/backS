@@ -1,6 +1,8 @@
 package com.example.newprojectoption.service;
 
 import com.example.newprojectoption.bean.MyModule;
+import com.example.newprojectoption.bean.MyOption;
+import com.example.newprojectoption.bean.Semestre;
 import com.example.newprojectoption.dao.MyModuleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,10 @@ import java.util.List;
 public class MyModuleService {
     @Autowired
     private MyModuleDao myModuleDao;
+    @Autowired
+    private MyOptionService myOptionService;
+    @Autowired
+    private SemestreService semestreService;
 
     public MyModule findByCode(String code) {
         return myModuleDao.findByCode(code);
@@ -25,6 +31,12 @@ public class MyModuleService {
         if(findByCode(myModule.getCode())!=null)
             return -1;
         else{
+            MyOption myOption=myOptionService.findByCode(myModule.getMyOption().getCode());
+            Semestre semestre=semestreService.findByCode(myModule.getSemestre().getCode());
+            if(myOption==null || semestre==null)
+                return -2;
+            myModule.setSemestre(semestre);
+            myModule.setMyOption(myOption);
             myModuleDao.save(myModule);
             return 1;
         }
