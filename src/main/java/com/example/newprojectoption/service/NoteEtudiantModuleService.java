@@ -22,6 +22,7 @@ public class NoteEtudiantModuleService {
     public NoteEtudiantModule findByCode(String code) {
         return noteEtudiantModuleDao.findByCode(code);
     }
+
     public int save(NoteEtudiantModule noteEtudiantModule){
         if(findByCode(noteEtudiantModule.getCode())!=null){
             return -1;
@@ -39,10 +40,15 @@ public class NoteEtudiantModuleService {
         }
     }
 
+
     @Autowired
     private NoteEtudiantModuleDao noteEtudiantModuleDao;
     @Autowired
     private EtudiantService etudiantService;
     @Autowired
     private MyModuleService MyModuleService;
+
+    public List<NoteEtudiantModule> findAll() {
+        return noteEtudiantModuleDao.findAll();
+    }
 }

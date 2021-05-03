@@ -35,7 +35,6 @@ public class EtudiantProvided {
     public int save(@RequestBody Etudiant etudiant) {
         return etudiantService.save(etudiant);
     }
-
     @Autowired
     private EtudiantService etudiantService;
 }

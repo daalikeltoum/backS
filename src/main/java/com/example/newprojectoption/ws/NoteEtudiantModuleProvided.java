@@ -32,4 +32,9 @@ public class NoteEtudiantModuleProvided {
 
     @Autowired
     private NoteEtudiantModuleService noteEtudiantModuleService;
+
+    @GetMapping("/")
+    public List<NoteEtudiantModule> findAll() {
+        return noteEtudiantModuleService.findAll();
+    }
 }

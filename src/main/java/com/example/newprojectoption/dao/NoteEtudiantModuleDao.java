@@ -14,4 +14,5 @@ public interface NoteEtudiantModuleDao extends JpaRepository<NoteEtudiantModule,
     NoteEtudiantModule findByCode(String code);
     List<MyModule> findByMyModuleCode(String code);
     List<Etudiant> findByEtudiantCne(String cne);
+
 }
