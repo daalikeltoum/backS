@@ -1,8 +1,6 @@
 package com.example.newprojectoption.service;
 
 import com.example.newprojectoption.bean.MyModule;
-import com.example.newprojectoption.bean.MyOption;
-import com.example.newprojectoption.bean.Semestre;
 import com.example.newprojectoption.dao.MyModuleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +25,7 @@ public class MyModuleService {
         return myModuleDao.findByLibelle(libelle);
     }
 
-    public int  save (MyModule myModule){
+    /*public int  save (MyModule myModule){
         if(findByCode(myModule.getCode())!=null)
             return -1;
         else{
@@ -37,6 +35,14 @@ public class MyModuleService {
                 return -2;
             myModule.setSemestre(semestre);
             myModule.setMyOption(myOption);
+            myModuleDao.save(myModule);
+            return 1;
+        }
+    }*/
+    public int  save (MyModule myModule){
+        if(findByCode(myModule.getCode())!=null)
+            return -1;
+        else{
             myModuleDao.save(myModule);
             return 1;
         }

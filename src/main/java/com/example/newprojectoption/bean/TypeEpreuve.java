@@ -1,23 +1,23 @@
 package com.example.newprojectoption.bean;
-
-
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.math.BigDecimal;
 
 @Entity
-public class MyOption {
+public class TypeEpreuve {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String libelle;
-    private String description;
     private String code;
-    @ManyToOne
-    private Filliere filliere;
+    private BigDecimal numero;
 
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -39,12 +39,12 @@ public class MyOption {
     }
 
 
-    public Filliere getFilliere() {
-        return filliere;
+    public BigDecimal getNumero() {
+        return numero;
     }
 
-    public void setFilliere(Filliere filliere) {
-        this.filliere = filliere;
+    public void setNumero(BigDecimal numero) {
+        this.numero = numero;
     }
+
 }
-

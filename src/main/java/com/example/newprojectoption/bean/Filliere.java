@@ -13,6 +13,7 @@ public class Filliere {
 	private Long id;
 	private String libelle;
 	private String code;
+	private String description;
 
 
 
@@ -40,4 +41,11 @@ public class Filliere {
 		this.code = code;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

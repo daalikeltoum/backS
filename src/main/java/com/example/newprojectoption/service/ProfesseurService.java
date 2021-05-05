@@ -1,18 +1,23 @@
 package com.example.newprojectoption.service;
 
 
+import com.example.newprojectoption.bean.MyModule;
 import com.example.newprojectoption.bean.Professeur;
 import com.example.newprojectoption.dao.ProfesseurDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class ProfesseurService {
     @Autowired
     private ProfesseurDao professeurDao;
+    @Autowired
+    private MyModuleService myModuleService;
 
 
     public Professeur findByCin(String cin) {
@@ -43,5 +48,19 @@ public class ProfesseurService {
 
     public List<Professeur> findAll() {
         return professeurDao.findAll();
+    }
+
+    public List<Professeur> findByEstCoordonateurModuleTrue() {
+        return professeurDao.findByEstCoordonateurModuleTrue();
+    }
+
+    public void update(Professeur professeur) {
+        Professeur prof=findByCin(professeur.getCin());
+        List<MyModule> nvListe= new ArrayList<MyModule>();
+        for (MyModule mod: professeur.getListeModules()){
+            nvListe.add(myModuleService.findByCode(mod.getCode()));
+        }
+        prof.setListeModules(nvListe);
+        professeurDao.save(prof);
     }
 }

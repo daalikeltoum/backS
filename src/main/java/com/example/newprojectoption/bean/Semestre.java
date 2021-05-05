@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
 @Entity
 public class Semestre {
@@ -12,6 +13,7 @@ public class Semestre {
 	private Long id;
 	private String libelle;
 	private String code;
+	private BigDecimal numero;
 
 	public Long getId() {
 		return id;
@@ -38,5 +40,11 @@ public class Semestre {
 	}
 
 
+	public BigDecimal getNumero() {
+		return numero;
+	}
 
+	public void setNumero(BigDecimal numero) {
+		this.numero = numero;
+	}
 }

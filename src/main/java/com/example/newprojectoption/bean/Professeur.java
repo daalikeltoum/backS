@@ -1,6 +1,7 @@
 package com.example.newprojectoption.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -23,8 +24,8 @@ public class Professeur {
     private Date dateEmbauche;
     @JsonFormat(pattern="dd-MM-yyyy")
     private Date dateNaissance;
-    private boolean isCoordinateurModule;
-    private boolean isCoordinateurOption;
+    private boolean estCoordonateurModule=false;
+    private boolean isCoordonateurOption=false;
     @OneToMany
     private List<MyModule> listeModules;
 
@@ -117,19 +118,19 @@ public class Professeur {
     }
 
     public boolean isCoordinateurModule() {
-        return isCoordinateurModule;
+        return estCoordonateurModule;
     }
 
     public void setCoordinateurModule(boolean coordinateurModule) {
-        isCoordinateurModule = coordinateurModule;
+        estCoordonateurModule = coordinateurModule;
     }
 
     public boolean isCoordinateurOption() {
-        return isCoordinateurOption;
+        return isCoordonateurOption;
     }
 
     public void setCoordinateurOption(boolean coordinateurOption) {
-        isCoordinateurOption = coordinateurOption;
+        isCoordonateurOption = coordinateurOption;
     }
 
 

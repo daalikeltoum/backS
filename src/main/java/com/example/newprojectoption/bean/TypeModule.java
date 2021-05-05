@@ -1,17 +1,18 @@
 package com.example.newprojectoption.bean;
 
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
-public class MyModule {
-
+public class TypeModule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String libelle;
 	private String code;
-    @ManyToOne
-	private  TypeModule typeModule;
 
 
 	public Long getId() {
@@ -38,11 +39,4 @@ public class MyModule {
 		this.code = code;
 	}
 
-	public TypeModule getTypeModule() {
-		return typeModule;
-	}
-
-	public void setTypeModule(TypeModule typeModule) {
-		this.typeModule = typeModule;
-	}
 }

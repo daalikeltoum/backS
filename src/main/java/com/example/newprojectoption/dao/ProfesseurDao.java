@@ -12,5 +12,6 @@ public interface ProfesseurDao extends JpaRepository<Professeur,Long> {
     Professeur findByCin(String cin);
     Professeur findByCodeEmploye( String codeEmploye);
     List<Professeur> findByNomAndPrenom(String nom,String prenon);
+    List<Professeur> findByEstCoordonateurModuleTrue();
     int deleteByCodeEmploye ( String codeEmploye);
 }
