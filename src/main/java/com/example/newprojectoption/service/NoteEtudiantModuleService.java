@@ -11,9 +11,6 @@ import java.util.List;
 
 @Service
 public class NoteEtudiantModuleService {
-    public List<MyModule> findByMyModuleCode(String code) {
-        return noteEtudiantModuleDao.findByMyModuleCode(code);
-    }
 
     public List<Etudiant> findByEtudiantCne(String cne) {
         return noteEtudiantModuleDao.findByEtudiantCne(cne);
@@ -23,7 +20,7 @@ public class NoteEtudiantModuleService {
         return noteEtudiantModuleDao.findByCode(code);
     }
 
-    public int save(NoteEtudiantModule noteEtudiantModule){
+    /*public int save(NoteEtudiantModule noteEtudiantModule){
         if(findByCode(noteEtudiantModule.getCode())!=null){
             return -1;
         }
@@ -38,7 +35,7 @@ public class NoteEtudiantModuleService {
             noteEtudiantModuleDao.save(noteEtudiantModule);
             return 1;
         }
-    }
+    }*/
 
 
     @Autowired

@@ -47,6 +47,7 @@ public class MyModuleService {
             return 1;
         }
     }
+
     @Transactional
     public int deleteByCode(String code) {
 
@@ -57,7 +58,4 @@ public class MyModuleService {
         return myModuleDao.findAll();
     }
 
-    public List<MyModule> findByMyOptionCode(String code) {
-        return myModuleDao.findByMyOptionCode(code);
-    }
 }

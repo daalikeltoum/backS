@@ -13,10 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("ispits-project/noteEtudiantModule")
 public class NoteEtudiantModuleProvided {
-    @GetMapping("/MyModule/code/{code}")
-    public List<MyModule> findByMyModuleCode(@PathVariable String code) {
-        return noteEtudiantModuleService.findByMyModuleCode(code);
-    }
+
     @GetMapping("/Etudiant/cne/{cne}")
     public List<Etudiant> findByEtudiantCne(@PathVariable String cne) {
         return noteEtudiantModuleService.findByEtudiantCne(cne);
@@ -25,10 +22,10 @@ public class NoteEtudiantModuleProvided {
     public NoteEtudiantModule findByCode(@PathVariable String code) {
         return noteEtudiantModuleService.findByCode(code);
     }
-    @PostMapping("/")
+    /*@PostMapping("/")
     public int save(@RequestBody NoteEtudiantModule noteEtudiantModule) {
         return noteEtudiantModuleService.save(noteEtudiantModule);
-    }
+    }*/
 
     @Autowired
     private NoteEtudiantModuleService noteEtudiantModuleService;

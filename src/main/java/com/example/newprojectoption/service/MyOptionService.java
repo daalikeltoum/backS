@@ -23,6 +23,7 @@ public class MyOptionService {
     public MyOption findByCode(String code) {
         return myOptionDao.findByCode(code);
     }
+
     @Transactional
     public int deleteByCode(String code) {
         return myOptionDao.deleteByCode(code);

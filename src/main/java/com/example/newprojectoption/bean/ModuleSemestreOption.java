@@ -10,9 +10,9 @@ public class ModuleSemestreOption {
 	@ManyToOne
     private Semestre semestre;
 	@ManyToOne
-    private MyModule module;     
+    private MyModule mymodule;
 	@ManyToOne
-    private MyOption option;
+    private MyOption myoption;
 
 
 	public Long getId() {
@@ -43,25 +43,23 @@ public class ModuleSemestreOption {
 		return semestre;
 	}
 
-
-
-	public MyModule getModule() {
-		return module;
-	}
-
-	public void setModule(MyModule module) {
-		this.module = module;
-	}
-
-	public MyOption getOption() {
-		return option;
-	}
-
-	public void setOption(MyOption option) {
-		this.option = option;
-	}
-
 	public void setSemestre(Semestre semestre) {
 		this.semestre = semestre;
+	}
+
+	public MyModule getMymodule() {
+		return mymodule;
+	}
+
+	public void setMymodule(MyModule mymodule) {
+		this.mymodule = mymodule;
+	}
+
+	public MyOption getMyoption() {
+		return myoption;
+	}
+
+	public void setMyoption(MyOption myoption) {
+		this.myoption = myoption;
 	}
 }

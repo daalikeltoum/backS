@@ -12,7 +12,6 @@ import java.util.List;
 @Repository
 public interface NoteEtudiantModuleDao extends JpaRepository<NoteEtudiantModule,Long> {
     NoteEtudiantModule findByCode(String code);
-    List<MyModule> findByMyModuleCode(String code);
     List<Etudiant> findByEtudiantCne(String cne);
 
 }
