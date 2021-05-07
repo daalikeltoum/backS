@@ -18,8 +18,8 @@ public class Etudiant {
     private Date dateInscription;
     @JsonFormat(pattern="dd-MM-yyyy")
     private Date dateNaissance;
-    @ManyToOne
-    private MyOption myOption;
+
+
 
     public Long getId() {
         return id;
@@ -77,11 +77,4 @@ public class Etudiant {
         this.dateNaissance = dateNaissance;
     }
 
-    public MyOption getMyOption() {
-        return myOption;
-    }
-
-    public void setMyOption(MyOption myOption) {
-        this.myOption = myOption;
-    }
 }

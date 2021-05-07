@@ -18,7 +18,6 @@ public class EtudiantProvided {
     public List<Etudiant> findByNomAndPrenom(@PathVariable String nom, @PathVariable String prenon) {
         return etudiantService.findByNomAndPrenom(nom, prenon);
     }
-
     @DeleteMapping("/cne/{cne}")
     public int deleteByCne(@PathVariable String cne) {
         return etudiantService.deleteByCne(cne);
@@ -26,10 +25,6 @@ public class EtudiantProvided {
     @GetMapping("/")
     public List<Etudiant> findAll() {
         return etudiantService.findAll();
-    }
-    @GetMapping("/option/code/{code}")
-    public List<Etudiant> findByMyOptioncode(@PathVariable String code) {
-        return etudiantService.findByMyOptioncode(code);
     }
     @PostMapping("/")
     public int save(@RequestBody Etudiant etudiant) {

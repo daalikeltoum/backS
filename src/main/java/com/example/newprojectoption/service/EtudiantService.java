@@ -31,21 +31,12 @@ public class EtudiantService {
         return etudiantDao.findAll();
     }
 
-    public List<Etudiant> findByMyOptioncode(String code) {
-        return etudiantDao.findByMyOptionCode(code);
-    }
     public int save(Etudiant etudiant){
 
         if(findByCne(etudiant.getCne())!=null){
             return -1;
         }
-        MyOption myOption=myOptionService.findByCode(etudiant.getMyOption().getCode());
-        etudiant.setMyOption(myOption);
-         if(myOption==null)
-             return -2;
-
-         else{
-           etudiant.setMyOption(myOption);
+        else{
            etudiantDao.save(etudiant);
            return 1;
         }

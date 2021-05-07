@@ -12,5 +12,4 @@ public interface EtudiantDao extends JpaRepository<Etudiant,Long> {
     Etudiant findByCne( String cne);
     List<Etudiant> findByNomAndPrenom(String nom, String prenon);
     int deleteByCne( String cne);
-    List<Etudiant> findByMyOptionCode(String code);
 }
