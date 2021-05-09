@@ -46,8 +46,8 @@ public class EtudiantOptionService {
 
         }
         else {
-            etudiantService.save(etudiant);
-            etudiantOption.setEtudiant(etudiant);
+            etudiantService.save(etudiantOption.getEtudiant());
+            etudiantOption.setEtudiant(etudiantService.findByCne(etudiantOption.getEtudiant().getCne()));
             etudiantOption.setMyOption(myOption);
             etudiantOptionDao.save(etudiantOption);
 

@@ -1,6 +1,7 @@
 package com.example.newprojectoption.ws;
 
 import com.example.newprojectoption.bean.Etudiant;
+import com.example.newprojectoption.bean.ModuleSemestreOption;
 import com.example.newprojectoption.bean.MyModule;
 import com.example.newprojectoption.bean.NoteEtudiantModule;
 import com.example.newprojectoption.service.NoteEtudiantModuleService;
@@ -11,21 +12,9 @@ import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
-@RequestMapping("ispits-project/noteEtudiantModule")
+@RequestMapping("ispits-project/note-etudiant-modul")
 public class NoteEtudiantModuleProvided {
 
-    @GetMapping("/Etudiant/cne/{cne}")
-    public List<Etudiant> findByEtudiantCne(@PathVariable String cne) {
-        return noteEtudiantModuleService.findByEtudiantCne(cne);
-    }
-    @GetMapping("/code/{code}")
-    public NoteEtudiantModule findByCode(@PathVariable String code) {
-        return noteEtudiantModuleService.findByCode(code);
-    }
-    /*@PostMapping("/")
-    public int save(@RequestBody NoteEtudiantModule noteEtudiantModule) {
-        return noteEtudiantModuleService.save(noteEtudiantModule);
-    }*/
 
     @Autowired
     private NoteEtudiantModuleService noteEtudiantModuleService;
@@ -33,5 +22,14 @@ public class NoteEtudiantModuleProvided {
     @GetMapping("/")
     public List<NoteEtudiantModule> findAll() {
         return noteEtudiantModuleService.findAll();
+    }
+    @GetMapping("/module-semestre-option/codeModule/{codeModule}/option/codeOption/{codeOption}")
+    public List<NoteEtudiantModule> findNotes(@PathVariable String codeModule,@PathVariable String codeOption) {
+        return noteEtudiantModuleService.findNotes(codeModule, codeOption);
+    }
+
+    @PutMapping("/")
+    public void update(@RequestBody NoteEtudiantModule noteEtudiantModule) {
+        noteEtudiantModuleService.update(noteEtudiantModule);
     }
 }

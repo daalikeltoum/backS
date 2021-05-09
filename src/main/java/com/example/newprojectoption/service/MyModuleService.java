@@ -13,9 +13,7 @@ public class MyModuleService {
     @Autowired
     private MyModuleDao myModuleDao;
     @Autowired
-    private MyOptionService myOptionService;
-    @Autowired
-    private SemestreService semestreService;
+    private TypeModuleService typeModuleService;
 
     public MyModule findByCode(String code) {
         return myModuleDao.findByCode(code);
@@ -43,6 +41,8 @@ public class MyModuleService {
         if(findByCode(myModule.getCode())!=null)
             return -1;
         else{
+           /*if(typeModuleService.findByCode(myModule.getTypeModule().getCode())!=null)
+                myModule.setTypeModule(typeModuleService.findByCode(myModule.getTypeModule().getCode()));*/
             myModuleDao.save(myModule);
             return 1;
         }

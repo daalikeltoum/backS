@@ -7,10 +7,11 @@ public class NoteEtudiantModule {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String code;
     @ManyToOne
     private ModuleSemestreOption moduleSemestreOption;
-    private BigDecimal note ;
+    private BigDecimal noteModuleNormal ;
+    private BigDecimal noteGlobale ;
+    private BigDecimal noteModuleRat ;
     private BigDecimal noteContinue;
     private BigDecimal noteFinalAvRat;
     private BigDecimal noteFinalApresRat;
@@ -27,14 +28,6 @@ public class NoteEtudiantModule {
         this.noteContinue = noteContinue;
     }
 
-    public BigDecimal getMoyenne() {
-        return note;
-    }
-
-    public void setMoyenne(BigDecimal moyenne) {
-        this.note = moyenne;
-    }
-
     public Long getId() {
         return id;
     }
@@ -49,13 +42,7 @@ public class NoteEtudiantModule {
     public void setEtudiant(Etudiant etudiant) {
         this.etudiant = etudiant;
     }
-    public String getCode() {
-        return code;
-    }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
 
 
     public ModuleSemestreOption getModuleSemestreOption() {
@@ -74,13 +61,7 @@ public class NoteEtudiantModule {
         this.etatValidation = etatValidation;
     }
 
-    public BigDecimal getNote() {
-        return note;
-    }
 
-    public void setNote(BigDecimal note) {
-        this.note = note;
-    }
 
     public BigDecimal getNoteFinalAvRat() {
         return noteFinalAvRat;
@@ -96,6 +77,30 @@ public class NoteEtudiantModule {
 
     public void setNoteFinalApresRat(BigDecimal noteFinalApresRat) {
         this.noteFinalApresRat = noteFinalApresRat;
+    }
+
+    public BigDecimal getNoteModuleNormal() {
+        return noteModuleNormal;
+    }
+
+    public void setNoteModuleNormal(BigDecimal noteModuleNormal) {
+        this.noteModuleNormal = noteModuleNormal;
+    }
+
+    public BigDecimal getNoteModuleRat() {
+        return noteModuleRat;
+    }
+
+    public void setNoteModuleRat(BigDecimal noteModuleRat) {
+        this.noteModuleRat = noteModuleRat;
+    }
+
+    public BigDecimal getNoteGlobale() {
+        return noteGlobale;
+    }
+
+    public void setNoteGlobale(BigDecimal noteGlobale) {
+        this.noteGlobale = noteGlobale;
     }
 }
 

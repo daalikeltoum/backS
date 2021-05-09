@@ -14,6 +14,8 @@ public class MyOption {
     private String code;
     @ManyToOne
     private Filliere filliere;
+    @ManyToOne
+    private Ponderation ponderation;
 
     public Long getId() {
         return id;
@@ -45,6 +47,14 @@ public class MyOption {
 
     public void setFilliere(Filliere filliere) {
         this.filliere = filliere;
+    }
+
+    public Ponderation getPonderation() {
+        return ponderation;
+    }
+
+    public void setPonderation(Ponderation ponderation) {
+        this.ponderation = ponderation;
     }
 }
 
