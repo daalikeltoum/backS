@@ -72,4 +72,7 @@ public class NoteEtudiantModuleService {
         noteEtudiantModule.setEtatValidation(etatValidation);
         noteEtudiantModuleDao.save(noteEtudiantModule);
     }
+    public List<NoteEtudiantModule> findByModuleSemestreOptionMyOptionCodeAndModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnvers(String code1, String code2, String anneeUnvers) {
+        return noteEtudiantModuleDao.findByModuleSemestreOptionMyOptionCodeAndModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnvers(code1, code2, anneeUnvers);
+    }
 }

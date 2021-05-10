@@ -1,13 +1,14 @@
 package com.example.newprojectoption.dao;
-
-import com.example.newprojectoption.bean.*;
+import com.example.newprojectoption.bean.Etudiant;
+import com.example.newprojectoption.bean.NoteEtudiantModule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
 public interface NoteEtudiantModuleDao extends JpaRepository<NoteEtudiantModule,Long> {
-      List<NoteEtudiantModule> findByModuleSemestreOptionCode(String code);
+    List<NoteEtudiantModule> findByEtudiantCne(String cne);
+    List<NoteEtudiantModule> findByModuleSemestreOptionCode (String code);
+    List<NoteEtudiantModule> findByModuleSemestreOptionMyOptionCodeAndModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnvers(String code1, String code2, String anneeUnvers);
 
 }

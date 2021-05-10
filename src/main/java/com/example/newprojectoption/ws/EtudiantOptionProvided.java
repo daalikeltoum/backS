@@ -14,10 +14,10 @@ import java.util.List;
 @RequestMapping("ispits-project/etudiantOption")
 public class EtudiantOptionProvided {
 
-    @GetMapping("/option/code/{code}")
+    /*@GetMapping("/option/code/{code}")
     public List<EtudiantOption> findByMyOptionCode(@PathVariable String code) {
         return etudiantOptionService.findByMyOptionCode(code);
-    }
+    }*/
     @GetMapping("/option/code/{code}/annee/{annee}")
     public List<EtudiantOption> findByMyOptionCodeAndAnnee(@PathVariable String code,@PathVariable String annee) {
         return etudiantOptionService.findByMyOptionCodeAndAnnee(code, annee);
@@ -40,6 +40,11 @@ public class EtudiantOptionProvided {
     @PostMapping("/")
     public int save(@RequestBody EtudiantOption etudiantOption) {
         return etudiantOptionService.save(etudiantOption);
+    }
+
+    @GetMapping("/option/code/{code}")
+    public List<EtudiantOption> findMyOptionCode(@PathVariable String code) {
+        return etudiantOptionService.findByMyOptionCode(code);
     }
 
     @Autowired
