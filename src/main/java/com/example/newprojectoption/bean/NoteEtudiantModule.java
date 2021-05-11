@@ -19,6 +19,17 @@ public class NoteEtudiantModule {
     private Etudiant etudiant;
     @ManyToOne
     private EtatValidation etatValidation;
+    @ManyToOne
+    private NoteEtudiantSemestre noteEtudiantSemestre;
+
+
+    public NoteEtudiantSemestre getNoteEtudiantSemestre() {
+        return noteEtudiantSemestre;
+    }
+
+    public void setNoteEtudiantSemestre(NoteEtudiantSemestre noteEtudiantSemestre) {
+        this.noteEtudiantSemestre = noteEtudiantSemestre;
+    }
 
     public BigDecimal getNoteContinue() {
         return noteContinue;
