@@ -9,6 +9,7 @@ import java.util.List;
 public interface NoteEtudiantModuleDao extends JpaRepository<NoteEtudiantModule,Long> {
     List<NoteEtudiantModule> findByEtudiantCne(String cne);
     List<NoteEtudiantModule> findByModuleSemestreOptionCode (String code);
+
     List<NoteEtudiantModule> findByModuleSemestreOptionMyOptionCodeAndModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnvers(String code1, String code2, String anneeUnvers);
 
 }

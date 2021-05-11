@@ -38,20 +38,34 @@ public class NoteEtudiantModuleService {
     private EtudiantOptionService etudiantOptionService;
     @Autowired
     private EtatValidationService etatValidationService;
-
-
+    @Autowired
+    private NoteEtudiantSemestreService noteEtudiantSemestreService;
+    private NoteEtudiantModule noteEtudiantModule;
     public List<NoteEtudiantModule> findAll() {
         return noteEtudiantModuleDao.findAll();
     }
 
-    public List<NoteEtudiantModule> findNotes(String codeModule,String codeOption) {
+    public List<NoteEtudiantModule> findByEtudiantCne(String cne) {
+        return noteEtudiantModuleDao.findByEtudiantCne(cne);
+    }
+
+    public List<NoteEtudiantModule> findNotes(String codeModule, String codeOption) {
         List<NoteEtudiantModule> res=noteEtudiantModuleDao.findByModuleSemestreOptionCode(codeModule);
-        if(res.size()!=0)
+        if(res.size()!=0){
+            /*NoteEtudiantSemestre notSemestre = noteEtudiantSemestreService.findByCode(noteEtudiantModule.getNoteEtudiantSemestre().getCode());*/
+
             return res;
+        }
         else{
             List<EtudiantOption> etudiants=etudiantOptionService.findByMyOptionCode(codeOption);
             for (EtudiantOption etudiantOption : etudiants) {
                 NoteEtudiantModule noteEtudiantModule=new NoteEtudiantModule();
+
+                /*NoteEtudiantSemestre noteEtudiantSemestre= new NoteEtudiantSemestre();
+                noteEtudiantSemestre.setEtudiant(noteEtudiantModule.getEtudiant());
+                noteEtudiantSemestre.setSemestre(noteEtudiantModule.getModuleSemestreOption().getSemestre());
+                noteEtudiantSemestre.setNote(BigDecimal.ZERO);*/
+
                 noteEtudiantModule.setEtudiant(etudiantOption.getEtudiant());
                 noteEtudiantModule.setNoteModuleNormal(BigDecimal.ZERO);
                 noteEtudiantModule.setNoteModuleRat(BigDecimal.ZERO);
@@ -63,9 +77,11 @@ public class NoteEtudiantModuleService {
                 noteEtudiantModule.setModuleSemestreOption(moduleSemestreOptionService.findByCode(codeModule));
                 noteEtudiantModuleDao.save(noteEtudiantModule);
                 res.add(noteEtudiantModule);
+
             }
             return res;
         }
+        //List<NoteEtudiantSemestre> notSemestre= noteEtudiantModul
     }
 
     public void update(NoteEtudiantModule noteEtudiantModule){
