@@ -67,6 +67,7 @@ public class NoteEtudiantModuleService {
             return res;
         }
     }
+
     public void update(NoteEtudiantModule noteEtudiantModule){
         EtatValidation etatValidation=etatValidationService.findByLibelle(noteEtudiantModule.getEtatValidation().getLibelle());
         noteEtudiantModule.setEtatValidation(etatValidation);
