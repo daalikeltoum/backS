@@ -12,4 +12,5 @@ public interface NoteEtudiantModuleDao extends JpaRepository<NoteEtudiantModule,
 
     List<NoteEtudiantModule> findByModuleSemestreOptionMyOptionCodeAndModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnvers(String code1, String code2, String anneeUnvers);
 
+
 }

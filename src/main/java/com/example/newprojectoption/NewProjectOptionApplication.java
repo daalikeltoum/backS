@@ -15,7 +15,6 @@ NewProjectOptionApplication {
     public static void main(String[] args) {
         SpringApplication.run(NewProjectOptionApplication.class, args);
     }
-
 }
 
 
