@@ -2,9 +2,7 @@ package com.example.newprojectoption.ws;
 
 
 import com.example.newprojectoption.bean.ModuleSemestreOption;
-import com.example.newprojectoption.bean.MyModule;
 import com.example.newprojectoption.service.ModuleSemestreOptionService;
-import com.example.newprojectoption.service.MyModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

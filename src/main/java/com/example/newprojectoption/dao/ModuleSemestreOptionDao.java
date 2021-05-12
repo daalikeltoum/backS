@@ -1,7 +1,6 @@
 package com.example.newprojectoption.dao;
 
 import com.example.newprojectoption.bean.ModuleSemestreOption;
-import com.example.newprojectoption.bean.MyModule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
