@@ -2,6 +2,7 @@ package com.example.newprojectoption.service;
 
 import com.example.newprojectoption.bean.*;
 import com.example.newprojectoption.dao.NoteEtudiantModuleDao;
+import com.example.newprojectoption.dao.NoteEtudiantSemestreDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,8 @@ public class NoteEtudiantModuleService {
     @Autowired
     private EtatValidationService etatValidationService;
     @Autowired
+    private SemestreService semestreService;
+    @Autowired
     private NoteEtudiantSemestreService noteEtudiantSemestreService;
     private NoteEtudiantModule noteEtudiantModule;
     public List<NoteEtudiantModule> findAll() {
@@ -52,19 +55,13 @@ public class NoteEtudiantModuleService {
     public List<NoteEtudiantModule> findNotes(String codeModule, String codeOption) {
         List<NoteEtudiantModule> res=noteEtudiantModuleDao.findByModuleSemestreOptionCode(codeModule);
         if(res.size()!=0){
-            /*NoteEtudiantSemestre notSemestre = noteEtudiantSemestreService.findByCode(noteEtudiantModule.getNoteEtudiantSemestre().getCode());*/
-
             return res;
         }
         else{
             List<EtudiantOption> etudiants=etudiantOptionService.findByMyOptionCode(codeOption);
+
             for (EtudiantOption etudiantOption : etudiants) {
                 NoteEtudiantModule noteEtudiantModule=new NoteEtudiantModule();
-
-                /*NoteEtudiantSemestre noteEtudiantSemestre= new NoteEtudiantSemestre();
-                noteEtudiantSemestre.setEtudiant(noteEtudiantModule.getEtudiant());
-                noteEtudiantSemestre.setSemestre(noteEtudiantModule.getModuleSemestreOption().getSemestre());
-                noteEtudiantSemestre.setNote(BigDecimal.ZERO);*/
 
                 noteEtudiantModule.setEtudiant(etudiantOption.getEtudiant());
                 noteEtudiantModule.setNoteModuleNormal(BigDecimal.ZERO);
@@ -75,20 +72,37 @@ public class NoteEtudiantModuleService {
                 noteEtudiantModule.setNoteFinalAvRat(BigDecimal.ZERO);
                 noteEtudiantModule.setEtatValidation(etatValidationService.findByCode("R"));
                 noteEtudiantModule.setModuleSemestreOption(moduleSemestreOptionService.findByCode(codeModule));
+
+                NoteEtudiantSemestre noteEtudiantSemestre= noteEtudiantSemestreService.findByCode(etudiantOption.getEtudiant().getCne()+noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode());
+
+                if(noteEtudiantSemestre==null){
+                    noteEtudiantSemestre=new NoteEtudiantSemestre();
+                    noteEtudiantSemestre.setEtudiant(etudiantOption.getEtudiant());
+                    noteEtudiantSemestre.setNoteSemestre(BigDecimal.ZERO);
+                    noteEtudiantSemestre.setCode(etudiantOption.getEtudiant().getCne()+noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode());
+                    noteEtudiantSemestre.setSemestre(semestreService.findByCode(noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode()));
+                    noteEtudiantSemestreService.save(noteEtudiantSemestre);
+                }
+
+                noteEtudiantModule.setNoteEtudiantSemestre(noteEtudiantSemestre);
                 noteEtudiantModuleDao.save(noteEtudiantModule);
                 res.add(noteEtudiantModule);
 
             }
             return res;
         }
-        //List<NoteEtudiantSemestre> notSemestre= noteEtudiantModul
     }
+
     public void update(NoteEtudiantModule noteEtudiantModule){
+        NoteEtudiantSemestre noteEtudiantSemestre= noteEtudiantSemestreService.findByCode(noteEtudiantModule.getNoteEtudiantSemestre().getCode());
         EtatValidation etatValidation=etatValidationService.findByLibelle(noteEtudiantModule.getEtatValidation().getLibelle());
         noteEtudiantModule.setEtatValidation(etatValidation);
+       /* noteEtudiantSemestre.getNoteSemestre().add(new BigDecimal(20));
+        noteEtudiantSemestreService.save(noteEtudiantSemestre);*/
         noteEtudiantModuleDao.save(noteEtudiantModule);
     }
-    public List<NoteEtudiantModule> findByModuleSemestreOptionMyOptionCodeAndModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnvers(String code1, String code2, String anneeUnvers) {
-        return noteEtudiantModuleDao.findByModuleSemestreOptionMyOptionCodeAndModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnvers(code1, code2, anneeUnvers);
+
+    public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(String codeSemestre,String annee, String cne) {
+        return noteEtudiantModuleDao.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre,annee, cne);
     }
 }

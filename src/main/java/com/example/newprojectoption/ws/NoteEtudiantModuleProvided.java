@@ -16,10 +16,6 @@ import java.util.List;
 public class NoteEtudiantModuleProvided {
 
 
-    @GetMapping("moduleSemestreOption/myOption/code/{code}/moduleSemestreOption/semestre/code/{code}/moduleSemestreOption/anneeUnvers/{AnneeUnvers}")
-    public List<NoteEtudiantModule> findByModuleSemestreOptionMyOptionCodeAndModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnvers(@PathVariable String code1,@PathVariable String code2,@PathVariable String anneeUnvers) {
-        return noteEtudiantModuleService.findByModuleSemestreOptionMyOptionCodeAndModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnvers(code1, code2, anneeUnvers);
-    }
 
     @Autowired
     private NoteEtudiantModuleService noteEtudiantModuleService;
@@ -37,5 +33,8 @@ public class NoteEtudiantModuleProvided {
     public void update(@RequestBody NoteEtudiantModule noteEtudiantModule) {
         noteEtudiantModuleService.update(noteEtudiantModule);
     }
-
+    @GetMapping("moduleSemestreOption/semestre/codeSemestre/{codeSemestre}/moduleSemestreOption/annee/{annee}/Etudiant/cne/{cne}")
+    public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(@PathVariable String codeSemestre,@PathVariable String annee,@PathVariable String cne) {
+        return noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre, annee, cne);
+    }
 }

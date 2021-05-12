@@ -19,10 +19,10 @@ public class NoteEtudiantSemestreProvided {
     public List<NoteEtudiantSemestre> findAll() {
         return noteEtudiantSemestreService.findAll();
     }
-    @GetMapping("/option/code/{code}/smsetre/code1/{code1}/annee/{annee}")
+    /*@GetMapping("/option/code/{code}/smsetre/code1/{code1}/annee/{annee}")
     public void saveNoteSemestre(@PathVariable String code,@PathVariable String code1,@PathVariable String annee){
         noteEtudiantSemestreService.saveNoteSemestre(code,code1,annee);
-    }
+    }*/
 
     @GetMapping("/Etudiant/cne/{cne}/Semestre/code/{code}")
     public NoteEtudiantSemestre findByEtudiantCneAndSemestreCode(@PathVariable String cne,@PathVariable String code) {
@@ -40,5 +40,10 @@ public class NoteEtudiantSemestreProvided {
     @GetMapping("/code/{code}")
     public NoteEtudiantSemestre findByCode(@PathVariable String code) {
         return noteEtudiantSemestreService.findByCode(code);
+    }
+
+    @GetMapping("/semestre/codeSemestre/{codeSemestre}/option/codeOption/{codeOption}/annee/{annee}")
+    public List<NoteEtudiantSemestre> notesSemestre(@PathVariable String codeSemestre,@PathVariable String codeOption,@PathVariable String annee) {
+        return noteEtudiantSemestreService.notesSemestre(codeSemestre, codeOption, annee);
     }
 }
