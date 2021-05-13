@@ -33,9 +33,9 @@ public class EtudiantOptionProvided {
         return etudiantOptionService.deleteByMyOptionCode(code);
     }
 
-    @GetMapping("/Etudiant/cne/{cne}/option/code/{code}")
-    public EtudiantOption findByEtudiantCneAndMyOptionCode(@PathVariable String cne,@PathVariable String code) {
-        return etudiantOptionService.findByEtudiantCneAndMyOptionCode(cne, code);
+    @GetMapping("/Etudiant/cne/{cne}/option/codeoption/{codeoption}/annee/{annee}/semestre/semstreCode/{semstreCode}")
+    public EtudiantOption findByEtudiantCneAndMyOptionCodeAndAnneeAndSemestreCode(String cne, String codeoption, String annee, String semstreCode) {
+        return etudiantOptionService.findByEtudiantCneAndMyOptionCodeAndAnneeAndSemestreCode(cne, codeoption, annee, semstreCode);
     }
     @PostMapping("/")
     public int save(@RequestBody EtudiantOption etudiantOption) {
@@ -49,4 +49,5 @@ public class EtudiantOptionProvided {
 
     @Autowired
     private EtudiantOptionService etudiantOptionService;
+
 }

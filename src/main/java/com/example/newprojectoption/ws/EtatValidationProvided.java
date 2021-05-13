@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("ispits-project/etat-validation")
+
 public class EtatValidationProvided {
     @Autowired
     private EtatValidationService etatValidationService;

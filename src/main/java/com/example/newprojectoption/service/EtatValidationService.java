@@ -22,6 +22,7 @@ public class EtatValidationService {
     public EtatValidation findByLibelle(String libelle) {
         return etatValidationDao.findByLibelle(libelle);
     }
+
     public int save (EtatValidation etatValidation){
         if(findByCode(etatValidation.getCode())!=null)
             return -1;
