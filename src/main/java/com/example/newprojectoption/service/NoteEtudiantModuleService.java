@@ -102,7 +102,7 @@ public class NoteEtudiantModuleService {
         noteEtudiantModuleDao.save(noteEtudiantModule);
     }
 
-    public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(String codeSemestre,String annee, String cne) {
+    public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(int codeSemestre,String annee, String cne) {
         return noteEtudiantModuleDao.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre,annee, cne);
     }
 }

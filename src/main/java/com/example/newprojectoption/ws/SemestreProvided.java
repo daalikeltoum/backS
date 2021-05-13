@@ -15,7 +15,7 @@ public class SemestreProvided {
     private SemestreService semestreService;
 
     @GetMapping("code/{code}")
-    public Semestre findByCode(@PathVariable String code) {
+    public Semestre findByCode(@PathVariable int code) {
         return semestreService.findByCode(code);
     }
 
@@ -25,7 +25,7 @@ public class SemestreProvided {
     }
 
     @DeleteMapping("code/{code}")
-    public int deleteByCode(@PathVariable String code) {
+    public int deleteByCode(@PathVariable int code) {
         return semestreService.deleteByCode(code);
     }
 

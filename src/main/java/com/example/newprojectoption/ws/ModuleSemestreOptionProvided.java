@@ -27,7 +27,7 @@ public class ModuleSemestreOptionProvided {
     }
 
     @GetMapping("/semestre/code/{codeseme}/anneeuniv/{annee}/option/code/{codeOp}")
-    public List<ModuleSemestreOption> findBySemestreCodeAndAnneeUnversAndMyOptionCode(@PathVariable String codeseme,@PathVariable String annee,@PathVariable String codeOp) {
+    public List<ModuleSemestreOption> findBySemestreCodeAndAnneeUnversAndMyOptionCode(@PathVariable int codeseme,@PathVariable String annee,@PathVariable String codeOp) {
         return moduleSemestreOptionService.findBySemestreCodeAndAnneeUnversAndMyOptionCode(codeseme, annee, codeOp);
     }
 

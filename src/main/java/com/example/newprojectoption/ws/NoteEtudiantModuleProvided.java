@@ -34,7 +34,7 @@ public class NoteEtudiantModuleProvided {
         noteEtudiantModuleService.update(noteEtudiantModule);
     }
     @GetMapping("moduleSemestreOption/semestre/codeSemestre/{codeSemestre}/moduleSemestreOption/annee/{annee}/Etudiant/cne/{cne}")
-    public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(@PathVariable String codeSemestre,@PathVariable String annee,@PathVariable String cne) {
+    public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(@PathVariable int codeSemestre,@PathVariable String annee,@PathVariable String cne) {
         return noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre, annee, cne);
     }
 }

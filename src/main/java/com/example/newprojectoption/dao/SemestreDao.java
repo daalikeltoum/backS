@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SemestreDao extends JpaRepository<Semestre,Long> {
-    Semestre findByCode(String code);
+    Semestre findByCode(int code);
     Semestre findByLibelle( String libelle);
-    int deleteByCode( String code);
+    int deleteByCode( int code);
 }

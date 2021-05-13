@@ -28,7 +28,7 @@ public class ModuleSemestreOptionService {
     public int  save (ModuleSemestreOption moduleSemestreOption){
         if(findByCode(moduleSemestreOption.getCode())!=null)
             return -1;
-        String codeSemes=moduleSemestreOption.getSemestre().getCode();
+        int codeSemes=moduleSemestreOption.getSemestre().getCode();
         String codeType=moduleSemestreOption.getTypeModule().getCode();
         String codeOpt=moduleSemestreOption.getMyOption().getCode();
         String codeModule=moduleSemestreOption.getMyModule().getCode();
@@ -53,7 +53,7 @@ public class ModuleSemestreOptionService {
     }
 
 
-    public List<ModuleSemestreOption> findBySemestreCodeAndAnneeUnversAndMyOptionCode(String codeseme, String annee, String codeOp) {
+    public List<ModuleSemestreOption> findBySemestreCodeAndAnneeUnversAndMyOptionCode(int codeseme, String annee, String codeOp) {
         return moduleSemestreOptionDao.findBySemestreCodeAndAnneeUnversAndMyOptionCode(codeseme, annee, codeOp);
     }
 

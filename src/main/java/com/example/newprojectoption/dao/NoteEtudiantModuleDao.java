@@ -10,6 +10,6 @@ public interface NoteEtudiantModuleDao extends JpaRepository<NoteEtudiantModule,
     List<NoteEtudiantModule> findByEtudiantCne(String cne);
     List<NoteEtudiantModule> findByModuleSemestreOptionCode (String code);
 
-    List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(String codeSemestre,String anne, String cne);
+    List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(int codeSemestre,String anne, String cne);
 
 }

@@ -15,7 +15,7 @@ public class SemestreService {
     @Autowired
     private SemestreDao semestreDao;
 
-    public Semestre findByCode(String code) {
+    public Semestre findByCode(int code) {
         return semestreDao.findByCode(code);
     }
 
@@ -33,7 +33,7 @@ public class SemestreService {
     }
 
     @Transactional
-    public int deleteByCode(String code) {
+    public int deleteByCode(int code) {
         return semestreDao.deleteByCode(code);
     }
 

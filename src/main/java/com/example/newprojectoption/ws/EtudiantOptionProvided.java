@@ -34,7 +34,7 @@ public class EtudiantOptionProvided {
     }
 
     @GetMapping("/Etudiant/cne/{cne}/option/codeoption/{codeoption}/annee/{annee}/semestre/semstreCode/{semstreCode}")
-    public EtudiantOption findByEtudiantCneAndMyOptionCodeAndAnneeAndSemestreCode(String cne, String codeoption, String annee, String semstreCode) {
+    public EtudiantOption findByEtudiantCneAndMyOptionCodeAndAnneeAndSemestreCode(String cne, String codeoption, String annee, int semstreCode) {
         return etudiantOptionService.findByEtudiantCneAndMyOptionCodeAndAnneeAndSemestreCode(cne, codeoption, annee, semstreCode);
     }
     @PostMapping("/")

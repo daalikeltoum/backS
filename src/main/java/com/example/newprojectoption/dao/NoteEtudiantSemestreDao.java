@@ -13,5 +13,5 @@ public interface NoteEtudiantSemestreDao extends JpaRepository<NoteEtudiantSemes
     NoteEtudiantSemestre findByCode(String code);
     List<NoteEtudiantSemestre> findBySemestreCode(String code);
     List<NoteEtudiantSemestre> findByEtudiantCne(String cne);
-    NoteEtudiantSemestre findByEtudiantCneAndSemestreCode(String cne,String code);
+    NoteEtudiantSemestre findByEtudiantCneAndSemestreCode(String cne,int code);
 }

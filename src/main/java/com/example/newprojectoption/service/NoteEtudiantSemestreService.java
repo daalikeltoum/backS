@@ -20,7 +20,7 @@ public class NoteEtudiantSemestreService {
         return noteEtudiantSemestreDao.findAll();
     }
 
-    public NoteEtudiantSemestre findByEtudiantCneAndSemestreCode(String cne, String code) {
+    public NoteEtudiantSemestre findByEtudiantCneAndSemestreCode(String cne, int code) {
         return noteEtudiantSemestreDao.findByEtudiantCneAndSemestreCode(cne, code);
     }
 
@@ -68,7 +68,7 @@ public class NoteEtudiantSemestreService {
         return noteEtudiantSemestreDao.findByCode(code);
     }
 
-    public List<NoteEtudiantSemestre> notesSemestre(String codeSemestre,String codeOption,String annee){
+    public List<NoteEtudiantSemestre> notesSemestre(int codeSemestre,String codeOption,String annee){
 
         List<NoteEtudiantSemestre> notesSemestre=new ArrayList<NoteEtudiantSemestre>();
         List<EtudiantOption> etudiants=etudiantOptionService.findByMyOptionCodeAndAnnee(codeOption,annee);
