@@ -50,104 +50,101 @@ public class EtudiantOptionService {
         return etudiantOptionDao.findByEtudiantCneAndMyOptionCodeAndAnneeAndSemestreCode(cne, codeoption, anne, semstreCode);
     }
 
+    //save de etudiantOption
+    public void saveEtudiantOption(String cetudiant, String cmyOption, String annee, int csemestre) {
+
+        Etudiant etudiant = etudiantService.findByCne(cetudiant);
+        MyOption myOption = myOptionService.findByCode(cmyOption);
+        Semestre semestre = semestreService.findByCode(csemestre);
+
+        EtudiantOption etudiantOption = new EtudiantOption();
+        etudiantOption.setEtudiant(etudiant);
+        etudiantOption.setMyOption(myOption);
+        etudiantOption.setAnnee(annee);
+        etudiantOption.setSemestre(semestre);
+        etudiantOptionDao.save(etudiantOption);
+    }
+
+    //save de etudiantModule
+
+    public void saveEtudiantModule(String  cetudiant, int codesemestre1, int codeSemestre2, String annee, String  cmyOption) {
+        MyOption myOption = myOptionService.findByCode(cmyOption);
+        Etudiant etudiant  = etudiantService.findByCne(cetudiant);
+        List<ModuleSemestreOption> moduleSemestreOptions1 = moduleSemestreOptionService.findBySemestreCodeAndAnneeUnversAndMyOptionCode(codesemestre1, annee, myOption.getCode());
+        List<ModuleSemestreOption> moduleSemestreOptions2 = moduleSemestreOptionService.findBySemestreCodeAndAnneeUnversAndMyOptionCode(codeSemestre2, annee, myOption.getCode());
+        moduleSemestreOptions1.addAll(moduleSemestreOptions2);
+        for (ModuleSemestreOption moduleSemestreOption : moduleSemestreOptions1) {
+            InscriptionEtudiantModule inscriptionEtudiantModule = new InscriptionEtudiantModule();
+            inscriptionEtudiantModule.setEtudiant(etudiant);
+            inscriptionEtudiantModule.setModuleSemestreOption(moduleSemestreOption);
+            inscriptionEtudiantModule.setCode(etudiant.getCne() + moduleSemestreOption.getCode() + annee);
+            inscriptionEtudiantModuleService.save(inscriptionEtudiantModule);
+        }
+    }
+
+    //save etudiant reinscrit
+    public void saveEtudiantReinscrit(int codeSemsetre1, int codeSemestre2, String cetudiant, String cmyOption, String annee) {
+        Etudiant etudiant = etudiantService.findByCne(cetudiant);
+        MyOption myOption = myOptionService.findByCode(cmyOption);
+        List<NoteEtudiantModule> noteEtudiantModules1 = noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemsetre1, annee, etudiant.getCne());
+        List<NoteEtudiantModule> noteEtudiantModules2 = noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre2, annee, etudiant.getCne());
+        noteEtudiantModules1.addAll(noteEtudiantModules2);
+
+        for (NoteEtudiantModule noteEtudiantModule : noteEtudiantModules1) {
+            if (noteEtudiantModule.getEtatValidation().getCode() == "NV") {
+                InscriptionEtudiantModule inscriptionEtudiantModule = new InscriptionEtudiantModule();
+                inscriptionEtudiantModule.setEtudiant(etudiant);
+                inscriptionEtudiantModule.setModuleSemestreOption(noteEtudiantModule.getModuleSemestreOption());
+                inscriptionEtudiantModule.setCode(etudiant.getCne() + noteEtudiantModule.getModuleSemestreOption().getCode() + annee);
+                inscriptionEtudiantModuleService.save(inscriptionEtudiantModule);
+                if (findByEtudiantCneAndMyOptionCodeAndAnneeAndSemestreCode(etudiant.getCne(), myOption.getCode(), annee, noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode()) == null) {
+                    saveEtudiantOption(cetudiant, cmyOption, annee, noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode());
+                }
+
+            }
+        }
+    }
+
     public int save(EtudiantOption etudiantOption) {
         if (findByEtudiantCneAndMyOptionCodeAndAnneeAndSemestreCode(etudiantOption.getEtudiant().getCne(), etudiantOption.getMyOption().getCode(), etudiantOption.getAnnee(), etudiantOption.getSemestre().getCode()) != null) {
             return -1;
         }
         Etudiant etudiant = etudiantService.findByCne(etudiantOption.getEtudiant().getCne());
         MyOption myOption = myOptionService.findByCode(etudiantOption.getMyOption().getCode());
+        Semestre semestre = semestreService.findByCode(etudiantOption.getSemestre().getCode());
+        String annee=etudiantOption.getAnnee();
         int codeSemestre = etudiantOption.getSemestre().getCode();
-        int codeSemsetreav1 = codeSemestre - 1;
-        int codeSemsetreav2 = codeSemestre - 2;
-        Semestre semeav1 = semestreService.findByCode(codeSemsetreav1);
-        Semestre semeav2 = semestreService.findByCode(codeSemsetreav2);
+
         if (codeSemestre == 1 || codeSemestre == 3 || codeSemestre == 5) {
             if (etudiant == null) {
+                //premiere semestre
                 etudiantService.save(etudiantOption.getEtudiant());
-                etudiantOption.setEtudiant(etudiantOption.getEtudiant());
-                etudiantOption.setMyOption(myOption);
-                etudiantOption.setAnnee(etudiantOption.getAnnee());
-                etudiantOption.setSemestre(etudiantOption.getSemestre());
-                etudiantOptionDao.save(etudiantOption);
+                saveEtudiantOption(etudiantOption.getEtudiant().getCne(), myOption.getCode(), annee, semestre.getCode());
+                //deuxieme semstre
+                saveEtudiantOption(etudiantOption.getEtudiant().getCne(), myOption.getCode(), annee, etudiantOption.getSemestre().getCode() + 1);
+               //affecter modules
+                saveEtudiantModule(etudiantOption.getEtudiant().getCne(), 1, 2, annee, myOption.getCode());
 
-                List<ModuleSemestreOption> moduleSemestreOptions1 = moduleSemestreOptionService.findBySemestreCodeAndAnneeUnversAndMyOptionCode(1, etudiantOption.getAnnee(), etudiantOption.getMyOption().getCode());
-                List<ModuleSemestreOption> moduleSemestreOptions2 = moduleSemestreOptionService.findBySemestreCodeAndAnneeUnversAndMyOptionCode(2, etudiantOption.getAnnee(), etudiantOption.getMyOption().getCode());
-                moduleSemestreOptions1.addAll(moduleSemestreOptions2);
-
-                for (ModuleSemestreOption moduleSemestreOption : moduleSemestreOptions1) {
-                    InscriptionEtudiantModule inscriptionEtudiantModule = new InscriptionEtudiantModule();
-                    inscriptionEtudiantModule.setEtudiant(etudiantOption.getEtudiant());
-                    inscriptionEtudiantModule.setModuleSemestreOption(moduleSemestreOption);
-                    inscriptionEtudiantModule.setCode(etudiantOption.getEtudiant().getCne() + moduleSemestreOption.getCode() + etudiantOption.getAnnee());
-                    inscriptionEtudiantModuleService.save(inscriptionEtudiantModule);
-                }
             } else {
-                if (codeSemestre == 1){
-                    List<NoteEtudiantModule> noteEtudiantModules1=noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(1,etudiantOption.getAnnee(),etudiantOption.getEtudiant().getCne());
-                    List<NoteEtudiantModule> noteEtudiantModules2=noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(2,etudiantOption.getAnnee(),etudiantOption.getEtudiant().getCne());
-                    noteEtudiantModules1.addAll(noteEtudiantModules2);
-                    for(NoteEtudiantModule noteEtudiantModule:noteEtudiantModules1){
-                        if(noteEtudiantModule.getEtatValidation().getCode()=="NV"){
-                            InscriptionEtudiantModule inscriptionEtudiantModule = new InscriptionEtudiantModule();
-                            inscriptionEtudiantModule.setEtudiant(etudiantOption.getEtudiant());
-                            inscriptionEtudiantModule.setModuleSemestreOption(noteEtudiantModule.getModuleSemestreOption());
-                            inscriptionEtudiantModule.setCode(etudiantOption.getEtudiant().getCne() +noteEtudiantModule.getModuleSemestreOption().getCode() + etudiantOption.getAnnee());
-                            inscriptionEtudiantModuleService.save(inscriptionEtudiantModule);
-
-                        }
+                if (codeSemestre == 1) {
+                    saveEtudiantReinscrit(1, 2, etudiant.getCne(), myOption.getCode(),annee);
+                } else {
+                    //chercher les notes de semestre avant
+                    NoteEtudiantSemestre noteEtudiantSemestre1 = noteEtudiantSemestreService.findByEtudiantCneAndSemestreCode(etudiantOption.getEtudiant().getCne(), codeSemestre - 1);
+                    NoteEtudiantSemestre noteEtudiantSemestre2 = noteEtudiantSemestreService.findByEtudiantCneAndSemestreCode(etudiantOption.getEtudiant().getCne(), codeSemestre - 2);
+                    if (noteEtudiantSemestre1.getEtatValidation().getCode() == "V" && noteEtudiantSemestre2.getEtatValidation().getCode() == "V") {
+                        //premiere semsetre de l'annee suivant (s3,s5)
+                        saveEtudiantOption(etudiant.getCne(), myOption.getCode(), annee, semestre.getCode());
+                        //deuxieme semestre
+                        saveEtudiantOption(etudiant.getCne(), myOption.getCode(), annee, semestre.getCode() + 1);
+                        //affecter modules:
+                        saveEtudiantModule(etudiant.getCne(), codeSemestre, codeSemestre + 1, annee, myOption.getCode());
+                    } else {
+                        saveEtudiantReinscrit(codeSemestre - 1, codeSemestre - 2, etudiant.getCne(), myOption.getCode(), annee);
                     }
-                }else{
-
-                List<NoteEtudiantModule> noteEtudiantModules1=noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre-1,etudiantOption.getAnnee(),etudiantOption.getEtudiant().getCne());
-                List<NoteEtudiantModule> noteEtudiantModules2=noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre-2,etudiantOption.getAnnee(),etudiantOption.getEtudiant().getCne());
-                noteEtudiantModules1.addAll(noteEtudiantModules2);
-
-                NoteEtudiantSemestre noteEtudiantSemestre1=noteEtudiantSemestreService.findByEtudiantCneAndSemestreCode(etudiantOption.getEtudiant().getCne(),codeSemestre-1);
-                NoteEtudiantSemestre noteEtudiantSemestre2=noteEtudiantSemestreService.findByEtudiantCneAndSemestreCode(etudiantOption.getEtudiant().getCne(),codeSemestre-2);
-                if(noteEtudiantSemestre1.getEtatValidation().getCode()=="V" && noteEtudiantSemestre2.getEtatValidation().getCode()=="V"){
-                    etudiantOption.setEtudiant(etudiantOption.getEtudiant());
-                    etudiantOption.setMyOption(myOption);
-                    etudiantOption.setAnnee(etudiantOption.getAnnee());
-                    etudiantOption.setSemestre(semestreService.findByCode(etudiantOption.getSemestre().getCode()));
-                    etudiantOptionDao.save(etudiantOption);
-                    //affecter modules:
-                    List<ModuleSemestreOption> moduleSemestreOptions1 = moduleSemestreOptionService.findBySemestreCodeAndAnneeUnversAndMyOptionCode(codeSemestre+1, etudiantOption.getAnnee(), etudiantOption.getMyOption().getCode());
-                    List<ModuleSemestreOption> moduleSemestreOptions2 = moduleSemestreOptionService.findBySemestreCodeAndAnneeUnversAndMyOptionCode(codeSemestre+2, etudiantOption.getAnnee(), etudiantOption.getMyOption().getCode());
-                    moduleSemestreOptions1.addAll(moduleSemestreOptions2);
-
-                    for (ModuleSemestreOption moduleSemestreOption : moduleSemestreOptions1) {
-                        InscriptionEtudiantModule inscriptionEtudiantModule = new InscriptionEtudiantModule();
-                        inscriptionEtudiantModule.setEtudiant(etudiantOption.getEtudiant());
-                        inscriptionEtudiantModule.setModuleSemestreOption(moduleSemestreOption);
-                        inscriptionEtudiantModule.setCode(etudiantOption.getEtudiant().getCne() + moduleSemestreOption.getCode() + etudiantOption.getAnnee());
-                        inscriptionEtudiantModuleService.save(inscriptionEtudiantModule);
-                    }
-                }else{
-
-                   for(NoteEtudiantModule noteEtudiantModule:noteEtudiantModules1){
-                    if(noteEtudiantModule.getEtatValidation().getCode()=="NV"){
-                        InscriptionEtudiantModule inscriptionEtudiantModule = new InscriptionEtudiantModule();
-                        inscriptionEtudiantModule.setEtudiant(etudiantOption.getEtudiant());
-                        inscriptionEtudiantModule.setModuleSemestreOption(noteEtudiantModule.getModuleSemestreOption());
-                        inscriptionEtudiantModule.setCode(etudiantOption.getEtudiant().getCne() +noteEtudiantModule.getModuleSemestreOption().getCode() + etudiantOption.getAnnee());
-                        inscriptionEtudiantModuleService.save(inscriptionEtudiantModule);
-                        etudiantOption.setEtudiant(etudiantOption.getEtudiant());
-                        etudiantOption.setMyOption(myOption);
-                        etudiantOption.setAnnee(etudiantOption.getAnnee());
-                        etudiantOption.setSemestre(semestreService.findByCode(noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode()));
-                        etudiantOptionDao.save(etudiantOption);
-
-                    }
-                }
                 }
             }
-
-
         }
-
-    }
         return 1;
-
-}
-
+    }
 }
