@@ -83,22 +83,26 @@ public class EtudiantOptionService {
     }
 
     //save etudiant reinscrit
-    public void saveEtudiantReinscrit(int codeSemsetre1, int codeSemestre2, String cetudiant, String cmyOption, String annee) {
+
+    public void saveEtudiantReinscrit(int codeSemsetre1, int codeSemestre2, String cetudiant, String cmyOption, String annee1,String annee2) {
         Etudiant etudiant = etudiantService.findByCne(cetudiant);
         MyOption myOption = myOptionService.findByCode(cmyOption);
-        List<NoteEtudiantModule> noteEtudiantModules1 = noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemsetre1, annee, etudiant.getCne());
-        List<NoteEtudiantModule> noteEtudiantModules2 = noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre2, annee, etudiant.getCne());
+        //flparam khesna nhetou annee-1
+        List<NoteEtudiantModule> noteEtudiantModules1 = noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemsetre1, annee2, etudiant.getCne());
+        List<NoteEtudiantModule> noteEtudiantModules2 = noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre2, annee2, etudiant.getCne());
         noteEtudiantModules1.addAll(noteEtudiantModules2);
 
         for (NoteEtudiantModule noteEtudiantModule : noteEtudiantModules1) {
             if (noteEtudiantModule.getEtatValidation().getCode() == "NV") {
                 InscriptionEtudiantModule inscriptionEtudiantModule = new InscriptionEtudiantModule();
                 inscriptionEtudiantModule.setEtudiant(etudiant);
-                inscriptionEtudiantModule.setModuleSemestreOption(noteEtudiantModule.getModuleSemestreOption());
-                inscriptionEtudiantModule.setCode(etudiant.getCne() + noteEtudiantModule.getModuleSemestreOption().getCode() + annee);
+                //KHESNA NHETO LIH LMMODULE SYAL HAD L3AM
+                ModuleSemestreOption nvModule=moduleSemestreOptionService.findByCode(cmyOption+noteEtudiantModule.getModuleSemestreOption().getMyModule().getCode()+noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode()+annee1);
+                inscriptionEtudiantModule.setModuleSemestreOption(nvModule);
+                inscriptionEtudiantModule.setCode(etudiant.getCne() + noteEtudiantModule.getModuleSemestreOption().getCode() + annee1);
                 inscriptionEtudiantModuleService.save(inscriptionEtudiantModule);
-                if (findByEtudiantCneAndMyOptionCodeAndAnneeAndSemestreCode(etudiant.getCne(), myOption.getCode(), annee, noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode()) == null) {
-                    saveEtudiantOption(cetudiant, cmyOption, annee, noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode());
+                if (findByEtudiantCneAndMyOptionCodeAndAnneeAndSemestreCode(etudiant.getCne(), myOption.getCode(), annee1, noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode()) == null) {
+                    saveEtudiantOption(cetudiant, cmyOption, annee1, noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode());
                 }
 
             }
@@ -127,7 +131,7 @@ public class EtudiantOptionService {
 
             } else {
                 if (codeSemestre == 1) {
-                    saveEtudiantReinscrit(1, 2, etudiant.getCne(), myOption.getCode(),annee);
+                    saveEtudiantReinscrit(1, 2, etudiant.getCne(), myOption.getCode(),annee,annee);
                 } else {
                     //chercher les notes de semestre avant
                     NoteEtudiantSemestre noteEtudiantSemestre1 = noteEtudiantSemestreService.findByEtudiantCneAndSemestreCode(etudiantOption.getEtudiant().getCne(), codeSemestre - 1);
@@ -140,7 +144,7 @@ public class EtudiantOptionService {
                         //affecter modules:
                         saveEtudiantModule(etudiant.getCne(), codeSemestre, codeSemestre + 1, annee, myOption.getCode());
                     } else {
-                        saveEtudiantReinscrit(codeSemestre - 1, codeSemestre - 2, etudiant.getCne(), myOption.getCode(), annee);
+                        saveEtudiantReinscrit(codeSemestre - 1, codeSemestre - 2, etudiant.getCne(), myOption.getCode(), annee, annee);
                     }
                 }
             }

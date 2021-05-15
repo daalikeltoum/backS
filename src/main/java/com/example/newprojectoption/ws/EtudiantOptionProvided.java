@@ -58,8 +58,8 @@ public class EtudiantOptionProvided {
     public void saveEtudiantModule(@PathVariable String cetudiant,@PathVariable  int codesemestre1, @PathVariable int codeSemestre2, @PathVariable String annee,@PathVariable  String cmyOption) {
         etudiantOptionService.saveEtudiantModule(cetudiant, codesemestre1, codeSemestre2, annee, cmyOption);
     }
-    @GetMapping("semestre/codesemestre1/{codeSemsetre1}/semestre/codesemestre2/{codeSemestre2}/etudiant/cneetudiant/{cetudiant}/option/code/{cmyOption}/annee/{annee}")
-    public void saveEtudiantReinscrit(@PathVariable int codeSemsetre1,@PathVariable  int codeSemestre2,@PathVariable  String cetudiant,@PathVariable  String cmyOption, @PathVariable String annee) {
-        etudiantOptionService.saveEtudiantReinscrit(codeSemsetre1, codeSemestre2, cetudiant, cmyOption, annee);
+    @GetMapping("semestre/codesemestre1/{codeSemsetre1}/semestre/codesemestre2/{codeSemestre2}/etudiant/cneetudiant/{cetudiant}/option/code/{cmyOption}/annee1/{annee1}/annee2/{annee2}")
+    public void saveEtudiantReinscrit(@PathVariable int codeSemsetre1,@PathVariable  int codeSemestre2,@PathVariable  String cetudiant,@PathVariable  String cmyOption, @PathVariable String annee1, @PathVariable String annee2) {
+        etudiantOptionService.saveEtudiantReinscrit(codeSemsetre1, codeSemestre2, cetudiant, cmyOption, annee1, annee2);
     }
 }
