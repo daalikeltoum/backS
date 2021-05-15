@@ -11,5 +11,6 @@ public interface MyOptionDao extends JpaRepository<MyOption,Long> {
     MyOption findByCode(String code);
     List<MyOption> findByFilliereCode(String code);
     int deleteByCode(String code);
+    MyOption findByPonderationCode(String code);
 
 }

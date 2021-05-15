@@ -35,4 +35,12 @@ public class MyOptionProvided {
     public List<MyOption> findByFilliereCode(@PathVariable String code) {
         return myOptionService.findByFilliereCode(code);
     }
+    @GetMapping("/ponderation/code/{code}")
+    public MyOption findByPonderationCode(String code) {
+        return myOptionService.findByPonderationCode(code);
+    }
+    @PutMapping("/")
+    public void update(@RequestBody MyOption myOption) {
+        myOptionService.update(myOption);
+    }
 }

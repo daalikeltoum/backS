@@ -42,7 +42,7 @@ public class NoteEtudiantSemestreService {
             noteSem.add(noteModule.getNoteGlobale());
         }
         noteEtudiantSemestre.setNote(noteSem);
-
+        noteEtudiantSemestre.setEtatValidation(etatValidationService.findByCode("V"));
         noteEtudiantSemestreDao.save(noteEtudiantSemestre);
     }
 
@@ -57,6 +57,8 @@ public class NoteEtudiantSemestreService {
     private EtudiantOptionService etudiantOptionService;
     @Autowired
     private NoteEtudiantModuleService noteEtudiantModuleService;
+    @Autowired
+    private EtatValidationService etatValidationService;
 
     public NoteEtudiantSemestre findByCode(String code) {
         return noteEtudiantSemestreDao.findByCode(code);
