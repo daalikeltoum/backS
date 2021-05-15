@@ -12,8 +12,7 @@ public class Semestre {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String libelle;
-	private String code;
-	private BigDecimal numero;
+	private int code;
 
 	public Long getId() {
 		return id;
@@ -31,20 +30,11 @@ public class Semestre {
 		this.libelle = libelle;
 	}
 
-	public String getCode() {
+	public int getCode() {
 		return code;
 	}
 
-	public void setCode(String code) {
+	public void setCode(int code) {
 		this.code = code;
-	}
-
-
-	public BigDecimal getNumero() {
-		return numero;
-	}
-
-	public void setNumero(BigDecimal numero) {
-		this.numero = numero;
 	}
 }

@@ -1,6 +1,7 @@
 package com.example.newprojectoption.bean;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.*;
 
 @Entity
 public class NoteEtudiantSemestre {
@@ -8,22 +9,13 @@ public class NoteEtudiantSemestre {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String code;
-    private BigDecimal note ;
+    private BigDecimal noteSemestre ;
     @ManyToOne
     private Semestre semestre;
     @ManyToOne
     private Etudiant etudiant;
     @ManyToOne
     private EtatValidation etatValidation;
-
-
-    public BigDecimal getMoyenne() {
-        return note;
-    }
-
-    public void setMoyenne(BigDecimal moyenne) {
-        this.note = moyenne;
-    }
 
     public Long getId() {
         return id;
@@ -55,13 +47,7 @@ public class NoteEtudiantSemestre {
         this.etatValidation = etatValidation;
     }
 
-    public BigDecimal getNote() {
-        return note;
-    }
 
-    public void setNote(BigDecimal note) {
-        this.note = note;
-    }
 
     public Semestre getSemestre() {
         return semestre;
@@ -70,5 +56,14 @@ public class NoteEtudiantSemestre {
     public void setSemestre(Semestre semestre) {
         this.semestre = semestre;
     }
+
+    public BigDecimal getNoteSemestre() {
+        return noteSemestre;
+    }
+
+    public void setNoteSemestre(BigDecimal noteSemestre) {
+        this.noteSemestre = noteSemestre;
+    }
+
 }
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,7 +20,7 @@ public class NoteEtudiantSemestreService {
         return noteEtudiantSemestreDao.findAll();
     }
 
-    public NoteEtudiantSemestre findByEtudiantCneAndSemestreCode(String cne, String code) {
+    public NoteEtudiantSemestre findByEtudiantCneAndSemestreCode(String cne, int code) {
         return noteEtudiantSemestreDao.findByEtudiantCneAndSemestreCode(cne, code);
     }
 
@@ -30,7 +31,7 @@ public class NoteEtudiantSemestreService {
     public List<NoteEtudiantSemestre> findByEtudiantCne(String cne) {
         return noteEtudiantSemestreDao.findByEtudiantCne(cne);
     }
-    public void saveNoteSemestre(String optionCode,String semetreCode,String annee){
+    /*public void saveNoteSemestre(String optionCode,String semetreCode,String annee){
     List <EtudiantOption> etudiantOptions=etudiantOptionService.findByMyOptionCodeAndAnnee(optionCode,annee);
     for(EtudiantOption etud:etudiantOptions){
         List<NoteEtudiantModule> notesModules=noteEtudiantModuleService.findByEtudiantCne(etud.getEtudiant().getCne());
@@ -41,12 +42,15 @@ public class NoteEtudiantSemestreService {
         for(NoteEtudiantModule noteModule:notesModules){
             noteSem.add(noteModule.getNoteGlobale());
         }
-        noteEtudiantSemestre.setNote(noteSem);
-        noteEtudiantSemestre.setEtatValidation(etatValidationService.findByCode("V"));
+        noteEtudiantSemestre.setNoteSemestre(noteSem);
+
         noteEtudiantSemestreDao.save(noteEtudiantSemestre);
     }
 
 
+    }*/
+    public void save(NoteEtudiantSemestre noteEtudiantSemestre){
+        noteEtudiantSemestreDao.save(noteEtudiantSemestre);
     }
 
     @Autowired
@@ -63,4 +67,27 @@ public class NoteEtudiantSemestreService {
     public NoteEtudiantSemestre findByCode(String code) {
         return noteEtudiantSemestreDao.findByCode(code);
     }
+
+    public List<NoteEtudiantSemestre> notesSemestre(int codeSemestre,String codeOption,String annee){
+
+        List<NoteEtudiantSemestre> notesSemestre=new ArrayList<NoteEtudiantSemestre>();
+        List<EtudiantOption> etudiants=etudiantOptionService.findByMyOptionCodeAndAnnee(codeOption,annee);
+
+        for (EtudiantOption etudiantOption : etudiants) {
+            BigDecimal som=new BigDecimal(0);
+            NoteEtudiantSemestre noteEtudiantSemestre=noteEtudiantSemestreDao.findByCode(etudiantOption.getEtudiant().getCne()+codeSemestre);
+           List<NoteEtudiantModule> notesModules= noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre,annee,etudiantOption.getEtudiant().getCne());
+            for (NoteEtudiantModule notetudiantModule:notesModules){
+               som=som.add(notetudiantModule.getNoteGlobale());
+
+            }
+            BigDecimal length=new BigDecimal(notesModules.size());
+            noteEtudiantSemestre.setNoteSemestre(som.divide(length));
+            noteEtudiantSemestreDao.save(noteEtudiantSemestre);
+            notesSemestre.add(noteEtudiantSemestre);
+        }
+        return notesSemestre;
+    }
+
+
 }

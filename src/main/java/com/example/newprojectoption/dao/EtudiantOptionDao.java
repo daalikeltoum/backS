@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface EtudiantOptionDao extends JpaRepository<EtudiantOption,Long> {
     List<EtudiantOption> findByMyOptionCode(String code);
-    EtudiantOption findByEtudiantCneAndMyOptionCode(String cne,String code);
+    EtudiantOption findByEtudiantCneAndMyOptionCodeAndAnneeAndSemestreCode(String cne,String codeoption,String anne ,int semstreCode);
     List<EtudiantOption> findByMyOptionCodeAndAnnee(String code,String annee);
     int deleteByEtudiantCne(String cne);
     int deleteByMyOptionCode(String code);
