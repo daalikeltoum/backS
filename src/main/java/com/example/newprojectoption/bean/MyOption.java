@@ -3,6 +3,7 @@ package com.example.newprojectoption.bean;
 
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 public class MyOption {
@@ -12,10 +13,26 @@ public class MyOption {
     private String libelle;
     private String description;
     private String code;
+    private BigDecimal coefContinue;
+    private BigDecimal coefFinale;
     @ManyToOne
     private Filliere filliere;
-    @ManyToOne
-    private Ponderation ponderation;
+
+    public BigDecimal getCoefContinue() {
+        return coefContinue;
+    }
+
+    public void setCoefContinue(BigDecimal coefContinue) {
+        this.coefContinue = coefContinue;
+    }
+
+    public BigDecimal getCoefFinale() {
+        return coefFinale;
+    }
+
+    public void setCoefFinale(BigDecimal coefFinale) {
+        this.coefFinale = coefFinale;
+    }
 
     public Long getId() {
         return id;
@@ -47,14 +64,6 @@ public class MyOption {
 
     public void setFilliere(Filliere filliere) {
         this.filliere = filliere;
-    }
-
-    public Ponderation getPonderation() {
-        return ponderation;
-    }
-
-    public void setPonderation(Ponderation ponderation) {
-        this.ponderation = ponderation;
     }
 }
 

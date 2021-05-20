@@ -35,4 +35,8 @@ public class MyOptionProvided {
     public List<MyOption> findByFilliereCode(@PathVariable String code) {
         return myOptionService.findByFilliereCode(code);
     }
+    @PutMapping("/")
+    public void update(@RequestBody MyOption myOption) {
+        myOptionService.update(myOption);
+    }
 }

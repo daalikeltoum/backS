@@ -20,7 +20,7 @@ public class NoteEtudiantSemestreService {
         return noteEtudiantSemestreDao.findAll();
     }
 
-    public NoteEtudiantSemestre findByEtudiantCneAndSemestreCode(String cne, String code) {
+    public NoteEtudiantSemestre findByEtudiantCneAndSemestreCode(String cne, int code) {
         return noteEtudiantSemestreDao.findByEtudiantCneAndSemestreCode(cne, code);
     }
 
@@ -61,27 +61,28 @@ public class NoteEtudiantSemestreService {
     private EtudiantOptionService etudiantOptionService;
     @Autowired
     private NoteEtudiantModuleService noteEtudiantModuleService;
+    @Autowired
+    private EtatValidationService etatValidationService;
 
     public NoteEtudiantSemestre findByCode(String code) {
         return noteEtudiantSemestreDao.findByCode(code);
     }
 
-    public List<NoteEtudiantSemestre> notesSemestre(String codeSemestre,String codeOption,String annee){
+    public List<NoteEtudiantSemestre> notesSemestre(int codeSemestre,String codeOption,Long annee){
 
         List<NoteEtudiantSemestre> notesSemestre=new ArrayList<NoteEtudiantSemestre>();
-        List<EtudiantOption> etudiants=etudiantOptionService.findByMyOptionCode(codeOption);
+        List<EtudiantOption> etudiants=etudiantOptionService.findByMyOptionCodeAndAnneeAndSemestreCode(codeOption,annee,codeSemestre);
 
         for (EtudiantOption etudiantOption : etudiants) {
             BigDecimal som=new BigDecimal(0);
             NoteEtudiantSemestre noteEtudiantSemestre=noteEtudiantSemestreDao.findByCode(etudiantOption.getEtudiant().getCne()+codeSemestre);
-            List<NoteEtudiantModule> notesModules= noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre,annee,etudiantOption.getEtudiant().getCne());
+           List<NoteEtudiantModule> notesModules= noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre,annee,etudiantOption.getEtudiant().getCne());
             for (NoteEtudiantModule notetudiantModule:notesModules){
-                som.add(notetudiantModule.getNoteGlobale());
-            }
+               som=som.add(notetudiantModule.getNoteGlobale());
 
-            //noteEtudiantSemestre.setNoteSemestre(som.divide(new BigDecimal(notesModules.size())));
-            noteEtudiantSemestre.setNoteSemestre(som);
-            //noteEtudiantSemestre.setNoteSemestre(new BigDecimal(2));
+            }
+            BigDecimal length=new BigDecimal(notesModules.size());
+            noteEtudiantSemestre.setNoteSemestre(som.divide(length));
             noteEtudiantSemestreDao.save(noteEtudiantSemestre);
             notesSemestre.add(noteEtudiantSemestre);
         }

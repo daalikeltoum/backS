@@ -12,10 +12,12 @@ import java.util.List;
 
 @Service
 public class MyOptionService {
+
+
     @Autowired
     private MyOptionDao myOptionDao;
     @Autowired
-    private MyModuleService myModuleService;
+    private PonderationService ponderationService;
     @Autowired
     private FilliereService filliereService;
 
@@ -45,6 +47,13 @@ public class MyOptionService {
     }
 
     public List<MyOption> findByFilliereCode(String code) {
+
         return myOptionDao.findByFilliereCode(code);
+    }
+    public void update(MyOption myOption){
+        MyOption newOption=myOptionDao.findByCode(myOption.getCode());
+        newOption.setCoefContinue(myOption.getCoefContinue());
+        newOption.setCoefFinale(myOption.getCoefFinale());
+        myOptionDao.save(newOption);
     }
 }

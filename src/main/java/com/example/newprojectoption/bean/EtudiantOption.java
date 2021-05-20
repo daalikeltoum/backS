@@ -11,7 +11,9 @@ public class EtudiantOption {
     private Etudiant etudiant;
     @ManyToOne
     private MyOption myOption;
-    private String annee;
+    @ManyToOne
+    private Semestre semestre;
+    private Long annee;
 
     public Long getId() {
         return id;
@@ -37,11 +39,19 @@ public class EtudiantOption {
         this.myOption = myOption;
     }
 
-    public String getAnnee() {
+    public Semestre getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(Semestre semestre) {
+        this.semestre = semestre;
+    }
+
+    public Long getAnnee() {
         return annee;
     }
 
-    public void setAnnee(String annee) {
+    public void setAnnee(Long annee) {
         this.annee = annee;
     }
 }

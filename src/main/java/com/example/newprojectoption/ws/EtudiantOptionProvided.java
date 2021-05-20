@@ -1,6 +1,9 @@
 package com.example.newprojectoption.ws;
 
+import com.example.newprojectoption.bean.Etudiant;
 import com.example.newprojectoption.bean.EtudiantOption;
+import com.example.newprojectoption.bean.MyOption;
+import com.example.newprojectoption.bean.Semestre;
 import com.example.newprojectoption.dao.EtudiantOptionDao;
 import com.example.newprojectoption.service.EtudiantOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +17,12 @@ import java.util.List;
 @RequestMapping("ispits-project/etudiantOption")
 public class EtudiantOptionProvided {
 
-    /*@GetMapping("/option/code/{code}")
-    public List<EtudiantOption> findByMyOptionCode(@PathVariable String code) {
-        return etudiantOptionService.findByMyOptionCode(code);
-    }*/
-    @GetMapping("/option/code/{code}/annee/{annee}")
-    public List<EtudiantOption> findByMyOptionCodeAndAnnee(@PathVariable String code,@PathVariable String annee) {
-        return etudiantOptionService.findByMyOptionCodeAndAnnee(code, annee);
+    @Autowired
+    private EtudiantOptionService etudiantOptionService;
+
+    @GetMapping("/option/code/{code}/annee/{annee}/semestre/codesemes/{codeSems}")
+    public List<EtudiantOption> findByMyOptionCodeAndAnneeAndSemestreCode(@PathVariable String code,@PathVariable  Long annee,@PathVariable  int codeSems) {
+        return etudiantOptionService.findByMyOptionCodeAndAnneeAndSemestreCode(code, annee, codeSems);
     }
 
     @DeleteMapping("/Etudiant/cne/{cne}")
@@ -33,9 +35,9 @@ public class EtudiantOptionProvided {
         return etudiantOptionService.deleteByMyOptionCode(code);
     }
 
-    @GetMapping("/Etudiant/cne/{cne}/option/code/{code}")
-    public EtudiantOption findByEtudiantCneAndMyOptionCode(@PathVariable String cne,@PathVariable String code) {
-        return etudiantOptionService.findByEtudiantCneAndMyOptionCode(cne, code);
+    @GetMapping("/Etudiant/cne/{cne}/option/codeoption/{codeoption}/annee/{annee}/semestre/semstreCode/{semstreCode}")
+    public EtudiantOption findByEtudiantCneAndMyOptionCodeAndAnneeAndSemestreCode(String cne, String codeoption, Long annee, int semstreCode) {
+        return etudiantOptionService.findByEtudiantCneAndMyOptionCodeAndAnneeAndSemestreCode(cne, codeoption, annee, semstreCode);
     }
     @PostMapping("/")
     public int save(@RequestBody EtudiantOption etudiantOption) {
@@ -47,6 +49,20 @@ public class EtudiantOptionProvided {
         return etudiantOptionService.findByMyOptionCode(code);
     }
 
-    @Autowired
-    private EtudiantOptionService etudiantOptionService;
+
+    @GetMapping("etudiant/cneetudiant/{cetudiant}/option/code/{cmyOption}/annee/{annee}/semestre/codesemestre/{csemestre}")
+    public void saveEtudiantOption(@PathVariable String cetudiant,@PathVariable String cmyOption, @PathVariable Long annee,@PathVariable int csemestre) {
+        etudiantOptionService.saveEtudiantOption(cetudiant, cmyOption, annee, csemestre);
+    }
+
+    @GetMapping("etudiant/cneetudiant/{cetudiant}/semestre/codesemestre1/{codesemestre1}/semestre/codesemestre2/{codeSemestre2}/annee/{annee}/option/code/{cmyOption}")
+    public void saveEtudiantModule(@PathVariable String cetudiant,@PathVariable  int codesemestre1, @PathVariable int codeSemestre2, @PathVariable Long annee,@PathVariable  String cmyOption) {
+        etudiantOptionService.saveEtudiantModule(cetudiant, codesemestre1, codeSemestre2, annee, cmyOption);
+    }
+    @GetMapping("semestre/codesemestre1/{codeSemsetre1}/semestre/codesemestre2/{codeSemestre2}/etudiant/cneetudiant/{cetudiant}/option/code/{cmyOption}/annee1/{annee1}/annee2/{annee2}")
+    public void saveEtudiantReinscrit(@PathVariable int codeSemsetre1,@PathVariable  int codeSemestre2,@PathVariable  String cetudiant,@PathVariable  String cmyOption, @PathVariable Long annee1) {
+        etudiantOptionService.saveEtudiantReinscrit(codeSemsetre1, codeSemestre2, cetudiant, cmyOption, annee1);
+    }
+
+
 }
