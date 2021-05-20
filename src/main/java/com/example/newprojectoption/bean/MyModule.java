@@ -11,8 +11,6 @@ public class MyModule {
 	private String libelle;
 	private String code;
 
-
-
 	public Long getId() {
 		return id;
 	}

@@ -12,50 +12,47 @@ import java.util.List;
 public class MyModuleService {
     @Autowired
     private MyModuleDao myModuleDao;
-    @Autowired
-    private TypeModuleService typeModuleService;
-
+    /****************************************************/
     public MyModule findByCode(String code) {
         return myModuleDao.findByCode(code);
     }
-
+    public List<MyModule> findAll() {
+        return myModuleDao.findAll();
+    }
     public MyModule findByLibelle(String libelle) {
         return myModuleDao.findByLibelle(libelle);
     }
 
-    /*public int  save (MyModule myModule){
-        if(findByCode(myModule.getCode())!=null)
-            return -1;
-        else{
-            MyOption myOption=myOptionService.findByCode(myModule.getMyOption().getCode());
-            Semestre semestre=semestreService.findByCode(myModule.getSemestre().getCode());
-            if(myOption==null || semestre==null)
-                return -2;
-            myModule.setSemestre(semestre);
-            myModule.setMyOption(myOption);
-            myModuleDao.save(myModule);
-            return 1;
-        }
-    }*/
+    /****************************************************/
+
     public int  save (MyModule myModule){
         if(findByCode(myModule.getCode())!=null)
             return -1;
         else{
-           /*if(typeModuleService.findByCode(myModule.getTypeModule().getCode())!=null)
-                myModule.setTypeModule(typeModuleService.findByCode(myModule.getTypeModule().getCode()));*/
             myModuleDao.save(myModule);
             return 1;
         }
     }
+    /****************************************************/
+    public MyModule update (MyModule myModule){
+        return myModuleDao.save(myModule);
+    }
 
+    /****************************************************/
     @Transactional
     public int deleteByCode(String code) {
 
         return myModuleDao.deleteByCode(code);
     }
+    /****************************************************/
 
-    public List<MyModule> findAll() {
-        return myModuleDao.findAll();
+    @Transactional
+    public int deleteByCode(List<MyModule> myModules){
+        int sum=0;
+        for(int i =0;i<myModules.size();i++){
+            sum+=deleteByCode(myModules.get(i).getCode());
+        }
+        return sum;
     }
 
 }
