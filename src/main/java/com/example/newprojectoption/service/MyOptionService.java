@@ -21,9 +21,7 @@ public class MyOptionService {
     @Autowired
     private FilliereService filliereService;
 
-    public MyOption findByPonderationCode(String code) {
-        return myOptionDao.findByPonderationCode(code);
-    }
+
     public MyOption findByCode(String code) {
         return myOptionDao.findByCode(code);
     }
@@ -53,9 +51,9 @@ public class MyOptionService {
         return myOptionDao.findByFilliereCode(code);
     }
     public void update(MyOption myOption){
-      /*ponderationService.save(myOption.getPonderation());*/
-        myOption.setFilliere(myOption.getFilliere());
-        myOption.setPonderation(myOption.getPonderation());
-        myOptionDao.save(myOption);
+        MyOption newOption=myOptionDao.findByCode(myOption.getCode());
+        newOption.setCoefContinue(myOption.getCoefContinue());
+        newOption.setCoefFinale(myOption.getCoefFinale());
+        myOptionDao.save(newOption);
     }
 }
