@@ -43,7 +43,7 @@ public class NoteEtudiantSemestreProvided {
     }
 
     @GetMapping("/semestre/codeSemestre/{codeSemestre}/option/codeOption/{codeOption}/annee/{annee}")
-    public List<NoteEtudiantSemestre> notesSemestre(@PathVariable int codeSemestre,@PathVariable String codeOption,@PathVariable String annee) {
+    public List<NoteEtudiantSemestre> notesSemestre(@PathVariable int codeSemestre,@PathVariable String codeOption,@PathVariable Long annee) {
         return noteEtudiantSemestreService.notesSemestre(codeSemestre, codeOption, annee);
     }
 }

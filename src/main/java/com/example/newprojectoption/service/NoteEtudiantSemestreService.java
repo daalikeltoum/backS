@@ -68,10 +68,10 @@ public class NoteEtudiantSemestreService {
         return noteEtudiantSemestreDao.findByCode(code);
     }
 
-    public List<NoteEtudiantSemestre> notesSemestre(int codeSemestre,String codeOption,String annee){
+    public List<NoteEtudiantSemestre> notesSemestre(int codeSemestre,String codeOption,Long annee){
 
         List<NoteEtudiantSemestre> notesSemestre=new ArrayList<NoteEtudiantSemestre>();
-        List<EtudiantOption> etudiants=etudiantOptionService.findByMyOptionCodeAndAnnee(codeOption,annee);
+        List<EtudiantOption> etudiants=etudiantOptionService.findByMyOptionCodeAndAnneeAndSemestreCode(codeOption,annee,codeSemestre);
 
         for (EtudiantOption etudiantOption : etudiants) {
             BigDecimal som=new BigDecimal(0);

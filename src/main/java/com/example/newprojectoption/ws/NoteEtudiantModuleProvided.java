@@ -34,7 +34,16 @@ public class NoteEtudiantModuleProvided {
         noteEtudiantModuleService.update(noteEtudiantModule);
     }
     @GetMapping("moduleSemestreOption/semestre/codeSemestre/{codeSemestre}/moduleSemestreOption/annee/{annee}/Etudiant/cne/{cne}")
-    public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(@PathVariable int codeSemestre,@PathVariable String annee,@PathVariable String cne) {
+    public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(@PathVariable int codeSemestre,@PathVariable Long annee,@PathVariable String cne) {
         return noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre, annee, cne);
+    }
+
+    @GetMapping("etatValidation/code/{code}")
+    public List<NoteEtudiantModule> findByEtatValidationCode(@PathVariable String code) {
+        return noteEtudiantModuleService.findByEtatValidationCode(code);
+    }
+    @GetMapping("moduleSemestreOption/codeModule/{codeModule}/etatValidation/codeEtat/{codeEtat}")
+    public List<NoteEtudiantModule> findByModuleSemestreOptionCodeAndEtatValidationCode(@PathVariable String code,@PathVariable String codeEtat) {
+        return noteEtudiantModuleService.findByModuleSemestreOptionCodeAndEtatValidationCode(code, codeEtat);
     }
 }
