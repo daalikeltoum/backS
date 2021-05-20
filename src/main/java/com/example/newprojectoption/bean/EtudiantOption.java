@@ -13,7 +13,7 @@ public class EtudiantOption {
     private MyOption myOption;
     @ManyToOne
     private Semestre semestre;
-    private String annee;
+    private Long annee;
 
     public Long getId() {
         return id;
@@ -39,19 +39,19 @@ public class EtudiantOption {
         this.myOption = myOption;
     }
 
-    public String getAnnee() {
-        return annee;
-    }
-
-    public void setAnnee(String annee) {
-        this.annee = annee;
-    }
-
     public Semestre getSemestre() {
         return semestre;
     }
 
     public void setSemestre(Semestre semestre) {
         this.semestre = semestre;
+    }
+
+    public Long getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(Long annee) {
+        this.annee = annee;
     }
 }
