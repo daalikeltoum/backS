@@ -20,6 +20,8 @@ public class MyOptionService {
     private PonderationService ponderationService;
     @Autowired
     private FilliereService filliereService;
+    @Autowired
+    private ModuleSemestreOptionService moduleSemestreOptionService;
 
 
     public MyOption findByCode(String code) {
@@ -28,7 +30,9 @@ public class MyOptionService {
 
     @Transactional
     public int deleteByCode(String code) {
-        return myOptionDao.deleteByCode(code);
+        int r1=moduleSemestreOptionService.deleteByMyOptionCode(code);
+        int r2=myOptionDao.deleteByCode(code);
+        return r1+r2;
     }
 
     public List<MyOption> findAll() {
@@ -55,5 +59,10 @@ public class MyOptionService {
         newOption.setCoefContinue(myOption.getCoefContinue());
         newOption.setCoefFinale(myOption.getCoefFinale());
         myOptionDao.save(newOption);
+    }
+
+    @Transactional
+    public int deleteByFilliereCode(String Code) {
+        return myOptionDao.deleteByFilliereCode(Code);
     }
 }

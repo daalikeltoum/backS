@@ -5,6 +5,8 @@ import com.example.newprojectoption.bean.*;
 import com.example.newprojectoption.dao.ModuleSemestreOptionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -38,8 +40,14 @@ public class ModuleSemestreOptionService {
         MyOption myOption=myOptionService.findByCode(codeOpt);
         TypeModule typeModule=typeModuleService.findByCode(codeType);
 
-        if(semestre==null || typeModule==null || myModule==null || myOption==null)
-            return -2;
+        /*if(semestre==null || typeModule==null || myModule==null || myOption==null)
+            return -2;*/
+        if(semestre==null){return -2;}
+        if(typeModule==null){return -3;}
+        if(myModule==null){return -4;}
+        if (myOption==null){return -6;}
+
+
         moduleSemestreOption.setSemestre(semestre);
         moduleSemestreOption.setMyModule(myModule);
         moduleSemestreOption.setMyOption(myOption);
@@ -69,4 +77,18 @@ public class ModuleSemestreOptionService {
         return moduleSemestreOptionDao.findBySemestreCodeAndAnneeUnversAndMyOptionCodeAndMyModuleCode(codeSemestre, l, cmyOption,codeModule);
     }
 
+    @Transactional
+    public int deleteByCode(String code) {
+        return moduleSemestreOptionDao.deleteByCode(code);
+    }
+
+    @Transactional
+    public int deleteByMyOptionCode(@PathVariable String code) {
+        return moduleSemestreOptionDao.deleteByMyOptionCode(code);
+    }
+
+    @Transactional
+    public int deleteByMyModuleCode(String code) {
+        return moduleSemestreOptionDao.deleteByMyModuleCode(code);
+    }
 }

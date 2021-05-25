@@ -27,11 +27,6 @@ public class MyModuleProvided {
         return myModuleService.findByLibelle(libelle);
     }
 
-    @DeleteMapping("/code/{code}")
-    public int deleteByCode(@PathVariable String code) {
-        return myModuleService.deleteByCode(code);
-    }
-
     @GetMapping("/")
     public List<MyModule> findAll() {
         return myModuleService.findAll();
@@ -52,5 +47,8 @@ public class MyModuleProvided {
         return myModuleService.deleteByCode(myModules);
     }
 
-
+    @DeleteMapping("/code/{code}")
+    public int deleteByCode(@PathVariable String code) {
+        return myModuleService.deleteByCode(code);
+    }
 }

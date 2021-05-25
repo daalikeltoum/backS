@@ -4,6 +4,7 @@ package com.example.newprojectoption.ws;
 import com.example.newprojectoption.bean.MyOption;
 import com.example.newprojectoption.service.MyOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,5 +39,10 @@ public class MyOptionProvided {
     @PutMapping("/")
     public void update(@RequestBody MyOption myOption) {
         myOptionService.update(myOption);
+    }
+
+    @DeleteMapping("/filiere/code/{code}")
+    public int deleteByFilliereCode(@PathVariable String Code) {
+        return myOptionService.deleteByFilliereCode(Code);
     }
 }

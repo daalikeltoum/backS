@@ -3,7 +3,7 @@ package com.example.newprojectoption.bean;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tutorials")
+@Table(name = "Test_excel")
 public class TestExcel {
 
     @Id
@@ -20,14 +20,26 @@ public class TestExcel {
     @Column(name = "published")
     private boolean published;
 
+
+    @ManyToOne
+    private Etudiant etudiant;
+
+    /*
+    private String  nom;
+    */
+
+
     public TestExcel() {
 
     }
 
-    public TestExcel(String title, String description, boolean published) {
+    public TestExcel(String title, String description, boolean published,Etudiant etudiant) {
         this.title = title;
         this.description = description;
         this.published = published;
+        this.etudiant=etudiant;
+        //this.etudiant.getPrenom()= prenom;this.etudiant.getNom=this.
+
     }
 
     public long getId() {
@@ -64,6 +76,14 @@ public class TestExcel {
 
     @Override
     public String toString() {
-        return "Tutorial [id=" + id + ", title=" + title + ", desc=" + description + ", published=" + published + "]";
+        return "Tutorial [id=" + id + ", title=" + title + ", desc=" + description + ", published=" + published + ",nom="+etudiant.getNom()+",prenom="+etudiant.getPrenom()+"]";
+    }
+
+    public Etudiant getEtudiant() {
+        return etudiant;
+    }
+
+    public void setEtudiant(Etudiant etudiant) {
+        this.etudiant = etudiant;
     }
 }

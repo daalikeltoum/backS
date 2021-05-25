@@ -33,7 +33,6 @@ public class TestExcelService {
     TestExcelDao testExcelDao;
     public ByteArrayInputStream load() {
         List<TestExcel> tutorials = testExcelDao.findAll();
-
         ByteArrayInputStream in = ExcelHelper.tutorialsToExcel(tutorials);
         return in;
     }

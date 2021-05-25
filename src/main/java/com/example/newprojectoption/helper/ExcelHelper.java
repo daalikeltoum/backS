@@ -5,16 +5,22 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import com.example.newprojectoption.bean.Etudiant;
+import com.example.newprojectoption.bean.Filliere;
 import com.example.newprojectoption.bean.TestExcel;
+import com.example.newprojectoption.dao.EtudiantDao;
+import com.example.newprojectoption.service.EtudiantService;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class ExcelHelper {
+
     public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-    static String[] HEADERs = { "Id", "Title", "Description", "Published" };
+    static String[] HEADERs = { "Id", "Title", "Description", "Published","nom","prenom" };
     static String SHEET = "Tutorials";
 
     public static ByteArrayInputStream tutorialsToExcel(List<TestExcel> tutorials) {
@@ -32,12 +38,17 @@ public class ExcelHelper {
 
             int rowIdx = 1;
             for (TestExcel tutorial : tutorials) {
-                Row row = sheet.createRow(rowIdx++);
 
+                Row row = sheet.createRow(rowIdx++);
+                //EtudiantDao etudiantService;
+                //EtudiantService etudiantService = null;
+                //Etudiant etudiant = etudiantService.findByCne(tutorial.getEtudiant().getCne());
                 row.createCell(0).setCellValue(tutorial.getId());
                 row.createCell(1).setCellValue(tutorial.getTitle());
                 row.createCell(2).setCellValue(tutorial.getDescription());
                 row.createCell(3).setCellValue(tutorial.isPublished());
+                //row.createCell(5).setCellValue(etudiant.getNom());
+                //row.createCell(4).setCellValue(etudiant.getPrenom());
             }
 
             workbook.write(out);

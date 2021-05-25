@@ -4,6 +4,7 @@ package com.example.newprojectoption.ws;
 import com.example.newprojectoption.bean.ModuleSemestreOption;
 import com.example.newprojectoption.service.ModuleSemestreOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("ispits-project/module-semestre-option")
 public class ModuleSemestreOptionProvided {
+
+
     @Autowired
     private ModuleSemestreOptionService moduleSemestreOptionService;
 
@@ -34,4 +37,19 @@ public class ModuleSemestreOptionProvided {
         return moduleSemestreOptionService.findAll();
     }
 
+    @DeleteMapping("/code/{code}")
+    public int deleteByCode(@PathVariable String code) {
+        return moduleSemestreOptionService.deleteByCode(code);
+    }
+
+    @DeleteMapping("/option/code/{code}")
+    public int deleteByMyOptionCode(@PathVariable String code) {
+
+        return moduleSemestreOptionService.deleteByMyOptionCode(code);
+    }
+
+    @DeleteMapping("/module/code/{code}")
+    public int deleteByMyModuleCode(@PathVariable String code) {
+        return moduleSemestreOptionService.deleteByMyModuleCode(code);
+    }
 }

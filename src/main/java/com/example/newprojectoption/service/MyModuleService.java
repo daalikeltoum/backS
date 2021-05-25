@@ -12,6 +12,8 @@ import java.util.List;
 public class MyModuleService {
     @Autowired
     private MyModuleDao myModuleDao;
+    @Autowired
+    private ModuleSemestreOptionService moduleSemestreOptionService;
     /****************************************************/
     public MyModule findByCode(String code) {
         return myModuleDao.findByCode(code);
@@ -41,8 +43,10 @@ public class MyModuleService {
     /****************************************************/
     @Transactional
     public int deleteByCode(String code) {
+        int r1=moduleSemestreOptionService.deleteByMyModuleCode(code);
+        int r2=myModuleDao.deleteByCode(code);
 
-        return myModuleDao.deleteByCode(code);
+        return r1+r2;
     }
     /****************************************************/
 
