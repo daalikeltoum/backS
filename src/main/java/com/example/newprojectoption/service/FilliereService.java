@@ -35,7 +35,10 @@ public class FilliereService {
     }
     @Transactional
     public int deleteByCode(String code) {
-        return filliereDao.deleteByCode(code);
+        int r1= myOptionService.deleteByFilliereCode(code);
+        int r2= filliereDao.deleteByCode(code);
+
+        return r1+r2;
     }
 
     public List<Filliere> findAll() {

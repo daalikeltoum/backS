@@ -20,17 +20,19 @@ public class MyOptionService {
     private PonderationService ponderationService;
     @Autowired
     private FilliereService filliereService;
+    @Autowired
+    private ModuleSemestreOptionService moduleSemestreOptionService;
 
-    public MyOption findByPonderationCode(String code) {
-        return myOptionDao.findByPonderationCode(code);
-    }
+
     public MyOption findByCode(String code) {
         return myOptionDao.findByCode(code);
     }
 
     @Transactional
     public int deleteByCode(String code) {
-        return myOptionDao.deleteByCode(code);
+        int r1=moduleSemestreOptionService.deleteByMyOptionCode(code);
+        int r2=myOptionDao.deleteByCode(code);
+        return r1+r2;
     }
 
     public List<MyOption> findAll() {
@@ -53,9 +55,14 @@ public class MyOptionService {
         return myOptionDao.findByFilliereCode(code);
     }
     public void update(MyOption myOption){
-      /*ponderationService.save(myOption.getPonderation());*/
-        myOption.setFilliere(myOption.getFilliere());
-        myOption.setPonderation(myOption.getPonderation());
-        myOptionDao.save(myOption);
+        MyOption newOption=myOptionDao.findByCode(myOption.getCode());
+        newOption.setCoefContinue(myOption.getCoefContinue());
+        newOption.setCoefFinale(myOption.getCoefFinale());
+        myOptionDao.save(newOption);
+    }
+
+    @Transactional
+    public int deleteByFilliereCode(String Code) {
+        return myOptionDao.deleteByFilliereCode(Code);
     }
 }
