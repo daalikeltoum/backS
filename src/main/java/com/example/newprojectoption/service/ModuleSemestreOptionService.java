@@ -5,6 +5,7 @@ import com.example.newprojectoption.bean.*;
 import com.example.newprojectoption.dao.ModuleSemestreOptionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -68,5 +69,19 @@ public class ModuleSemestreOptionService {
 
     public List<ModuleSemestreOption> findBySemestreCodeAndAnneeUniversitaireLibelleAndMyOptionCode(int codeSemestre, String annee, String cmyOption) {
         return moduleSemestreOptionDao.findBySemestreCodeAndAnneeUniversitaireLibelleAndMyOptionCode(codeSemestre, annee, cmyOption);
+    }
+    @Transactional
+    public int deleteByCode(String code) {
+        return moduleSemestreOptionDao.deleteByCode(code);
+    }
+
+    @Transactional
+    public int deleteByMyOptionCode(String code) {
+        return moduleSemestreOptionDao.deleteByMyOptionCode(code);
+    }
+
+    @Transactional
+    public int deleteByMyModuleCode(String code) {
+        return moduleSemestreOptionDao.deleteByMyModuleCode(code);
     }
 }
