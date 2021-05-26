@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface InscriptionEtudiantModuleDao extends JpaRepository<InscriptionEtudiantModule,Long> {
     InscriptionEtudiantModule findByCode(String code);
+    List<InscriptionEtudiantModule> findByModuleSemestreOptionCode(String code);
 
 }

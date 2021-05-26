@@ -13,7 +13,7 @@ public class Etudiant {
     private String prenom;
     private String nom;
     private String cne;
-    private String cni;
+    private String cin;
     @JsonFormat(pattern="dd-MM-yyyy")
     private Date dateInscription;
     @JsonFormat(pattern="dd-MM-yyyy")
@@ -53,14 +53,6 @@ public class Etudiant {
         this.cne = cne;
     }
 
-    public String getCni() {
-        return cni;
-    }
-
-    public void setCni(String cni) {
-        this.cni = cni;
-    }
-
     public Date getDateInscription() {
         return dateInscription;
     }
@@ -77,4 +69,11 @@ public class Etudiant {
         this.dateNaissance = dateNaissance;
     }
 
+    public String getCin() {
+        return cin;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
+    }
 }

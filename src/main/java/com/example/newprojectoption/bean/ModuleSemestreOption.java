@@ -6,9 +6,10 @@ public class ModuleSemestreOption {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String code;
-	private Long anneeUnvers;
 	@ManyToOne
     private Semestre semestre;
+	@ManyToOne
+    private AnneeUniversitaire anneeUniversitaire;
 	@ManyToOne
     private MyModule myModule;
 	@ManyToOne
@@ -31,7 +32,6 @@ public class ModuleSemestreOption {
 	public void setCode(String code) {
 		this.code = code;
 	}
-
 
 	public Semestre getSemestre() {
 		return semestre;
@@ -65,11 +65,11 @@ public class ModuleSemestreOption {
 		this.typeModule = typeModule;
 	}
 
-	public Long getAnneeUnvers() {
-		return anneeUnvers;
+	public AnneeUniversitaire getAnnéeUniversitaire() {
+		return anneeUniversitaire;
 	}
 
-	public void setAnneeUnvers(Long anneeUnvers) {
-		this.anneeUnvers = anneeUnvers;
+	public void setAnnéeUniversitaire(AnneeUniversitaire anneeUniversitaire) {
+		this.anneeUniversitaire = anneeUniversitaire;
 	}
 }

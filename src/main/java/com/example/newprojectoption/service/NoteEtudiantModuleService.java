@@ -11,26 +11,6 @@ import java.util.List;
 
 @Service
 public class NoteEtudiantModuleService {
-
-
-    /*public int save(NoteEtudiantModule noteEtudiantModule){
-        if(findByCode(noteEtudiantModule.getCode())!=null){
-            return -1;
-        }
-        Etudiant etudiant=etudiantService.findByCne(noteEtudiantModule.getEtudiant().getCne());
-        MyModule myModule=MyModuleService.findByCode(noteEtudiantModule.getMyModule().getCode());
-        if(etudiant==null || myModule==null){
-            return -2;
-        }
-        else{
-            noteEtudiantModule.setEtudiant(etudiant);
-            noteEtudiantModule.setMyModule(myModule);
-            noteEtudiantModuleDao.save(noteEtudiantModule);
-            return 1;
-        }
-    }*/
-
-
     @Autowired
     private NoteEtudiantModuleDao noteEtudiantModuleDao;
     @Autowired
@@ -42,6 +22,8 @@ public class NoteEtudiantModuleService {
     @Autowired
     private SemestreService semestreService;
     @Autowired
+    private InscriptionEtudiantModuleService inscriptionEtudiantModuleService;
+    @Autowired
     private NoteEtudiantSemestreService noteEtudiantSemestreService;
     private NoteEtudiantModule noteEtudiantModule;
     public List<NoteEtudiantModule> findAll() {
@@ -52,18 +34,18 @@ public class NoteEtudiantModuleService {
         return noteEtudiantModuleDao.findByEtudiantCne(cne);
     }
 
-    public List<NoteEtudiantModule> findNotes(String codeModule, String codeOption) {
+    public List<NoteEtudiantModule> findNotes(String codeModule) {
         List<NoteEtudiantModule> res=noteEtudiantModuleDao.findByModuleSemestreOptionCode(codeModule);
         if(res.size()!=0){
             return res;
         }
         else{
-            List<EtudiantOption> etudiants=etudiantOptionService.findByMyOptionCode(codeOption);
+            List<InscriptionEtudiantModule> etudiants=inscriptionEtudiantModuleService.findByModuleSemestreOptionCode(codeModule);
 
-            for (EtudiantOption etudiantOption : etudiants) {
+            for (InscriptionEtudiantModule etudiant : etudiants) {
                 NoteEtudiantModule noteEtudiantModule=new NoteEtudiantModule();
 
-                noteEtudiantModule.setEtudiant(etudiantOption.getEtudiant());
+                noteEtudiantModule.setEtudiant(etudiant.getEtudiant());
                 noteEtudiantModule.setNoteModuleNormal(BigDecimal.ZERO);
                 noteEtudiantModule.setNoteModuleRat(BigDecimal.ZERO);
                 noteEtudiantModule.setNoteGlobale(BigDecimal.ZERO);
@@ -73,13 +55,13 @@ public class NoteEtudiantModuleService {
                 noteEtudiantModule.setEtatValidation(etatValidationService.findByCode("R"));
                 noteEtudiantModule.setModuleSemestreOption(moduleSemestreOptionService.findByCode(codeModule));
 
-                NoteEtudiantSemestre noteEtudiantSemestre= noteEtudiantSemestreService.findByCode(etudiantOption.getEtudiant().getCne()+noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode());
+                NoteEtudiantSemestre noteEtudiantSemestre= noteEtudiantSemestreService.findByCode(etudiant.getEtudiant().getCne()+noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode());
 
                 if(noteEtudiantSemestre==null){
                     noteEtudiantSemestre=new NoteEtudiantSemestre();
-                    noteEtudiantSemestre.setEtudiant(etudiantOption.getEtudiant());
+                    noteEtudiantSemestre.setEtudiant(etudiant.getEtudiant());
                     noteEtudiantSemestre.setNoteSemestre(BigDecimal.ZERO);
-                    noteEtudiantSemestre.setCode(etudiantOption.getEtudiant().getCne()+noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode());
+                    noteEtudiantSemestre.setCode(etudiant.getEtudiant().getCne()+noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode());
                     noteEtudiantSemestre.setSemestre(semestreService.findByCode(noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode()));
                     noteEtudiantSemestreService.save(noteEtudiantSemestre);
                 }
@@ -94,16 +76,13 @@ public class NoteEtudiantModuleService {
     }
 
     public void update(NoteEtudiantModule noteEtudiantModule){
-        NoteEtudiantSemestre noteEtudiantSemestre= noteEtudiantSemestreService.findByCode(noteEtudiantModule.getNoteEtudiantSemestre().getCode());
         EtatValidation etatValidation=etatValidationService.findByLibelle(noteEtudiantModule.getEtatValidation().getLibelle());
         noteEtudiantModule.setEtatValidation(etatValidation);
-       /* noteEtudiantSemestre.getNoteSemestre().add(new BigDecimal(20));
-        noteEtudiantSemestreService.save(noteEtudiantSemestre);*/
         noteEtudiantModuleDao.save(noteEtudiantModule);
     }
 
-    public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(int codeSemestre,Long annee, String cne) {
-        return noteEtudiantModuleDao.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre,annee, cne);
+    public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUniversitaireAnneeOneAndEtudiantCne(int codeSemestre,Long annee, String cne) {
+        return noteEtudiantModuleDao.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUniversitaireAnneeOneAndEtudiantCne(codeSemestre,annee, cne);
     }
 
     public List<NoteEtudiantModule> findByEtatValidationCode(String code) {
@@ -112,5 +91,9 @@ public class NoteEtudiantModuleService {
 
     public List<NoteEtudiantModule> findByModuleSemestreOptionCodeAndEtatValidationCode(String code, String codeEtat) {
         return noteEtudiantModuleDao.findByModuleSemestreOptionCodeAndEtatValidationCode(code, codeEtat);
+    }
+
+    public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnnéeUniversitaireAnnee1AndEtudiantCne(int codeSemestre, Long anne, String cne) {
+        return noteEtudiantModuleDao.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUniversitaireAnneeOneAndEtudiantCne(codeSemestre, anne, cne);
     }
 }

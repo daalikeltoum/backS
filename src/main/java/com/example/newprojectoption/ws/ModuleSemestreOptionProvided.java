@@ -26,14 +26,13 @@ public class ModuleSemestreOptionProvided {
         return moduleSemestreOptionService.save(moduleSemestreOption);
     }
 
-    @GetMapping("/semestre/code/{codeseme}/anneeuniv/{annee}/option/code/{codeOp}")
-    public List<ModuleSemestreOption> findBySemestreCodeAndAnneeUnversAndMyOptionCode(@PathVariable int codeseme,@PathVariable Long annee,@PathVariable String codeOp) {
-        return moduleSemestreOptionService.findBySemestreCodeAndAnneeUnversAndMyOptionCode(codeseme, annee, codeOp);
-    }
-
     @GetMapping("/")
     public List<ModuleSemestreOption> findAll() {
         return moduleSemestreOptionService.findAll();
     }
 
+    @GetMapping("/semestre/code/{codeSemestre}/anneeuniv/libelle/{annee}/option/code/{codeOp}")
+    public List<ModuleSemestreOption> findBySemestreCodeAndAnneeUniversitaireLibelleAndMyOptionCode(@PathVariable int codeSemestre,@PathVariable String annee,@PathVariable String codeOp) {
+        return moduleSemestreOptionService.findBySemestreCodeAndAnneeUniversitaireLibelleAndMyOptionCode(codeSemestre, annee, codeOp);
+    }
 }

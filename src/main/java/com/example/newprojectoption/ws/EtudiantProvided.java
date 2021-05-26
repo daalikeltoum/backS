@@ -1,6 +1,7 @@
 package com.example.newprojectoption.ws;
 
 import com.example.newprojectoption.bean.Etudiant;
+import com.example.newprojectoption.bean.EtudiantOption;
 import com.example.newprojectoption.service.EtudiantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,11 @@ public class EtudiantProvided {
     @PostMapping("/")
     public int save(@RequestBody Etudiant etudiant) {
         return etudiantService.save(etudiant);
+    }
+
+    @PutMapping("/")
+    public int update(@RequestBody Etudiant etudiant) {
+       return etudiantService.update(etudiant);
     }
     @Autowired
     private EtudiantService etudiantService;

@@ -22,8 +22,6 @@ public class NoteEtudiantModule {
     @ManyToOne
     private NoteEtudiantSemestre noteEtudiantSemestre;
 
-
-
     public BigDecimal getNoteContinue() {
         return noteContinue;
     }
@@ -43,11 +41,10 @@ public class NoteEtudiantModule {
     public Etudiant getEtudiant() {
         return etudiant;
     }
+
     public void setEtudiant(Etudiant etudiant) {
         this.etudiant = etudiant;
     }
-
-
 
     public ModuleSemestreOption getModuleSemestreOption() {
         return moduleSemestreOption;
@@ -64,8 +61,6 @@ public class NoteEtudiantModule {
     public void setEtatValidation(EtatValidation etatValidation) {
         this.etatValidation = etatValidation;
     }
-
-
 
     public BigDecimal getNoteFinalAvRat() {
         return noteFinalAvRat;

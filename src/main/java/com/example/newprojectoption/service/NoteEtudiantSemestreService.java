@@ -71,15 +71,14 @@ public class NoteEtudiantSemestreService {
     public List<NoteEtudiantSemestre> notesSemestre(int codeSemestre,String codeOption,Long annee){
 
         List<NoteEtudiantSemestre> notesSemestre=new ArrayList<NoteEtudiantSemestre>();
-        List<EtudiantOption> etudiants=etudiantOptionService.findByMyOptionCodeAndAnneeAndSemestreCode(codeOption,annee,codeSemestre);
+        List<EtudiantOption> etudiants=etudiantOptionService.SearchAncienStudents(codeOption,annee,codeSemestre);
 
         for (EtudiantOption etudiantOption : etudiants) {
             BigDecimal som=new BigDecimal(0);
             NoteEtudiantSemestre noteEtudiantSemestre=noteEtudiantSemestreDao.findByCode(etudiantOption.getEtudiant().getCne()+codeSemestre);
-           List<NoteEtudiantModule> notesModules= noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre,annee,etudiantOption.getEtudiant().getCne());
+           List<NoteEtudiantModule> notesModules= noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUniversitaireAnneeOneAndEtudiantCne(codeSemestre,annee,etudiantOption.getEtudiant().getCne());
             for (NoteEtudiantModule notetudiantModule:notesModules){
                som=som.add(notetudiantModule.getNoteGlobale());
-
             }
             BigDecimal length=new BigDecimal(notesModules.size());
             noteEtudiantSemestre.setNoteSemestre(som.divide(length));

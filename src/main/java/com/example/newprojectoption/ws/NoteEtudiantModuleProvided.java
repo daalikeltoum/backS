@@ -24,9 +24,10 @@ public class NoteEtudiantModuleProvided {
     public List<NoteEtudiantModule> findAll() {
         return noteEtudiantModuleService.findAll();
     }
-    @GetMapping("/module-semestre-option/codeModule/{codeModule}/option/codeOption/{codeOption}")
-    public List<NoteEtudiantModule> findNotes(@PathVariable String codeModule,@PathVariable String codeOption) {
-        return noteEtudiantModuleService.findNotes(codeModule, codeOption);
+
+    @GetMapping("/module-semestre-option/codeModule/{codeModule}")
+    public List<NoteEtudiantModule> findNotes(@PathVariable String codeModule) {
+        return noteEtudiantModuleService.findNotes(codeModule);
     }
 
     @PutMapping("/")
@@ -35,7 +36,7 @@ public class NoteEtudiantModuleProvided {
     }
     @GetMapping("moduleSemestreOption/semestre/codeSemestre/{codeSemestre}/moduleSemestreOption/annee/{annee}/Etudiant/cne/{cne}")
     public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(@PathVariable int codeSemestre,@PathVariable Long annee,@PathVariable String cne) {
-        return noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(codeSemestre, annee, cne);
+        return noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUniversitaireAnneeOneAndEtudiantCne(codeSemestre, annee, cne);
     }
 
     @GetMapping("etatValidation/code/{code}")
@@ -43,7 +44,7 @@ public class NoteEtudiantModuleProvided {
         return noteEtudiantModuleService.findByEtatValidationCode(code);
     }
     @GetMapping("moduleSemestreOption/codeModule/{codeModule}/etatValidation/codeEtat/{codeEtat}")
-    public List<NoteEtudiantModule> findByModuleSemestreOptionCodeAndEtatValidationCode(@PathVariable String code,@PathVariable String codeEtat) {
-        return noteEtudiantModuleService.findByModuleSemestreOptionCodeAndEtatValidationCode(code, codeEtat);
+    public List<NoteEtudiantModule> findByModuleSemestreOptionCodeAndEtatValidationCode(@PathVariable String codeModule,@PathVariable String codeEtat) {
+        return noteEtudiantModuleService.findByModuleSemestreOptionCodeAndEtatValidationCode(codeModule, codeEtat);
     }
 }

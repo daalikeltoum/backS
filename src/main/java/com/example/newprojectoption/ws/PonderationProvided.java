@@ -1,7 +1,6 @@
 package com.example.newprojectoption.ws;
 
 import com.example.newprojectoption.bean.Ponderation;
-import com.example.newprojectoption.dao.PonderationDao;
 import com.example.newprojectoption.service.PonderationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

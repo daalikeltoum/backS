@@ -53,9 +53,6 @@ public class ModuleSemestreOptionService {
     }
 
 
-    public List<ModuleSemestreOption> findBySemestreCodeAndAnneeUnversAndMyOptionCode(int codeseme, Long annee, String codeOp) {
-        return moduleSemestreOptionDao.findBySemestreCodeAndAnneeUnversAndMyOptionCode(codeseme, annee, codeOp);
-    }
 
     public List<ModuleSemestreOption> findAll() {
         return moduleSemestreOptionDao.findAll();
@@ -65,8 +62,11 @@ public class ModuleSemestreOptionService {
         return moduleSemestreOptionDao.findByCode(code);
     }
 
-    public ModuleSemestreOption findBySemestreCodeAndAnneeUnversAndMyOptionCodeAndMyModuleCode(int codeSemestre, long l, String cmyOption, String codeModule) {
-        return moduleSemestreOptionDao.findBySemestreCodeAndAnneeUnversAndMyOptionCodeAndMyModuleCode(codeSemestre, l, cmyOption,codeModule);
+    public ModuleSemestreOption findBySemestreCodeAndAnneeUniversitaireAnneeOneAndMyOptionCodeAndMyModuleCode(int codeSemestre, Long annee, String cmyOption, String codeModule) {
+        return moduleSemestreOptionDao.findBySemestreCodeAndAnneeUniversitaireAnneeOneAndMyOptionCodeAndMyModuleCode(codeSemestre, annee, cmyOption, codeModule);
     }
 
+    public List<ModuleSemestreOption> findBySemestreCodeAndAnneeUniversitaireLibelleAndMyOptionCode(int codeSemestre, String annee, String cmyOption) {
+        return moduleSemestreOptionDao.findBySemestreCodeAndAnneeUniversitaireLibelleAndMyOptionCode(codeSemestre, annee, cmyOption);
+    }
 }

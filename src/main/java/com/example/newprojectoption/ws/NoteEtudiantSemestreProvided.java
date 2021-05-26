@@ -19,10 +19,6 @@ public class NoteEtudiantSemestreProvided {
     public List<NoteEtudiantSemestre> findAll() {
         return noteEtudiantSemestreService.findAll();
     }
-    /*@GetMapping("/option/code/{code}/smsetre/code1/{code1}/annee/{annee}")
-    public void saveNoteSemestre(@PathVariable String code,@PathVariable String code1,@PathVariable String annee){
-        noteEtudiantSemestreService.saveNoteSemestre(code,code1,annee);
-    }*/
 
     @GetMapping("/Etudiant/cne/{cne}/Semestre/code/{code}")
     public NoteEtudiantSemestre findByEtudiantCneAndSemestreCode(@PathVariable String cne,@PathVariable int code) {
