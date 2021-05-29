@@ -16,6 +16,8 @@ public class ModuleSemestreOptionService {
     @Autowired
     private MyModuleService myModuleService;
     @Autowired
+    private AnneeUniversitaireService anneeUniversitaireService;
+    @Autowired
     private MyOptionService myOptionService;
     @Autowired
     private SemestreService semestreService;
@@ -27,24 +29,28 @@ public class ModuleSemestreOptionService {
     }
 
     public int  save (ModuleSemestreOption moduleSemestreOption){
+
         if(findByCode(moduleSemestreOption.getCode())!=null)
             return -1;
         int codeSemes=moduleSemestreOption.getSemestre().getCode();
         String codeType=moduleSemestreOption.getTypeModule().getCode();
         String codeOpt=moduleSemestreOption.getMyOption().getCode();
         String codeModule=moduleSemestreOption.getMyModule().getCode();
+        Long libellean=moduleSemestreOption.getAnneeUniversitaire().getAnneeOne();
 
         Semestre semestre=semestreService.findByCode(codeSemes);
         MyModule myModule=myModuleService.findByCode(codeModule);
         MyOption myOption=myOptionService.findByCode(codeOpt);
         TypeModule typeModule=typeModuleService.findByCode(codeType);
+        AnneeUniversitaire anneeUniversitaire=anneeUniversitaireService.findByAnneeOne(libellean);
 
-        if(semestre==null || typeModule==null || myModule==null || myOption==null)
+        if(semestre==null || typeModule==null || myModule==null || myOption==null )
             return -2;
         moduleSemestreOption.setSemestre(semestre);
         moduleSemestreOption.setMyModule(myModule);
         moduleSemestreOption.setMyOption(myOption);
         moduleSemestreOption.setTypeModule(typeModule);
+        moduleSemestreOption.setAnneeUniversitaire(anneeUniversitaire);
         moduleSemestreOptionDao.save(moduleSemestreOption);
             return 1;
     }
@@ -83,5 +89,9 @@ public class ModuleSemestreOptionService {
     @Transactional
     public int deleteByMyModuleCode(String code) {
         return moduleSemestreOptionDao.deleteByMyModuleCode(code);
+    }
+
+    public List<ModuleSemestreOption> findBySemestreCodeAndAnneeUniversitaireAnneeOneAndMyOptionCode(int codeSemestre, Long annee, String cmyOption) {
+        return moduleSemestreOptionDao.findBySemestreCodeAndAnneeUniversitaireAnneeOneAndMyOptionCode(codeSemestre, annee, cmyOption);
     }
 }

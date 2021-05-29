@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("ispits-project/année-universitaire")
 
-public class AnnéeUniversitaireProvided {
+public class AnneeUniversitaireProvided {
     @Autowired
     private AnneeUniversitaireService anneeUniversitaireService;
 

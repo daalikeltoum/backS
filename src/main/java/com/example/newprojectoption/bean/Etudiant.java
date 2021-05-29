@@ -1,7 +1,6 @@
 package com.example.newprojectoption.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.util.Date;
 @Entity
@@ -14,9 +13,9 @@ public class Etudiant {
     private String nom;
     private String cne;
     private String cin;
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date dateInscription;
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern="yyyy-MM-dd", timezone = "UTC")
     private Date dateNaissance;
 
 

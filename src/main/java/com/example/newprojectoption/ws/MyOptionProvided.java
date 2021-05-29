@@ -29,8 +29,8 @@ public class MyOptionProvided {
         return myOptionService.findAll();
     }
     @PostMapping("/")
-    public void save(@RequestBody MyOption myOption) {
-        myOptionService.save(myOption);
+    public int save(@RequestBody MyOption myOption) {
+        return myOptionService.save(myOption);
     }
     @GetMapping("/filiere/code/{code}")
     public List<MyOption> findByFilliereCode(@PathVariable String code) {

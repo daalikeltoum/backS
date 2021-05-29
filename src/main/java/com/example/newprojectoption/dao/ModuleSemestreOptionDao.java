@@ -14,6 +14,7 @@ public interface ModuleSemestreOptionDao extends JpaRepository<ModuleSemestreOpt
     ModuleSemestreOption findByCode(String code);
     ModuleSemestreOption findBySemestreCodeAndAnneeUniversitaireAnneeOneAndMyOptionCodeAndMyModuleCode(int codeSemestre, Long annee, String cmyOption, String codeModule);
     List<ModuleSemestreOption> findBySemestreCodeAndAnneeUniversitaireLibelleAndMyOptionCode(int codeSemestre, String annee, String cmyOption);
+    List<ModuleSemestreOption> findBySemestreCodeAndAnneeUniversitaireAnneeOneAndMyOptionCode(int codeSemestre, Long annee, String cmyOption);
 
     int deleteByCode( String code);
     int deleteByMyOptionCode(String code);
