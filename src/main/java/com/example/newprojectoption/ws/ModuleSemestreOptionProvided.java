@@ -45,4 +45,8 @@ public class ModuleSemestreOptionProvided {
     public List<ModuleSemestreOption> findBySemestreCodeAndAnneeUniversitaireAnneeOneAndMyOptionCode(@PathVariable int codeSemestre,@PathVariable  Long annee,@PathVariable  String cmyOption) {
         return moduleSemestreOptionService.findBySemestreCodeAndAnneeUniversitaireAnneeOneAndMyOptionCode(codeSemestre, annee, cmyOption);
     }
+    @DeleteMapping("/code/{code}")
+    public int deleteByCode(@PathVariable String code) {
+        return moduleSemestreOptionService.deleteByCode(code);
+    }
 }

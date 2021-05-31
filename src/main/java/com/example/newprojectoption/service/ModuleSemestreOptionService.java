@@ -59,7 +59,7 @@ public class ModuleSemestreOptionService {
             return 1;
     }
 
-    public ModuleSemestreOption findByMyOptionCodeAndMyModuleCodeAndSemestreCode(String codeOp, String codeMod, String codeSeme) {
+    public ModuleSemestreOption findByMyOptionCodeAndMyModuleCodeAndSemestreCode(String codeOp, String codeMod, int codeSeme) {
         return moduleSemestreOptionDao.findByMyOptionCodeAndMyModuleCodeAndSemestreCode(codeOp, codeMod, codeSeme);
     }
 
