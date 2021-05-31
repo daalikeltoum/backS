@@ -4,10 +4,10 @@ package com.example.newprojectoption.ws;
 import com.example.newprojectoption.bean.MyOption;
 import com.example.newprojectoption.service.MyOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("ispits-project/option")
@@ -29,8 +29,8 @@ public class MyOptionProvided {
         return myOptionService.findAll();
     }
     @PostMapping("/")
-    public void save(@RequestBody MyOption myOption) {
-        myOptionService.save(myOption);
+    public int save(@RequestBody MyOption myOption) {
+        return myOptionService.save(myOption);
     }
     @GetMapping("/filiere/code/{code}")
     public List<MyOption> findByFilliereCode(@PathVariable String code) {

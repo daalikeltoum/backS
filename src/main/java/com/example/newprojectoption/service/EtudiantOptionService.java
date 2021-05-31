@@ -36,6 +36,7 @@ public class EtudiantOptionService {
     @Transactional
     public int deleteByEtudiantCne(String cne) {
         int res=etudiantOptionDao.deleteByEtudiantCne(cne);
+        res+=inscriptionEtudiantModuleService.deleteByEtudiantCne(cne);
         return res+etudiantService.deleteByCne(cne);
     }
 
@@ -98,7 +99,7 @@ public class EtudiantOptionService {
 
                 //KHESNA NHETO LIH LMMODULE DYAL HAD L3AM
                 //Long anneeModule=noteEtudiantModule.getModuleSemestreOption().getAnneeUnvers();
-                Long anneeModule=noteEtudiantModule.getModuleSemestreOption().getAnnéeUniversitaire().getAnneeOne();
+                Long anneeModule=noteEtudiantModule.getModuleSemestreOption().getAnneeUniversitaire().getAnneeOne();
                 int codeSemestre=noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode();
                 String codeModule=noteEtudiantModule.getModuleSemestreOption().getMyModule().getCode();
                 ModuleSemestreOption nvModule=moduleSemestreOptionService.findBySemestreCodeAndAnneeUniversitaireAnneeOneAndMyOptionCodeAndMyModuleCode(codeSemestre,anneeModule+1,cmyOption,codeModule);
@@ -106,7 +107,7 @@ public class EtudiantOptionService {
                 inscriptionEtudiantModule.setCode(etudiant.getCne() + nvModule.getCode());
                 inscriptionEtudiantModuleService.save(inscriptionEtudiantModule);
                 if (findByEtudiantCneAndMyOptionCodeAndAnnéeUniversitaireLibelleAndSemestreCode(etudiant.getCne(), myOption.getCode(), anneeUniversitaire.getLibelle(),codeSemestre) == null) {
-                    saveEtudiantOption(cetudiant, cmyOption, nvModule.getAnnéeUniversitaire().getLibelle(),codeSemestre);
+                    saveEtudiantOption(cetudiant, cmyOption, nvModule.getAnneeUniversitaire().getLibelle(),codeSemestre);
                 }
 
             }
@@ -194,7 +195,7 @@ public class EtudiantOptionService {
             saveEtudiantOption(etudiant.getCne(), myOption.getCode(), libelleannee, 2);
             //affecter modules
             saveEtudiantModule(etudiant.getCne(), 1, 2, libelleannee, myOption.getCode());
-            return 1;
+                return 1;
         }else
             return -1;
 

@@ -7,13 +7,13 @@ public class ModuleSemestreOption {
 	private Long id;
 	private String code;
 	@ManyToOne
-    private Semestre semestre;
+	private Semestre semestre;
 	@ManyToOne
-    private AnneeUniversitaire anneeUniversitaire;
+	private AnneeUniversitaire anneeUniversitaire;
 	@ManyToOne
-    private MyModule myModule;
+	private MyModule myModule;
 	@ManyToOne
-    private MyOption myOption;
+	private MyOption myOption;
 	@ManyToOne
 	private  TypeModule typeModule;
 
@@ -65,11 +65,11 @@ public class ModuleSemestreOption {
 		this.typeModule = typeModule;
 	}
 
-	public AnneeUniversitaire getAnnéeUniversitaire() {
+	public AnneeUniversitaire getAnneeUniversitaire() {
 		return anneeUniversitaire;
 	}
 
-	public void setAnnéeUniversitaire(AnneeUniversitaire anneeUniversitaire) {
+	public void setAnneeUniversitaire(AnneeUniversitaire anneeUniversitaire) {
 		this.anneeUniversitaire = anneeUniversitaire;
 	}
 }

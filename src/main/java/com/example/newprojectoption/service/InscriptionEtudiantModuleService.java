@@ -25,4 +25,8 @@ public class InscriptionEtudiantModuleService {
     public List<InscriptionEtudiantModule> findByModuleSemestreOptionCode(String code) {
         return inscriptionEtudiantModuleDao.findByModuleSemestreOptionCode(code);
     }
+
+    public int deleteByEtudiantCne(String cne) {
+        return inscriptionEtudiantModuleDao.deleteByEtudiantCne(cne);
+    }
 }

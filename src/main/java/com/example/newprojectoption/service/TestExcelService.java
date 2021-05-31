@@ -1,6 +1,5 @@
 package com.example.newprojectoption.service;
 
-import com.example.newprojectoption.bean.Semestre;
 import com.example.newprojectoption.bean.TestExcel;
 import com.example.newprojectoption.dao.TestExcelDao;
 import com.example.newprojectoption.helper.ExcelHelper;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TestExcelService {

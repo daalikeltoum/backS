@@ -1,15 +1,12 @@
 package com.example.newprojectoption.service;
 
 import com.example.newprojectoption.bean.Etudiant;
-import com.example.newprojectoption.bean.EtudiantOption;
-import com.example.newprojectoption.bean.MyOption;
 import com.example.newprojectoption.dao.EtudiantDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EtudiantService {
@@ -35,7 +32,6 @@ public class EtudiantService {
     }
 
     public int save(Etudiant etudiant){
-
         if(findByCne(etudiant.getCne())!=null){
             return -1;
         }
@@ -55,6 +51,7 @@ public class EtudiantService {
         etudiantdata.setNom(etudiant.getNom());
         etudiantdata.setPrenom(etudiant.getPrenom());
         etudiantdata.setCin(etudiant.getCin());
+        etudiantdata.setDateNaissance(etudiant.getDateNaissance());
         etudiantDao.save(etudiantdata);
         return 1;
     }

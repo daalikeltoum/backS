@@ -14,9 +14,9 @@ public class Etudiant {
     private String nom;
     private String cne;
     private String cin;
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern="yyyy-MM-dd", timezone = "UTC")
     private Date dateInscription;
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern="yyyy-MM-dd", timezone = "UTC")
     private Date dateNaissance;
 
 

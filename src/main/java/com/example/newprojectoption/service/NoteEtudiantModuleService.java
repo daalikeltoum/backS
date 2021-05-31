@@ -1,8 +1,10 @@
 package com.example.newprojectoption.service;
 
-import com.example.newprojectoption.bean.*;
+import com.example.newprojectoption.bean.EtatValidation;
+import com.example.newprojectoption.bean.InscriptionEtudiantModule;
+import com.example.newprojectoption.bean.NoteEtudiantModule;
+import com.example.newprojectoption.bean.NoteEtudiantSemestre;
 import com.example.newprojectoption.dao.NoteEtudiantModuleDao;
-import com.example.newprojectoption.dao.NoteEtudiantSemestreDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

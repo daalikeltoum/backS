@@ -2,10 +2,9 @@ package com.example.newprojectoption.ws;
 
 
 import com.example.newprojectoption.bean.ModuleSemestreOption;
-import com.example.newprojectoption.bean.MyModule;
 import com.example.newprojectoption.service.ModuleSemestreOptionService;
-import com.example.newprojectoption.service.MyModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,5 +33,15 @@ public class ModuleSemestreOptionProvided {
     @GetMapping("/semestre/code/{codeSemestre}/anneeuniv/libelle/{annee}/option/code/{codeOp}")
     public List<ModuleSemestreOption> findBySemestreCodeAndAnneeUniversitaireLibelleAndMyOptionCode(@PathVariable int codeSemestre,@PathVariable String annee,@PathVariable String codeOp) {
         return moduleSemestreOptionService.findBySemestreCodeAndAnneeUniversitaireLibelleAndMyOptionCode(codeSemestre, annee, codeOp);
+    }
+
+    @GetMapping("/semestre/code/{codeSemestre}/anneeuniv/anneeOne/{annee}/option/code/{cmyOption}")
+    public List<ModuleSemestreOption> findBySemestreCodeAndAnneeUniversitaireAnneeOneAndMyOptionCode(@PathVariable int codeSemestre,@PathVariable  Long annee,@PathVariable  String cmyOption) {
+        return moduleSemestreOptionService.findBySemestreCodeAndAnneeUniversitaireAnneeOneAndMyOptionCode(codeSemestre, annee, cmyOption);
+    }
+
+    @DeleteMapping("/code/{code}")
+    public int deleteByCode(@PathVariable String code) {
+        return moduleSemestreOptionService.deleteByCode(code);
     }
 }

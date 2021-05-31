@@ -1,6 +1,7 @@
 package com.example.newprojectoption.ws;
 
-import com.example.newprojectoption.bean.*;
+import com.example.newprojectoption.bean.AnneeUniversitaire;
+import com.example.newprojectoption.bean.EtudiantOption;
 import com.example.newprojectoption.service.EtudiantOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +31,8 @@ public class EtudiantOptionProvided {
         return etudiantOptionService.deleteByMyOptionCode(code);
     }
 
-    @GetMapping("/Etudiant/cne/{cne}/option/codeoption/{codeoption}/annee/{annee}/semestre/semstreCode/{semstreCode}")
-    public EtudiantOption findByEtudiantCneAndMyOptionCodeAndAnneeAndSemestreCode(String cne, String codeoption, String annee, int semstreCode) {
+    @GetMapping("/Etudiant/cne/{cne}/option/codeoption/{codeoption}/anneUniversitaire/annee/{annee}/semestre/semstreCode/{semstreCode}")
+    public EtudiantOption findByEtudiantCneAndMyOptionCodeAndAnneeAndSemestreCode(@PathVariable String cne,@PathVariable  String codeoption,@PathVariable  String annee,@PathVariable  int semstreCode) {
         return etudiantOptionService.findByEtudiantCneAndMyOptionCodeAndAnnéeUniversitaireLibelleAndSemestreCode(cne, codeoption, annee, semstreCode);
     }
     @PostMapping("/")
