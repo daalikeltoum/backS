@@ -200,7 +200,7 @@ public class EtudiantOptionService {
             saveEtudiantOption(etudiant.getCne(), myOption.getCode(), libelleannee, 2);
             //affecter modules
             saveEtudiantModule(etudiant.getCne(), 1, 2, libelleannee, myOption.getCode());
-            return 1;
+                return 1;
         }else
             return -1;
 

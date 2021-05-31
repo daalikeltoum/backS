@@ -35,7 +35,6 @@ public class EtudiantService {
     }
 
     public int save(Etudiant etudiant){
-
         if(findByCne(etudiant.getCne())!=null){
             return -1;
         }
@@ -55,6 +54,7 @@ public class EtudiantService {
         etudiantdata.setNom(etudiant.getNom());
         etudiantdata.setPrenom(etudiant.getPrenom());
         etudiantdata.setCin(etudiant.getCin());
+        etudiantdata.setDateNaissance(etudiant.getDateNaissance());
         etudiantDao.save(etudiantdata);
         return 1;
     }
