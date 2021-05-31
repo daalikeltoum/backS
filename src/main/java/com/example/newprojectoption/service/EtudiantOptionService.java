@@ -44,7 +44,13 @@ public class EtudiantOptionService {
         return etudiantOptionDao.deleteByMyOptionCode(code);
     }
 
+    public List<EtudiantOption> findByMyOptionCodeAndAnneeUniversitaireLibelleAndSemestreCode(String codeOpt, String libelle, int codeSem) {
+        return etudiantOptionDao.findByMyOptionCodeAndAnneeUniversitaireLibelleAndSemestreCode(codeOpt, libelle, codeSem);
+    }
 
+    public EtudiantOption findByEtudiantCneAndMyOptionCodeAndAnneeUniversitaireLibelleAndSemestreCode(String cne, String codeoption, String anne, int semstreCode) {
+        return etudiantOptionDao.findByEtudiantCneAndMyOptionCodeAndAnneeUniversitaireLibelleAndSemestreCode(cne, codeoption, anne, semstreCode);
+    }
 
     //save de etudiantOption
     public void saveEtudiantOption(String cetudiant, String cmyOption, String annee, int csemestre) {
@@ -98,7 +104,7 @@ public class EtudiantOptionService {
 
                 //KHESNA NHETO LIH LMMODULE DYAL HAD L3AM
                 //Long anneeModule=noteEtudiantModule.getModuleSemestreOption().getAnneeUnvers();
-                Long anneeModule=noteEtudiantModule.getModuleSemestreOption().getAnnéeUniversitaire().getAnneeOne();
+                Long anneeModule=noteEtudiantModule.getModuleSemestreOption().getAnneeUniversitaire().getAnneeOne();
                 int codeSemestre=noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode();
                 String codeModule=noteEtudiantModule.getModuleSemestreOption().getMyModule().getCode();
                 ModuleSemestreOption nvModule=moduleSemestreOptionService.findBySemestreCodeAndAnneeUniversitaireAnneeOneAndMyOptionCodeAndMyModuleCode(codeSemestre,anneeModule+1,cmyOption,codeModule);
@@ -106,7 +112,7 @@ public class EtudiantOptionService {
                 inscriptionEtudiantModule.setCode(etudiant.getCne() + nvModule.getCode());
                 inscriptionEtudiantModuleService.save(inscriptionEtudiantModule);
                 if (findByEtudiantCneAndMyOptionCodeAndAnnéeUniversitaireLibelleAndSemestreCode(etudiant.getCne(), myOption.getCode(), anneeUniversitaire.getLibelle(),codeSemestre) == null) {
-                    saveEtudiantOption(cetudiant, cmyOption, nvModule.getAnnéeUniversitaire().getLibelle(),codeSemestre);
+                    saveEtudiantOption(cetudiant, cmyOption, nvModule.getAnneeUniversitaire().getLibelle(),codeSemestre);
                 }
 
             }

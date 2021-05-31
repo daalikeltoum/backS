@@ -34,7 +34,7 @@ public class NoteEtudiantModuleProvided {
     public void update(@RequestBody NoteEtudiantModule noteEtudiantModule) {
         noteEtudiantModuleService.update(noteEtudiantModule);
     }
-    @GetMapping("moduleSemestreOption/semestre/codeSemestre/{codeSemestre}/moduleSemestreOption/annee/{annee}/Etudiant/cne/{cne}")
+    @GetMapping("moduleSemestreOption/semestre/codeSemestre/{codeSemestre}/moduleSemestreOption/annee-universitaire/{annee}/Etudiant/cne/{cne}")
     public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(@PathVariable int codeSemestre,@PathVariable Long annee,@PathVariable String cne) {
         return noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUniversitaireAnneeOneAndEtudiantCne(codeSemestre, annee, cne);
     }
@@ -46,5 +46,25 @@ public class NoteEtudiantModuleProvided {
     @GetMapping("moduleSemestreOption/codeModule/{codeModule}/etatValidation/codeEtat/{codeEtat}")
     public List<NoteEtudiantModule> findByModuleSemestreOptionCodeAndEtatValidationCode(@PathVariable String codeModule,@PathVariable String codeEtat) {
         return noteEtudiantModuleService.findByModuleSemestreOptionCodeAndEtatValidationCode(codeModule, codeEtat);
+    }
+    @GetMapping("Etudiant/cne/{cne}")
+    public List<NoteEtudiantModule> findByEtudiantCne(@PathVariable String cne) {
+        return noteEtudiantModuleService.findByEtudiantCne(cne);
+    }
+    @GetMapping("moduleSemestreOption/module/code/{code}/Etudiant/cne/{cne}")
+    public List<NoteEtudiantModule> findByModuleSemestreOptionMyModuleCodeAndEtudiantCne(@PathVariable String code,@PathVariable String cne) {
+        return noteEtudiantModuleService.findByModuleSemestreOptionMyModuleCodeAndEtudiantCne(code, cne);
+    }
+    @GetMapping("moduleSemestreOption/semestre/code/{codeSemestre}/moduleSemestreOption/annee-universitaire/anneeOne/{anneeOne}/Etudiant/cne/{cne}")
+    public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUniversitaireAnneeOneAndEtudiantCne(int codeSemestre, Long anneeOne, String cne) {
+        return noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUniversitaireAnneeOneAndEtudiantCne(codeSemestre, anneeOne, cne);
+    }
+    @GetMapping("Etudiant/cne/{cne}/moduleSemestreOption/annee-universitaire/libelle/{libelle}")
+    public List<NoteEtudiantModule> findByEtudiantCneAndModuleSemestreOptionAnneeUniversitaireLibelle(String cne, String libelle) {
+        return noteEtudiantModuleService.findByEtudiantCneAndModuleSemestreOptionAnneeUniversitaireLibelle(cne, libelle);
+    }
+    @GetMapping("Etudiant/cne/{cne}/moduleSemestreOption/semestre/code/{code}")
+    public List<NoteEtudiantModule> findByEtudiantCneAndModuleSemestreOptionSemestreCode(@PathVariable String cne,@PathVariable int code) {
+        return noteEtudiantModuleService.findByEtudiantCneAndModuleSemestreOptionSemestreCode(cne, code);
     }
 }

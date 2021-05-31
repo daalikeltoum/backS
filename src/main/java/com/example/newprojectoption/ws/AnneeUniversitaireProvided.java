@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("ispits-project/année-universitaire")
+@RequestMapping("ispits-project/annee-universitaire")
 
-public class AnnéeUniversitaireProvided {
+public class AnneeUniversitaireProvided {
     @Autowired
     private AnneeUniversitaireService anneeUniversitaireService;
 

@@ -64,5 +64,10 @@ public class EtudiantOptionProvided {
     public int newEtudiant(@RequestBody EtudiantOption etudiantOption) {
         return etudiantOptionService.newEtudiant(etudiantOption);
     }
+   // findByMyOptionCodeAndAnneeUniversitaireLibelleAndSemestreCode
 
+    @GetMapping("Etudiant/cne/{cne}/option/codeOpt/{codeOpt}/annee-universitaire/libelle/{libelle}/semestre/codeSem/{codeSem}")
+    public EtudiantOption findByEtudiantCneAndMyOptionCodeAndAnneeUniversitaireLibelleAndSemestreCode(@PathVariable String cne,@PathVariable String codeOpt,@PathVariable String libelle,@PathVariable int codeSem) {
+        return etudiantOptionService.findByEtudiantCneAndMyOptionCodeAndAnneeUniversitaireLibelleAndSemestreCode(cne, codeOpt, libelle, codeSem);
+    }
 }

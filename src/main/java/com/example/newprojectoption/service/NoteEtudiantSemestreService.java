@@ -1,9 +1,9 @@
 package com.example.newprojectoption.service;
 
 import com.example.newprojectoption.bean.EtudiantOption;
+import com.example.newprojectoption.bean.ModuleSemestreOption;
 import com.example.newprojectoption.bean.NoteEtudiantModule;
 import com.example.newprojectoption.bean.NoteEtudiantSemestre;
-import com.example.newprojectoption.dao.NoteEtudiantModuleDao;
 import com.example.newprojectoption.dao.NoteEtudiantSemestreDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,25 +63,52 @@ public class NoteEtudiantSemestreService {
     private NoteEtudiantModuleService noteEtudiantModuleService;
     @Autowired
     private EtatValidationService etatValidationService;
+    @Autowired
+    private ModuleSemestreOptionService moduleSemestreOptionService;
 
     public NoteEtudiantSemestre findByCode(String code) {
         return noteEtudiantSemestreDao.findByCode(code);
     }
 
-    public List<NoteEtudiantSemestre> notesSemestre(int codeSemestre,String codeOption,Long annee){
+    public List<NoteEtudiantSemestre> notesSemestre(int codeSemestre,String codeOption,String libelle){
 
         List<NoteEtudiantSemestre> notesSemestre=new ArrayList<NoteEtudiantSemestre>();
-        List<EtudiantOption> etudiants=etudiantOptionService.SearchAncienStudents(codeOption,annee,codeSemestre);
+        List<EtudiantOption> etudiants=etudiantOptionService.findByMyOptionCodeAndAnneeUniversitaireLibelleAndSemestreCode(codeOption,libelle,codeSemestre);
 
         for (EtudiantOption etudiantOption : etudiants) {
-            BigDecimal som=new BigDecimal(0);
-            NoteEtudiantSemestre noteEtudiantSemestre=noteEtudiantSemestreDao.findByCode(etudiantOption.getEtudiant().getCne()+codeSemestre);
-           List<NoteEtudiantModule> notesModules= noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUniversitaireAnneeOneAndEtudiantCne(codeSemestre,annee,etudiantOption.getEtudiant().getCne());
-            for (NoteEtudiantModule notetudiantModule:notesModules){
-               som=som.add(notetudiantModule.getNoteGlobale());
+            BigDecimal som = new BigDecimal(0);
+            int i = 0;
+            NoteEtudiantSemestre noteEtudiantSemestre = noteEtudiantSemestreDao.findByCode(etudiantOption.getEtudiant().getCne() + codeSemestre);
+
+            List<ModuleSemestreOption> myModules = moduleSemestreOptionService.findBySemestreCodeAndMyOptionCode(codeSemestre, codeOption);
+            for (ModuleSemestreOption moduleSemestreOption : myModules) {
+                List<NoteEtudiantModule> notesModules = noteEtudiantModuleService.findByModuleSemestreOptionMyModuleCodeAndEtudiantCne(moduleSemestreOption.getMyModule().getCode(),etudiantOption.getEtudiant().getCne());
+                NoteEtudiantModule notetudiantModule;
+                if (notesModules.size() == 1) {
+                    notetudiantModule = notesModules.get(0);
+
+                } else {
+                    if (notesModules.get(0).getModuleSemestreOption().getAnneeUniversitaire().getAnneeOne() > notesModules.get(1).getModuleSemestreOption().getAnneeUniversitaire().getAnneeOne())
+                        notetudiantModule = notesModules.get(0);
+                    else
+                        notetudiantModule = notesModules.get(1);
+                }
+                if (notetudiantModule.getModuleSemestreOption().getTypeModule().getCode().equals("majeur") && notetudiantModule.getNoteGlobale().compareTo(new BigDecimal(8)) == -1) {
+                    i = i + 1;
+                }
+                else if (notetudiantModule.getModuleSemestreOption().getTypeModule().getCode().equals("complementaire") && notetudiantModule.getNoteGlobale().compareTo(new BigDecimal(6)) == -1) {
+                    i = i + 1;
+                }
+                som = som.add(notetudiantModule.getNoteGlobale());
             }
-            BigDecimal length=new BigDecimal(notesModules.size());
-            noteEtudiantSemestre.setNoteSemestre(som.divide(length));
+            BigDecimal length=new BigDecimal(myModules.size());
+            BigDecimal note=som.divide(length);
+            if(note.compareTo(new BigDecimal(10))==-1 || i!=0){
+                noteEtudiantSemestre.setEtatValidation(etatValidationService.findByCode("NV"));
+            }else{
+                noteEtudiantSemestre.setEtatValidation(etatValidationService.findByCode("V"));
+            }
+            noteEtudiantSemestre.setNoteSemestre(note);
             noteEtudiantSemestreDao.save(noteEtudiantSemestre);
             notesSemestre.add(noteEtudiantSemestre);
         }

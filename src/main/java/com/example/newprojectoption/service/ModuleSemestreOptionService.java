@@ -22,6 +22,10 @@ public class ModuleSemestreOptionService {
     @Autowired
     private TypeModuleService typeModuleService;
 
+    public List<ModuleSemestreOption> findBySemestreCodeAndMyOptionCode(int codeSem, String codeOpt) {
+        return moduleSemestreOptionDao.findBySemestreCodeAndMyOptionCode(codeSem, codeOpt);
+    }
+
     public List<ModuleSemestreOption> findByMyOptionCode(String code) {
         return moduleSemestreOptionDao.findByMyOptionCode(code);
     }

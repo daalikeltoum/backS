@@ -65,11 +65,11 @@ public class ModuleSemestreOption {
 		this.typeModule = typeModule;
 	}
 
-	public AnneeUniversitaire getAnnéeUniversitaire() {
+	public AnneeUniversitaire getAnneeUniversitaire() {
 		return anneeUniversitaire;
 	}
 
-	public void setAnnéeUniversitaire(AnneeUniversitaire anneeUniversitaire) {
+	public void setAnneeUniversitaire(AnneeUniversitaire anneeUniversitaire) {
 		this.anneeUniversitaire = anneeUniversitaire;
 	}
 }

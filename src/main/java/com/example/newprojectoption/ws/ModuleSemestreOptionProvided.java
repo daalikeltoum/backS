@@ -16,7 +16,12 @@ import java.util.List;
 public class ModuleSemestreOptionProvided {
     @Autowired
     private ModuleSemestreOptionService moduleSemestreOptionService;
+    @GetMapping("semestre/codeSem/{codeSem}/option/codeOpt/{codeOpt}")
+    public List<ModuleSemestreOption> findBySemestreCodeAndMyOptionCode(int codeSem, String codeOpt) {
+        return moduleSemestreOptionService.findBySemestreCodeAndMyOptionCode(codeSem, codeOpt);
+    }
 
+    //findBySemestreCodeAndMyOptionCode
     @GetMapping("/code/{code}")
     public List<ModuleSemestreOption> findByMyOptionCode(@PathVariable String code) {
         return moduleSemestreOptionService.findByMyOptionCode(code);
@@ -31,7 +36,7 @@ public class ModuleSemestreOptionProvided {
         return moduleSemestreOptionService.findAll();
     }
 
-    @GetMapping("/semestre/code/{codeSemestre}/anneeuniv/libelle/{annee}/option/code/{codeOp}")
+    @GetMapping("/semestre/code/{codeSemestre}/annee-universitaire/libelle/{annee}/option/code/{codeOp}")
     public List<ModuleSemestreOption> findBySemestreCodeAndAnneeUniversitaireLibelleAndMyOptionCode(@PathVariable int codeSemestre,@PathVariable String annee,@PathVariable String codeOp) {
         return moduleSemestreOptionService.findBySemestreCodeAndAnneeUniversitaireLibelleAndMyOptionCode(codeSemestre, annee, codeOp);
     }
