@@ -13,4 +13,5 @@ public interface EtudiantOptionDao extends JpaRepository<EtudiantOption,Long> {
     List<EtudiantOption> findByMyOptionCodeAndAnneeUniversitaireAnneeOneAndSemestreCode(String code,Long annee,int codeSems);
     int deleteByEtudiantCne(String cne);
     int deleteByMyOptionCode(String code);
+    List<EtudiantOption> findByMyOptionCodeAndAnneeUniversitaireLibelleAndSemestreCode(String codeOpt,String libelle,int codeSem);
 }

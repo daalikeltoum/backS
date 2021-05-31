@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("ispits-project/année-universitaire")
+@RequestMapping("ispits-project/annee-universitaire")
 
 public class AnneeUniversitaireProvided {
     @Autowired

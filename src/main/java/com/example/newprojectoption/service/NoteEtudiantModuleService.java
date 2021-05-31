@@ -36,6 +36,17 @@ public class NoteEtudiantModuleService {
         return noteEtudiantModuleDao.findByEtudiantCne(cne);
     }
 
+    public List<NoteEtudiantModule> findByEtudiantCneAndModuleSemestreOptionAnneeUniversitaireLibelle(String cne, String libelle) {
+        return noteEtudiantModuleDao.findByEtudiantCneAndModuleSemestreOptionAnneeUniversitaireLibelle(cne, libelle);
+    }
+
+    public List<NoteEtudiantModule> findByModuleSemestreOptionMyModuleCodeAndEtudiantCne(String code, String cne) {
+        return noteEtudiantModuleDao.findByModuleSemestreOptionMyModuleCodeAndEtudiantCne(code, cne);
+    }
+    public List<NoteEtudiantModule> findByEtudiantCneAndModuleSemestreOptionSemestreCode(String cne, int code) {
+        return noteEtudiantModuleDao.findByEtudiantCneAndModuleSemestreOptionSemestreCode(cne, code);
+    }
+
     public List<NoteEtudiantModule> findNotes(String codeModule) {
         List<NoteEtudiantModule> res=noteEtudiantModuleDao.findByModuleSemestreOptionCode(codeModule);
         if(res.size()!=0){

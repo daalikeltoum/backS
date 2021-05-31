@@ -45,7 +45,13 @@ public class EtudiantOptionService {
         return etudiantOptionDao.deleteByMyOptionCode(code);
     }
 
+    public List<EtudiantOption> findByMyOptionCodeAndAnneeUniversitaireLibelleAndSemestreCode(String codeOpt, String libelle, int codeSem) {
+        return etudiantOptionDao.findByMyOptionCodeAndAnneeUniversitaireLibelleAndSemestreCode(codeOpt, libelle, codeSem);
+    }
 
+    public EtudiantOption findByEtudiantCneAndMyOptionCodeAndAnneeUniversitaireLibelleAndSemestreCode(String cne, String codeoption, String anne, int semstreCode) {
+        return etudiantOptionDao.findByEtudiantCneAndMyOptionCodeAndAnneeUniversitaireLibelleAndSemestreCode(cne, codeoption, anne, semstreCode);
+    }
 
     //save de etudiantOption
     public void saveEtudiantOption(String cetudiant, String cmyOption, String annee, int csemestre) {

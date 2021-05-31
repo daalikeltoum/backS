@@ -37,8 +37,8 @@ public class NoteEtudiantSemestreProvided {
         return noteEtudiantSemestreService.findByCode(code);
     }
 
-    @GetMapping("/semestre/codeSemestre/{codeSemestre}/option/codeOption/{codeOption}/annee/{annee}")
-    public List<NoteEtudiantSemestre> notesSemestre(@PathVariable int codeSemestre,@PathVariable String codeOption,@PathVariable Long annee) {
-        return noteEtudiantSemestreService.notesSemestre(codeSemestre, codeOption, annee);
+    @GetMapping("/semestre/codeSemestre/{codeSemestre}/option/codeOption/{codeOption}/annee-universitaire/libelle/{libelle}")
+    public List<NoteEtudiantSemestre> notesSemestre(@PathVariable int codeSemestre,@PathVariable String codeOption,@PathVariable String libelle) {
+        return noteEtudiantSemestreService.notesSemestre(codeSemestre, codeOption, libelle);
     }
 }
