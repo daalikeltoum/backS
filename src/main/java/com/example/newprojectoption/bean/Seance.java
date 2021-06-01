@@ -18,7 +18,8 @@ public class Seance {
 	@JsonFormat(pattern="HH:mm", timezone = "UTC")
 	private Date heureFin;
 	@JsonFormat(pattern="yyyy-MM-dd", timezone = "UTC")
-	private Date date;
+	private Date dateSeance;
+	private  String libelle;
 
 
 	public Long getId() {
@@ -53,11 +54,20 @@ public class Seance {
 		this.heureFin = heureFin;
 	}
 
-	public Date getDate() {
-		return date;
+
+	public Date getDateSeance() {
+		return dateSeance;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDateSeance(Date dateSeance) {
+		this.dateSeance = dateSeance;
+	}
+
+	public String getLibelle() {
+		return libelle;
+	}
+
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
 	}
 }

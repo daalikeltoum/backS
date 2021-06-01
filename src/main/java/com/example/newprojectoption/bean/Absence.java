@@ -10,6 +10,8 @@ public class Absence {
 	private Long id;
 	@ManyToOne
 	private Etudiant etudiant;
+	@ManyToOne
+	private Seance seance;
 	//private  justification;
 	private boolean etatJustification;
 	private boolean etatAbsence;
@@ -44,5 +46,13 @@ public class Absence {
 
 	public void setEtatAbsence(boolean etatAbsence) {
 		this.etatAbsence = etatAbsence;
+	}
+
+	public Seance getSeance() {
+		return seance;
+	}
+
+	public void setSeance(Seance seance) {
+		this.seance = seance;
 	}
 }
