@@ -12,6 +12,7 @@ import java.util.List;
 public class MyModuleService {
 
     @Autowired
+
     private MyModuleDao myModuleDao;
 
     @Autowired
