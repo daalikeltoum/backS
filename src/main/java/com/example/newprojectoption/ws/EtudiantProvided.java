@@ -1,12 +1,12 @@
 package com.example.newprojectoption.ws;
 
 import com.example.newprojectoption.bean.Etudiant;
-import com.example.newprojectoption.bean.EtudiantOption;
 import com.example.newprojectoption.service.EtudiantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("ispits-project/Etudiant")

@@ -1,6 +1,7 @@
 package com.example.newprojectoption.ws;
 
-import com.example.newprojectoption.bean.*;
+import com.example.newprojectoption.bean.AnneeUniversitaire;
+import com.example.newprojectoption.bean.EtudiantOption;
 import com.example.newprojectoption.service.EtudiantOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

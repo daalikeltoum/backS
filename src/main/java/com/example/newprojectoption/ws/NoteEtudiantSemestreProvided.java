@@ -3,7 +3,6 @@ package com.example.newprojectoption.ws;
 import com.example.newprojectoption.bean.NoteEtudiantSemestre;
 import com.example.newprojectoption.service.NoteEtudiantSemestreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

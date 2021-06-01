@@ -7,13 +7,13 @@ public class ModuleSemestreOption {
 	private Long id;
 	private String code;
 	@ManyToOne
-    private Semestre semestre;
+	private Semestre semestre;
 	@ManyToOne
-    private AnneeUniversitaire anneeUniversitaire;
+	private AnneeUniversitaire anneeUniversitaire;
 	@ManyToOne
-    private MyModule myModule;
+	private MyModule myModule;
 	@ManyToOne
-    private MyOption myOption;
+	private MyOption myOption;
 	@ManyToOne
 	private  TypeModule typeModule;
 

@@ -36,6 +36,7 @@ public class EtudiantOptionService {
     @Transactional
     public int deleteByEtudiantCne(String cne) {
         int res=etudiantOptionDao.deleteByEtudiantCne(cne);
+        res+=inscriptionEtudiantModuleService.deleteByEtudiantCne(cne);
         return res+etudiantService.deleteByCne(cne);
     }
 

@@ -4,8 +4,6 @@ import com.example.newprojectoption.bean.MyModule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface MyModuleDao extends JpaRepository<MyModule,Long> {
     MyModule findByCode(String code);

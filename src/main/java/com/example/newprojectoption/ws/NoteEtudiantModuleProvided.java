@@ -1,8 +1,5 @@
 package com.example.newprojectoption.ws;
 
-import com.example.newprojectoption.bean.Etudiant;
-import com.example.newprojectoption.bean.ModuleSemestreOption;
-import com.example.newprojectoption.bean.MyModule;
 import com.example.newprojectoption.bean.NoteEtudiantModule;
 import com.example.newprojectoption.service.NoteEtudiantModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
