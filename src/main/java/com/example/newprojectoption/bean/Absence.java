@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 @Entity
 public class Absence {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
