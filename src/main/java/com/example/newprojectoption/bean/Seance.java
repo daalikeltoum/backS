@@ -13,10 +13,8 @@ public class Seance {
 	private Long id;
 	@ManyToOne
 	private ModuleSemestreOption moduleSemestreOption;
-	@JsonFormat(pattern="HH:mm", timezone = "UTC")
-	private Date heureDebut;
-	@JsonFormat(pattern="HH:mm", timezone = "UTC")
-	private Date heureFin;
+	private String heureDebut;
+	private String heureFin;
 	@JsonFormat(pattern="yyyy-MM-dd", timezone = "UTC")
 	private Date dateSeance;
 	private  String libelle;
@@ -38,19 +36,19 @@ public class Seance {
 		this.moduleSemestreOption = moduleSemestreOption;
 	}
 
-	public Date getHeureDebut() {
+	public String getHeureDebut() {
 		return heureDebut;
 	}
 
-	public void setHeureDebut(Date heureDebut) {
+	public void setHeureDebut(String heureDebut) {
 		this.heureDebut = heureDebut;
 	}
 
-	public Date getHeureFin() {
+	public String getHeureFin() {
 		return heureFin;
 	}
 
-	public void setHeureFin(Date heureFin) {
+	public void setHeureFin(String heureFin) {
 		this.heureFin = heureFin;
 	}
 

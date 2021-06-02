@@ -4,6 +4,7 @@ import com.example.newprojectoption.bean.AnneeUniversitaire;
 import com.example.newprojectoption.bean.ModuleSemestreOption;
 import com.example.newprojectoption.bean.Seance;
 import com.example.newprojectoption.dao.AnneeUniversitaireDao;
+
 import com.example.newprojectoption.dao.SeanceDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
