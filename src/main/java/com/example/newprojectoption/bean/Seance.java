@@ -7,7 +7,9 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Seance {
+public class
+
+Seance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
