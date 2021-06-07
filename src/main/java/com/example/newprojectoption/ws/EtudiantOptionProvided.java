@@ -61,7 +61,6 @@ public class EtudiantOptionProvided {
     }
 
     @PostMapping("newEtudiant/")
-
     public int newEtudiant(@RequestBody EtudiantOption etudiantOption) {
         return etudiantOptionService.newEtudiant(etudiantOption);
     }

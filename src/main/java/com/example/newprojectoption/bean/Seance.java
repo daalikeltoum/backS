@@ -7,18 +7,16 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class
-
-Seance {
+public class Seance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@ManyToOne
 	private ModuleSemestreOption moduleSemestreOption;
 	@JsonFormat(pattern="HH:mm", timezone = "UTC")
-	private Date heureDebut;
+	private String  heureDebut;
 	@JsonFormat(pattern="HH:mm", timezone = "UTC")
-	private Date heureFin;
+	private String heureFin;
 	@JsonFormat(pattern="yyyy-MM-dd", timezone = "UTC")
 	private Date dateSeance;
 	private  String libelle;
@@ -40,22 +38,6 @@ Seance {
 		this.moduleSemestreOption = moduleSemestreOption;
 	}
 
-	public Date getHeureDebut() {
-		return heureDebut;
-	}
-
-	public void setHeureDebut(Date heureDebut) {
-		this.heureDebut = heureDebut;
-	}
-
-	public Date getHeureFin() {
-		return heureFin;
-	}
-
-	public void setHeureFin(Date heureFin) {
-		this.heureFin = heureFin;
-	}
-
 
 	public Date getDateSeance() {
 		return dateSeance;
@@ -71,5 +53,21 @@ Seance {
 
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
+	}
+
+	public String getHeureDebut() {
+		return heureDebut;
+	}
+
+	public void setHeureDebut(String heureDebut) {
+		this.heureDebut = heureDebut;
+	}
+
+	public String getHeureFin() {
+		return heureFin;
+	}
+
+	public void setHeureFin(String heureFin) {
+		this.heureFin = heureFin;
 	}
 }

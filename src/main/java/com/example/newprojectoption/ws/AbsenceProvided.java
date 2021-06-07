@@ -19,4 +19,19 @@ public class AbsenceProvided {
     public int save(@RequestBody  List<Absence> absences) {
         return absenceService.save(absences);
     }
-  }
+
+
+    @GetMapping("/etudiant/cne/{cne}/seance/moduleSemestreOption/semestre/code/{semestre}/seance/moduleSemestreOption/anneuniv/libelle/{anne}")
+    public List<Absence> findByEtudiantCneAndSeanceModuleSemestreOptionSemestreCodeAndSeanceModuleSemestreOptionAnneeUniversitaireLibelle(@PathVariable String cne,@PathVariable int semestre,@PathVariable String anne) {
+        return absenceService.findByEtudiantCneAndSeanceModuleSemestreOptionSemestreCodeAndSeanceModuleSemestreOptionAnneeUniversitaireLibelle(cne, semestre, anne);
+    }
+    @GetMapping("/etudiant/cne/{cne}/seance/moduleSemestreOption/code/{codeModule}")
+    public List<Absence> findEtudiantAbsente(@PathVariable String cne,@PathVariable String codeModule) {
+        return absenceService.findEtudiantAbsente(cne, codeModule);
+    }
+
+    @PutMapping("/")
+    public int update(@RequestBody  Absence absence) {
+        return absenceService.update(absence);
+    }
+}

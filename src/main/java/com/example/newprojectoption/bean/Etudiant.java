@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.time.LocalDate;
 @Entity
 public class Etudiant {
 
@@ -14,10 +15,9 @@ public class Etudiant {
     private String nom;
     private String cne;
     private String cin;
-    @JsonFormat(pattern="yyyy-MM-dd", timezone = "UTC")
-    private Date dateInscription;
-    @JsonFormat(pattern="yyyy-MM-dd", timezone = "UTC")
-    private Date dateNaissance;
+    private String dateInscription;
+    //@JsonFormat(pattern="yyyy-MM-dd", timezone = "UTC")
+    private String dateNaissance;
 
 
 
@@ -53,27 +53,27 @@ public class Etudiant {
         this.cne = cne;
     }
 
-    public Date getDateInscription() {
-        return dateInscription;
-    }
-
-    public void setDateInscription(Date dateInscription) {
-        this.dateInscription = dateInscription;
-    }
-
-    public Date getDateNaissance() {
-        return dateNaissance;
-    }
-
-    public void setDateNaissance(Date dateNaissance) {
-        this.dateNaissance = dateNaissance;
-    }
-
     public String getCin() {
         return cin;
     }
 
     public void setCin(String cin) {
         this.cin = cin;
+    }
+
+    public String getDateInscription() {
+        return dateInscription;
+    }
+
+    public void setDateInscription(String dateInscription) {
+        this.dateInscription = dateInscription;
+    }
+
+    public String getDateNaissance() {
+        return dateNaissance;
+    }
+
+    public void setDateNaissance(String dateNaissance) {
+        this.dateNaissance = dateNaissance;
     }
 }
