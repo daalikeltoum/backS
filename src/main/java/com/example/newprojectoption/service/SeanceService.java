@@ -4,6 +4,7 @@ import com.example.newprojectoption.bean.AnneeUniversitaire;
 import com.example.newprojectoption.bean.ModuleSemestreOption;
 import com.example.newprojectoption.bean.Seance;
 import com.example.newprojectoption.dao.AnneeUniversitaireDao;
+
 import com.example.newprojectoption.dao.SeanceDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,14 @@ public class SeanceService {
 
     public List<Seance> findByModuleSemestreOptionCode(String code) {
         return seanceDao.findByModuleSemestreOptionCode(code);
+    }
+    public void update(Seance seance){
+        Seance newSeance=seanceDao.findByLibelle(seance.getLibelle());
+        newSeance.setDateSeance(seance.getDateSeance());
+        newSeance.setHeureDebut(seance.getHeureDebut());
+        newSeance.setHeureFin(seance.getHeureFin());
+        newSeance.setLibelle(seance.getLibelle());
+        newSeance.setModuleSemestreOption(seance.getModuleSemestreOption());
+        seanceDao.save(newSeance);
     }
 }

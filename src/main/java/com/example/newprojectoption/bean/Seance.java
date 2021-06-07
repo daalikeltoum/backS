@@ -4,21 +4,22 @@ package com.example.newprojectoption.bean;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+
 import java.util.Date;
 
 @Entity
-public class Seance {
+public class
+
+Seance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@ManyToOne
 	private ModuleSemestreOption moduleSemestreOption;
-	@JsonFormat(pattern="HH:mm", timezone = "UTC")
-	private String  heureDebut;
-	@JsonFormat(pattern="HH:mm", timezone = "UTC")
+	private String heureDebut;
 	private String heureFin;
-	@JsonFormat(pattern="yyyy-MM-dd", timezone = "UTC")
-	private Date dateSeance;
+	@JsonFormat(pattern="yyyy-MM-ddTHH:mm:ssZ", timezone = "UTC")
+	private String dateSeance;
 	private  String libelle;
 
 
@@ -38,23 +39,6 @@ public class Seance {
 		this.moduleSemestreOption = moduleSemestreOption;
 	}
 
-
-	public Date getDateSeance() {
-		return dateSeance;
-	}
-
-	public void setDateSeance(Date dateSeance) {
-		this.dateSeance = dateSeance;
-	}
-
-	public String getLibelle() {
-		return libelle;
-	}
-
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
-	}
-
 	public String getHeureDebut() {
 		return heureDebut;
 	}
@@ -69,5 +53,22 @@ public class Seance {
 
 	public void setHeureFin(String heureFin) {
 		this.heureFin = heureFin;
+	}
+
+
+	public String getDateSeance() {
+		return dateSeance;
+	}
+
+	public void setDateSeance(String dateSeance) {
+		this.dateSeance = dateSeance;
+	}
+
+	public String getLibelle() {
+		return libelle;
+	}
+
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
 	}
 }

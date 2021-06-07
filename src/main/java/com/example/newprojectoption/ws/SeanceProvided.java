@@ -1,9 +1,7 @@
 package com.example.newprojectoption.ws;
 
 
-import com.example.newprojectoption.bean.AnneeUniversitaire;
 import com.example.newprojectoption.bean.Seance;
-import com.example.newprojectoption.service.AnneeUniversitaireService;
 import com.example.newprojectoption.service.SeanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,5 +26,9 @@ public class SeanceProvided {
     @GetMapping("/moduleSemestreOption/code/{code}")
     public List<Seance> findByModuleSemestreOptionCode(@PathVariable String code) {
         return seanceService.findByModuleSemestreOptionCode(code);
+    }
+    @PutMapping("/")
+    public void update(@RequestBody Seance seance) {
+         seanceService.update(seance);
     }
 }
