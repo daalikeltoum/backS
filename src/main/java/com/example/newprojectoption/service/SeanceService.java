@@ -38,4 +38,13 @@ public class SeanceService {
     public List<Seance> findByModuleSemestreOptionCode(String code) {
         return seanceDao.findByModuleSemestreOptionCode(code);
     }
+    public void update(Seance seance){
+        Seance newSeance=seanceDao.findByLibelle(seance.getLibelle());
+        newSeance.setDateSeance(seance.getDateSeance());
+        newSeance.setHeureDebut(seance.getHeureDebut());
+        newSeance.setHeureFin(seance.getHeureFin());
+        newSeance.setLibelle(seance.getLibelle());
+        newSeance.setModuleSemestreOption(seance.getModuleSemestreOption());
+        seanceDao.save(newSeance);
+    }
 }

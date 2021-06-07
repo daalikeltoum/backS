@@ -27,4 +27,8 @@ public class SeanceProvided {
     public List<Seance> findByModuleSemestreOptionCode(@PathVariable String code) {
         return seanceService.findByModuleSemestreOptionCode(code);
     }
+    @PutMapping("/")
+    public void update(@RequestBody Seance seance) {
+         seanceService.update(seance);
+    }
 }

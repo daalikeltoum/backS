@@ -14,7 +14,7 @@ public class Absence {
 	@ManyToOne
 	private Seance seance;
 	//private  justification;
-	private boolean etatJustification;
+	private String etatJustification;
 	private boolean etatAbsence;
 
 	public Long getId() {
@@ -33,11 +33,11 @@ public class Absence {
 		this.etudiant = etudiant;
 	}
 
-	public boolean isEtatJustification() {
+	public String getEtatJustification() {
 		return etatJustification;
 	}
 
-	public void setEtatJustification(boolean etatJustification) {
+	public void setEtatJustification(String etatJustification) {
 		this.etatJustification = etatJustification;
 	}
 

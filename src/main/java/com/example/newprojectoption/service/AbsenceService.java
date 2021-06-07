@@ -1,15 +1,14 @@
 package com.example.newprojectoption.service;
 
-import com.example.newprojectoption.bean.Absence;
-import com.example.newprojectoption.bean.EtatValidation;
-import com.example.newprojectoption.bean.Etudiant;
-import com.example.newprojectoption.bean.Seance;
+import com.example.newprojectoption.bean.*;
 import com.example.newprojectoption.dao.AbsenceDao;
 import com.example.newprojectoption.dao.EtatValidationDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -40,5 +39,21 @@ public class AbsenceService {
 
     public Absence findByEtudiantCneAndSeanceLibelle(String cne, String libelle) {
         return absenceDao.findByEtudiantCneAndSeanceLibelle(cne, libelle);
+    }
+
+    /*public List<Absence> findBySeanceDateSeance(Date date) {
+        return absenceDao.findBySeanceDateSeance(date);
+    }*/
+
+    public List<Absence> findByEtatAbsenceTrueAndSeanceDate(String date) {
+        return absenceDao.findByEtatAbsenceTrueAndSeanceDateSeance(date);
+    }
+
+    public void update(List<Absence> absences){
+        for(Absence absence:absences){
+            Absence abs=absenceDao.findByEtudiantCneAndSeanceLibelle(absence.getEtudiant().getCne(),absence.getSeance().getLibelle());
+            abs.setEtatJustification(absence.getEtatJustification());
+            absenceDao.save(absence);
+        }
     }
 }

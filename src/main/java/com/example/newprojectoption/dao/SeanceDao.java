@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface SeanceDao extends JpaRepository<Seance,Long> {
      Seance findByLibelle(String libelle);
      List<Seance> findByModuleSemestreOptionCode(String code);
+
 }

@@ -4,6 +4,7 @@ package com.example.newprojectoption.bean;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+
 import java.util.Date;
 
 @Entity
@@ -17,8 +18,8 @@ Seance {
 	private ModuleSemestreOption moduleSemestreOption;
 	private String heureDebut;
 	private String heureFin;
-	@JsonFormat(pattern="yyyy-MM-dd", timezone = "UTC")
-	private Date dateSeance;
+	@JsonFormat(pattern="yyyy-MM-ddTHH:mm:ssZ", timezone = "UTC")
+	private String dateSeance;
 	private  String libelle;
 
 
@@ -55,11 +56,11 @@ Seance {
 	}
 
 
-	public Date getDateSeance() {
+	public String getDateSeance() {
 		return dateSeance;
 	}
 
-	public void setDateSeance(Date dateSeance) {
+	public void setDateSeance(String dateSeance) {
 		this.dateSeance = dateSeance;
 	}
 
