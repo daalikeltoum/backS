@@ -52,7 +52,7 @@ public class AbsenceService {
         return absenceDao.findEtudiantAbsente(cne, codeModule);
     }
 
-    public int update (Absence absence){
+    public int updateForImage (Absence absence){
         if(absence.getSeance()==null)
             return -7;
         Absence abs=findByEtudiantCneAndSeanceLibelle(absence.getEtudiant().getCne(),absence.getSeance().getLibelle());
@@ -64,5 +64,19 @@ public class AbsenceService {
         abs.setEtatAbsence(absence.getEtatAbsence());
         absenceDao.save(abs);
         return 1;
+    }
+
+    public List<Absence> findByEtatAbsenceTrueAndSeanceDate(String date) {
+        return absenceDao.findByEtatAbsenceTrueAndSeanceDateSeance(date);
+    }
+
+    public void update(List<Absence> absences){
+        for(Absence absence:absences){
+            Absence abs=absenceDao.findByEtudiantCneAndSeanceLibelle(absence.getEtudiant().getCne(),absence.getSeance().getLibelle());
+            ImageModl image=imageService.findByNameData(absence.getImageModel().getNameData());
+            abs.setImageModel(image);
+            abs.setEtatJustification(absence.getEtatJustification());
+            absenceDao.save(abs);
+        }
     }
 }
