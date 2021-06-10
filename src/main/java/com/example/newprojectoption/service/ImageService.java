@@ -25,18 +25,22 @@ public class ImageService {
         return imageDao.findByName(name);
     }
 
-    public void uplaodImage( MultipartFile file,String nameData) throws IOException {
+    public int uplaodImage( MultipartFile file,String nameData) throws IOException {
+        if(findByNameData(nameData)!=null){
+            return -1;
+        }
         System.out.println("Original Image Byte Size - " + file.getBytes().length);
         ImageModl img = new ImageModl(file.getOriginalFilename(), file.getContentType(),
                 compressBytes(file.getBytes()));
         img.setNameData(nameData);
         imageDao.save(img);
+        return 1;
     }
 
     public ImageModl getImage(String imageName) throws IOException {
-        final Optional<ImageModl> retrievedImage = imageDao.findByName(imageName);
-        ImageModl img = new ImageModl(retrievedImage.get().getName(), retrievedImage.get().getType(),
-                decompressBytes(retrievedImage.get().getPicByte()));
+        final ImageModl retrievedImage = imageDao.findByNameData(imageName);
+        ImageModl img = new ImageModl(retrievedImage.getName(), retrievedImage.getType(),
+                decompressBytes(retrievedImage.getPicByte()));
         return img;
     }
 

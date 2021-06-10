@@ -30,8 +30,24 @@ public class AbsenceProvided {
         return absenceService.findEtudiantAbsente(cne, codeModule);
     }
 
-    @PutMapping("/")
-    public int update(@RequestBody  Absence absence) {
-        return absenceService.update(absence);
+    @PutMapping("/updateForImage")
+    public int updateForImage(@RequestBody  Absence absence) {
+        return absenceService.updateForImage(absence);
     }
+
+    @GetMapping("/Etudiant/Cne/{cne}/seance/libelle/{libelle}")
+    public Absence findByEtudiantCneAndSeanceLibelle(@PathVariable String cne,@PathVariable String libelle) {
+        return absenceService.findByEtudiantCneAndSeanceLibelle(cne, libelle);
+    }
+    @GetMapping("/seance/date/{date}")
+    public List<Absence> findByEtatAbsenceTrueAndSeanceDateSeance(@PathVariable String date) {
+        return absenceService.findByEtatAbsenceTrueAndSeanceDate(date);
+    }
+
+    @PutMapping("/")
+    public void update(@RequestBody List<Absence> absences) {
+        absenceService.update(absences);
+    }
+
+
 }

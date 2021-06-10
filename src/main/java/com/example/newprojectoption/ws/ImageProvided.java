@@ -18,8 +18,8 @@ public class ImageProvided {
     private ImageService imageService;
 
     @PostMapping("/upload/nameData/{nameData}")
-    public void uplaodImage( @RequestParam("imageFile") MultipartFile file,@PathVariable String nameData) throws IOException {
-         imageService.uplaodImage(file,nameData);
+    public int uplaodImage( @RequestParam("imageFile") MultipartFile file,@PathVariable String nameData) throws IOException {
+        return imageService.uplaodImage(file,nameData);
     }
 
     @GetMapping(path = { "/get/{imageName}" })
