@@ -13,8 +13,10 @@ public class Absence {
 	@ManyToOne
 	private Seance seance;
 	//private  justification;
-	private boolean etatJustification;
+	private String etatJustification;
 	private boolean etatAbsence;
+	@ManyToOne
+	private ImageModl imageModel;
 
 	public Long getId() {
 		return id;
@@ -32,20 +34,11 @@ public class Absence {
 		this.etudiant = etudiant;
 	}
 
-	public boolean isEtatJustification() {
-		return etatJustification;
-	}
-
-	public void setEtatJustification(boolean etatJustification) {
-		this.etatJustification = etatJustification;
-	}
-
-	public boolean isEtatAbsence() {
-		return etatAbsence;
-	}
-
 	public void setEtatAbsence(boolean etatAbsence) {
 		this.etatAbsence = etatAbsence;
+	}
+	public boolean getEtatAbsence() {
+		return etatAbsence;
 	}
 
 	public Seance getSeance() {
@@ -54,5 +47,21 @@ public class Absence {
 
 	public void setSeance(Seance seance) {
 		this.seance = seance;
+	}
+
+	public String getEtatJustification() {
+		return etatJustification;
+	}
+
+	public void setEtatJustification(String etatJustification) {
+		this.etatJustification = etatJustification;
+	}
+
+	public ImageModl getImageModel() {
+		return imageModel;
+	}
+
+	public void setImageModel(ImageModl imageModl) {
+		this.imageModel = imageModl;
 	}
 }

@@ -8,10 +8,11 @@ import com.example.newprojectoption.dao.NoteEtudiantSemestreDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+import java.math.RoundingMode;
 
 
 @Service
@@ -103,7 +104,7 @@ public class NoteEtudiantSemestreService {
                 som = som.add(notetudiantModule.getNoteGlobale());
             }
             BigDecimal length=new BigDecimal(myModules.size());
-            BigDecimal note=som.divide(length,3,RoundingMode.HALF_EVEN);
+            BigDecimal note=som.divide(length, 3, RoundingMode.HALF_EVEN);
             if(note.compareTo(new BigDecimal(10))==-1 || i!=0){
                 noteEtudiantSemestre.setEtatValidation(etatValidationService.findByCode("NV"));
             }else{

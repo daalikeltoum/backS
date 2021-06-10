@@ -27,10 +27,7 @@ public class NoteEtudiantModuleProvided {
         return noteEtudiantModuleService.findNotes(codeModule);
     }
 
-    @PutMapping("/")
-    public void update(@RequestBody NoteEtudiantModule noteEtudiantModule) {
-        noteEtudiantModuleService.update(noteEtudiantModule);
-    }
+
     @GetMapping("moduleSemestreOption/semestre/codeSemestre/{codeSemestre}/moduleSemestreOption/annee-universitaire/{annee}/Etudiant/cne/{cne}")
     public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUnversAndEtudiantCne(@PathVariable int codeSemestre,@PathVariable Long annee,@PathVariable String cne) {
         return noteEtudiantModuleService.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUniversitaireAnneeOneAndEtudiantCne(codeSemestre, annee, cne);
@@ -63,5 +60,23 @@ public class NoteEtudiantModuleProvided {
     @GetMapping("Etudiant/cne/{cne}/moduleSemestreOption/semestre/code/{code}")
     public List<NoteEtudiantModule> findByEtudiantCneAndModuleSemestreOptionSemestreCode(@PathVariable String cne,@PathVariable int code) {
         return noteEtudiantModuleService.findByEtudiantCneAndModuleSemestreOptionSemestreCode(cne, code);
+    }
+
+
+
+    @PutMapping("/updatenormal/")
+    public void updateNormal(@RequestBody NoteEtudiantModule noteEtudiantModule) {
+        noteEtudiantModuleService.updateNormal(noteEtudiantModule);
+    }
+
+    @PutMapping("/updateratt/")
+    public void updateRat(@RequestBody NoteEtudiantModule noteEtudiantModule) {
+        noteEtudiantModuleService.updateRat(noteEtudiantModule);
+    }
+
+
+    @GetMapping("Etudiant/cne/{cne}/moduleSemestreOption/code/{code}")
+    public NoteEtudiantModule findByEtudiantCneAndModuleSemestreOptionCode(@PathVariable String cne,@PathVariable String code) {
+        return noteEtudiantModuleService.findByEtudiantCneAndModuleSemestreOptionCode(cne, code);
     }
 }

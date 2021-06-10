@@ -4,21 +4,22 @@ package com.example.newprojectoption.bean;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+
 import java.util.Date;
 
 @Entity
-public class Seance {
+public class
+
+Seance {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@ManyToOne
 	private ModuleSemestreOption moduleSemestreOption;
-	@JsonFormat(pattern="HH:mm", timezone = "UTC")
-	private Date heureDebut;
-	@JsonFormat(pattern="HH:mm", timezone = "UTC")
-	private Date heureFin;
-	@JsonFormat(pattern="yyyy-MM-dd", timezone = "UTC")
-	private Date dateSeance;
+	private String heureDebut;
+	private String heureFin;
+	@JsonFormat(pattern="yyyy-MM-ddTHH:mm:ssZ", timezone = "UTC")
+	private String dateSeance;
 	private  String libelle;
 
 
@@ -38,28 +39,28 @@ public class Seance {
 		this.moduleSemestreOption = moduleSemestreOption;
 	}
 
-	public Date getHeureDebut() {
+	public String getHeureDebut() {
 		return heureDebut;
 	}
 
-	public void setHeureDebut(Date heureDebut) {
+	public void setHeureDebut(String heureDebut) {
 		this.heureDebut = heureDebut;
 	}
 
-	public Date getHeureFin() {
+	public String getHeureFin() {
 		return heureFin;
 	}
 
-	public void setHeureFin(Date heureFin) {
+	public void setHeureFin(String heureFin) {
 		this.heureFin = heureFin;
 	}
 
 
-	public Date getDateSeance() {
+	public String getDateSeance() {
 		return dateSeance;
 	}
 
-	public void setDateSeance(Date dateSeance) {
+	public void setDateSeance(String dateSeance) {
 		this.dateSeance = dateSeance;
 	}
 

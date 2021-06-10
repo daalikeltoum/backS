@@ -1,6 +1,9 @@
 package com.example.newprojectoption.service;
 
-import com.example.newprojectoption.bean.*;
+import com.example.newprojectoption.bean.EtatValidation;
+import com.example.newprojectoption.bean.InscriptionEtudiantModule;
+import com.example.newprojectoption.bean.NoteEtudiantModule;
+import com.example.newprojectoption.bean.NoteEtudiantSemestre;
 import com.example.newprojectoption.dao.NoteEtudiantModuleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +23,6 @@ public class NoteEtudiantModuleService {
     private EtatValidationService etatValidationService;
     @Autowired
     private SemestreService semestreService;
-    @Autowired
-    private  EtudiantService etudiantService;
     @Autowired
     private InscriptionEtudiantModuleService inscriptionEtudiantModuleService;
     @Autowired
@@ -78,7 +79,6 @@ public class NoteEtudiantModuleService {
                     noteEtudiantSemestreService.save(noteEtudiantSemestre);
                 }
 
-
                 noteEtudiantModule.setNoteEtudiantSemestre(noteEtudiantSemestre);
                 noteEtudiantModuleDao.save(noteEtudiantModule);
                 res.add(noteEtudiantModule);
@@ -88,7 +88,12 @@ public class NoteEtudiantModuleService {
         }
     }
 
-    public void update(NoteEtudiantModule noteEtudiantModule){
+    /*public void update(NoteEtudiantModule noteEtudiantModule){
+        EtatValidation etatValidation=etatValidationService.findByLibelle(noteEtudiantModule.getEtatValidation().getLibelle());
+        noteEtudiantModule.setEtatValidation(etatValidation);
+        noteEtudiantModuleDao.save(noteEtudiantModule);
+    }*/
+    public void updateNormal(NoteEtudiantModule noteEtudiantModule){
         NoteEtudiantModule noteEtudiantModule1=findByEtudiantCneAndModuleSemestreOptionCode(noteEtudiantModule.getEtudiant().getCne(),noteEtudiantModule.getModuleSemestreOption().getCode());
        /* Etudiant etudiant =etudiantService.findByCne();
         NoteEtudiantSemestre noteEtudiantSemestre=noteEtudiantSemestreService.findByCode(noteEtudiantModule.getEtudiant().getCne()+noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode());
@@ -100,18 +105,28 @@ public class NoteEtudiantModuleService {
         EtatValidation etatValidation=etatValidationService.findByLibelle(noteEtudiantModule.getEtatValidation().getLibelle());
         BigDecimal noteModuleNormal=noteEtudiantModule.getNoteModuleNormal();
         BigDecimal noteContinue=noteEtudiantModule.getNoteContinue();
-        BigDecimal noteModuleRat=noteEtudiantModule.getNoteModuleRat();
-        BigDecimal noteFinalApresRat=noteEtudiantModule.getNoteFinalApresRat();
         BigDecimal noteGlobale=noteEtudiantModule.getNoteGlobale();
         BigDecimal noteFinalAvRat=noteEtudiantModule.getNoteFinalAvRat();
 
         noteEtudiantModule1.setEtatValidation(etatValidation);
         noteEtudiantModule1.setNoteModuleNormal(noteModuleNormal);
         noteEtudiantModule1.setNoteContinue(noteContinue);
+        noteEtudiantModule1.setNoteGlobale(noteGlobale);
+        noteEtudiantModule1.setNoteFinalAvRat(noteFinalAvRat);
+        noteEtudiantModuleDao.save(noteEtudiantModule1);
+    }
+    public void updateRat(NoteEtudiantModule noteEtudiantModule){
+        NoteEtudiantModule noteEtudiantModule1=findByEtudiantCneAndModuleSemestreOptionCode(noteEtudiantModule.getEtudiant().getCne(),noteEtudiantModule.getModuleSemestreOption().getCode());
+
+        EtatValidation etatValidation=etatValidationService.findByLibelle(noteEtudiantModule.getEtatValidation().getLibelle());
+        BigDecimal noteModuleRat=noteEtudiantModule.getNoteModuleRat();
+        BigDecimal noteFinalApresRat=noteEtudiantModule.getNoteFinalApresRat();
+        BigDecimal noteGlobale=noteEtudiantModule.getNoteGlobale();
+
+        noteEtudiantModule1.setEtatValidation(etatValidation);
         noteEtudiantModule1.setNoteModuleRat(noteModuleRat);
         noteEtudiantModule1.setNoteFinalApresRat(noteFinalApresRat);
         noteEtudiantModule1.setNoteGlobale(noteGlobale);
-        noteEtudiantModule1.setNoteFinalAvRat(noteFinalAvRat);
         noteEtudiantModuleDao.save(noteEtudiantModule1);
     }
 

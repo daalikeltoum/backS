@@ -1,47 +1,55 @@
-package com.example.newprojectoption.ws;
+package com.example.newprojectoption.service;
 
-import com.example.newprojectoption.bean.ImageModel;
+import com.example.newprojectoption.bean.ImageModl;
 import com.example.newprojectoption.dao.ImageDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.BodyBuilder;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
+import org.springframework.stereotype.Service;
+import java.util.Optional;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Optional;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
-@RestController
-@CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("ispits-project/image")//(path = "image")
-public class ImageProvieded {//ImageUploadController
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
+import org.springframework.web.multipart.MultipartFile;
+
+@Service
+public class ImageService {
     @Autowired
-    ImageDao imageDao;
-    @PostMapping("/upload")
-    public BodyBuilder uplaodImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
-        System.out.println("Original Image Byte Size - " + file.getBytes().length);
-        ImageModel img = new ImageModel(file.getOriginalFilename(), file.getContentType(),
-                compressBytes(file.getBytes()));
-        imageDao.save(img);
-        return ResponseEntity.status(HttpStatus.OK);
+    private ImageDao imageDao;
+
+    public Optional<ImageModl> findByName(String name) {
+        return imageDao.findByName(name);
     }
-    @GetMapping(path = { "/get/{imageName}" })
-    public ImageModel getImage(@PathVariable("imageName") String imageName) throws IOException {
-        final Optional<ImageModel> retrievedImage = imageDao.findByName(imageName);
-        ImageModel img = new ImageModel(retrievedImage.get().getName(), retrievedImage.get().getType(),
-                decompressBytes(retrievedImage.get().getPicByte()));
+
+    public int uplaodImage( MultipartFile file,String nameData) throws IOException {
+        if(findByNameData(nameData)!=null){
+            return -1;
+        }
+        System.out.println("Original Image Byte Size - " + file.getBytes().length);
+        ImageModl img = new ImageModl(file.getOriginalFilename(), file.getContentType(),
+                compressBytes(file.getBytes()));
+        img.setNameData(nameData);
+        imageDao.save(img);
+        return 1;
+    }
+
+    public ImageModl getImage(String imageName) throws IOException {
+        final ImageModl retrievedImage = imageDao.findByNameData(imageName);
+        ImageModl img = new ImageModl(retrievedImage.getName(), retrievedImage.getType(),
+                decompressBytes(retrievedImage.getPicByte()));
         return img;
     }
+
     // compress the image bytes before storing it in the database
     public static byte[] compressBytes(byte[] data) {
         Deflater deflater = new Deflater();
         deflater.setInput(data);
         deflater.finish();
+
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
         byte[] buffer = new byte[1024];
         while (!deflater.finished()) {
@@ -53,8 +61,10 @@ public class ImageProvieded {//ImageUploadController
         } catch (IOException e) {
         }
         System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
+
         return outputStream.toByteArray();
     }
+
     // uncompress the image bytes before returning it to the angular application
     public static byte[] decompressBytes(byte[] data) {
         Inflater inflater = new Inflater();
@@ -71,5 +81,9 @@ public class ImageProvieded {//ImageUploadController
         } catch (DataFormatException e) {
         }
         return outputStream.toByteArray();
+    }
+
+    public ImageModl findByNameData(String nameData) {
+        return imageDao.findByNameData(nameData);
     }
 }

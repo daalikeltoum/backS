@@ -10,8 +10,12 @@ import java.util.List;
 
 @Service
 public class MyModuleService {
+
     @Autowired
+
     private MyModuleDao myModuleDao;
+
+
     @Autowired
     private ModuleSemestreOptionService moduleSemestreOptionService;
     /****************************************************/
