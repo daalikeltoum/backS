@@ -1,9 +1,6 @@
 package com.example.newprojectoption.service;
 
-import com.example.newprojectoption.bean.EtatValidation;
-import com.example.newprojectoption.bean.InscriptionEtudiantModule;
-import com.example.newprojectoption.bean.NoteEtudiantModule;
-import com.example.newprojectoption.bean.NoteEtudiantSemestre;
+import com.example.newprojectoption.bean.*;
 import com.example.newprojectoption.dao.NoteEtudiantModuleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +20,8 @@ public class NoteEtudiantModuleService {
     private EtatValidationService etatValidationService;
     @Autowired
     private SemestreService semestreService;
+    @Autowired
+    private  EtudiantService etudiantService;
     @Autowired
     private InscriptionEtudiantModuleService inscriptionEtudiantModuleService;
     @Autowired
@@ -79,6 +78,7 @@ public class NoteEtudiantModuleService {
                     noteEtudiantSemestreService.save(noteEtudiantSemestre);
                 }
 
+
                 noteEtudiantModule.setNoteEtudiantSemestre(noteEtudiantSemestre);
                 noteEtudiantModuleDao.save(noteEtudiantModule);
                 res.add(noteEtudiantModule);
@@ -89,9 +89,30 @@ public class NoteEtudiantModuleService {
     }
 
     public void update(NoteEtudiantModule noteEtudiantModule){
+        NoteEtudiantModule noteEtudiantModule1=findByEtudiantCneAndModuleSemestreOptionCode(noteEtudiantModule.getEtudiant().getCne(),noteEtudiantModule.getModuleSemestreOption().getCode());
+       /* Etudiant etudiant =etudiantService.findByCne();
+        NoteEtudiantSemestre noteEtudiantSemestre=noteEtudiantSemestreService.findByCode(noteEtudiantModule.getEtudiant().getCne()+noteEtudiantModule.getModuleSemestreOption().getSemestre().getCode());
+        ModuleSemestreOption moduleSemestreOption=moduleSemestreOptionService.findByCode();
+        noteEtudiantModule.setModuleSemestreOption(moduleSemestreOption);
+        noteEtudiantModule.setEtudiant(etudiant);
+        noteEtudiantModule.setNoteEtudiantSemestre(noteEtudiantSemestre);*/
+
         EtatValidation etatValidation=etatValidationService.findByLibelle(noteEtudiantModule.getEtatValidation().getLibelle());
-        noteEtudiantModule.setEtatValidation(etatValidation);
-        noteEtudiantModuleDao.save(noteEtudiantModule);
+        BigDecimal noteModuleNormal=noteEtudiantModule.getNoteModuleNormal();
+        BigDecimal noteContinue=noteEtudiantModule.getNoteContinue();
+        BigDecimal noteModuleRat=noteEtudiantModule.getNoteModuleRat();
+        BigDecimal noteFinalApresRat=noteEtudiantModule.getNoteFinalApresRat();
+        BigDecimal noteGlobale=noteEtudiantModule.getNoteGlobale();
+        BigDecimal noteFinalAvRat=noteEtudiantModule.getNoteFinalAvRat();
+
+        noteEtudiantModule1.setEtatValidation(etatValidation);
+        noteEtudiantModule1.setNoteModuleNormal(noteModuleNormal);
+        noteEtudiantModule1.setNoteContinue(noteContinue);
+        noteEtudiantModule1.setNoteModuleRat(noteModuleRat);
+        noteEtudiantModule1.setNoteFinalApresRat(noteFinalApresRat);
+        noteEtudiantModule1.setNoteGlobale(noteGlobale);
+        noteEtudiantModule1.setNoteFinalAvRat(noteFinalAvRat);
+        noteEtudiantModuleDao.save(noteEtudiantModule1);
     }
 
     public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUniversitaireAnneeOneAndEtudiantCne(int codeSemestre,Long annee, String cne) {
@@ -108,5 +129,9 @@ public class NoteEtudiantModuleService {
 
     public List<NoteEtudiantModule> findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnnéeUniversitaireAnnee1AndEtudiantCne(int codeSemestre, Long anne, String cne) {
         return noteEtudiantModuleDao.findByModuleSemestreOptionSemestreCodeAndModuleSemestreOptionAnneeUniversitaireAnneeOneAndEtudiantCne(codeSemestre, anne, cne);
+    }
+
+    public NoteEtudiantModule findByEtudiantCneAndModuleSemestreOptionCode(String cne, String code) {
+        return noteEtudiantModuleDao.findByEtudiantCneAndModuleSemestreOptionCode(cne, code);
     }
 }
