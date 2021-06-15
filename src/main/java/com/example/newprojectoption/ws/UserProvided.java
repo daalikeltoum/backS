@@ -14,13 +14,13 @@ public class UserProvided {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/username/{username}")
+    /*@GetMapping("/username/{username}")
     public Userr findByUsername(@PathVariable String username) {
         return userService.findByUsername(username);
     }
     @PostMapping("/")
     public int save(@RequestBody  Userr user) {
         return userService.save(user);
-    }
+    }*/
 
 }

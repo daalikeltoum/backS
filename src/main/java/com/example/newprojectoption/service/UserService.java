@@ -13,7 +13,7 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
-    public Userr findByUsername(String username) {
+    /*public Userr findByUsername(String username) {
         return userDao.findByUsername(username);
     }
     public int save (Userr user){
@@ -24,6 +24,6 @@ public class UserService {
             userDao.save(user);
             return 1;
         }
-    }
+    }*/
 
 }
